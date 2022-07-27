@@ -1,0 +1,35 @@
+.right.r-frm{
+	min-width: 45vw;
+	.svg-logo-small {
+		color: rgb(214, 217, 219);
+		vertical-align: text-bottom;
+		fill: currentcolor;
+	}
+	.main-title-frm{
+		line-height: 84px;
+		letter-spacing: -1.2px;
+	}
+}
+
+.left.l-ilustration {
+	background-color: rgb(0, 111, 214);
+	.bg-ilustration {
+		background-image: url("https://abs.twimg.com/sticky/illustrations/lohp_en_1302x955.png");
+		background-position: center center;
+	}
+	.css-9pa8cd {
+		inset: 0px;
+		height: 100%;
+		opacity: 0;
+		position: absolute;
+		width: 100%;
+		z-index: -1;
+	}
+	.svg-logo {
+		max-height: 380px;
+		height: 50%;
+		color: rgb(255, 255, 255);
+		vertical-align: text-bottom;
+		fill: currentcolor;
+	}
+}
