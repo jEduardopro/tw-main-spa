@@ -5,6 +5,7 @@ import { SignUpStepperFormComponent } from './components/sign-up-stepper-form/si
 import { StepOneComponent } from './components/sign-up-stepper-form/steps/step-one/step-one.component';
 import { StepTwoComponent } from './components/sign-up-stepper-form/steps/step-two/step-two.component';
 import { StepThreeComponent } from './components/sign-up-stepper-form/steps/step-three/step-three.component';
+import { SharedModule } from '../../shared/shared.module';
 
 
 
@@ -17,7 +18,8 @@ import { StepThreeComponent } from './components/sign-up-stepper-form/steps/step
     StepThreeComponent
   ],
   imports: [
-    CommonModule
+		CommonModule,
+		SharedModule
 	],
 	exports: [
 		SignUpButtonComponent,

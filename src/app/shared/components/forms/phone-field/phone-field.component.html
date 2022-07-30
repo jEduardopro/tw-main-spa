@@ -1,0 +1,20 @@
+<div>
+	<label for="phone" class="text-white font-bold text-sm mb-1 block">Phone</label>
+	<input
+		id="phone"
+		class="tw_input_sky"
+		[ngClass]="{'error': phone.invalid && (phone.dirty || phone.touched)}"
+		type="text" 
+		[formControl]="phone"
+		placeholder="Phone"
+		(keypress)="restrictSpace($event)"
+	/>
+</div>
+<div *ngIf="phone.invalid && (phone.dirty || phone.touched)">
+	<span *ngIf="phone.errors?.['required']" class="block text-red-500 text-sm">
+		What's your phone?
+	</span>
+	<span *ngIf="phone.errors?.['pattern']" class="block text-red-500 text-sm">
+		Please enter a valid phone.
+	</span>
+</div>

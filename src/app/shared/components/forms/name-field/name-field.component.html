@@ -1,0 +1,16 @@
+<div>
+	<label for="name" class="text-white font-bold text-sm mb-1 block">Name</label>
+	<input
+		id="name"
+		class="tw_input_sky"
+		[ngClass]="{'error': name.invalid && (name.dirty || name.touched)}"
+		type="text" 
+		[formControl]="name"
+		placeholder="Name"
+	/>
+</div>
+<div *ngIf="name.invalid && (name.dirty || name.touched)">
+	<span *ngIf="name.errors?.['required']" class="block text-red-500 text-sm">
+		What's your name?
+	</span>
+</div>

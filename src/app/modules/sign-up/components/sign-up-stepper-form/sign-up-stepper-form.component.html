@@ -24,7 +24,7 @@
 				<div class="px-16 py-4 flex flex-col h-full">
 					<!-- Steps -->
 					<div class="flex flex-grow flex-col">
-						<app-step-one *ngIf="step == 1"></app-step-one>
+						<app-step-one [user]="user" *ngIf="step == 1"></app-step-one>
 						<app-step-two *ngIf="step == 2"></app-step-two>
 						<app-step-three *ngIf="step == 3"></app-step-three>
 					</div>

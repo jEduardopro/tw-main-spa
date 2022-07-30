@@ -1,0 +1,13 @@
+.tw_input_sky {
+	&.error {
+		@apply border border-red-500
+	}
+
+	&:focus {
+		box-shadow: 0px 0px 3px $twSky100;
+	}
+
+	@apply p-2 h-14 rounded-md focus:outline-none border 
+				border-gray-700 bg-transparent focus:border-twitter-sky-100 
+				text-white w-full block box-border
+}

@@ -1,0 +1,41 @@
+<form [formGroup]="form" class="flex justify-between">
+	<div style="flex:0.5">
+		<label for="month" class="text-white font-bold text-sm mb-1 block">Month</label>
+		<select 
+			id="month"
+			class="tw_input_sky"
+			[ngClass]="{'error': form.get('month')?.invalid && (form.get('month')?.dirty || form.get('month')?.touched)}"
+			formControlName="month"			
+		>
+			<option *ngFor="let m of months; let i = index" [value]="i+1">
+				{{m}}
+			</option>
+		</select>
+	</div>
+	<div style="flex:0.2">
+		<label for="day" class="text-white font-bold text-sm mb-1 block">Day</label>
+		<select 
+			id="day"
+			class="tw_input_sky"
+			[ngClass]="{'error': form.get('day')?.invalid && (form.get('day')?.dirty || form.get('day')?.touched)}"
+			formControlName="day"			
+		>
+			<option *ngFor="let d of days" [value]="d">
+				{{d}}
+			</option>
+		</select>
+	</div>
+	<div style="flex:0.25">
+		<label for="year" class="text-white font-bold text-sm mb-1 block">Year</label>
+		<select 
+			id="year"
+			class="tw_input_sky"
+			[ngClass]="{'error': form.get('year')?.invalid && (form.get('year')?.dirty || form.get('year')?.touched)}"
+			formControlName="year"			
+		>
+			<option *ngFor="let y of years" [value]="y">
+				{{y}}
+			</option>
+		</select>
+	</div>
+</form>
