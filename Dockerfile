@@ -2,11 +2,14 @@ FROM node:14.15 as build
 
 WORKDIR /app
 
+ENV PATH /app/node_modules/.bin:$PATH
+
+RUN npm install @angular/cli @angular-devkit/build-angular
+
 COPY package*.json ./
 # COPY package-lock.json ${WORK_DIR}
 
-RUN npm install @angular/cli @angular-devkit/build-angular
-RUN npm install
+RUN npm install && npm cache clean --force
 
 COPY .  .
 
