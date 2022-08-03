@@ -1,5 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { SignUp } from '../../../../../../core/models/sign-up.model';
+import { SignUp } from '../../../../models/sign-up.model';
 
 @Component({
 	selector: 'app-step-one',
