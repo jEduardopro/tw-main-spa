@@ -1,5 +1,5 @@
 import { Component, OnInit, Output, EventEmitter } from '@angular/core';
-import { SignUp } from '../../../../core/models/sign-up.model';
+import { SignUp } from '../../models';
 
 @Component({
   selector: 'app-sign-up-stepper-form',
