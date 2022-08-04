@@ -3,7 +3,7 @@ import { CommonModule } from '@angular/common';
 
 import { LandingRoutingModule } from './landing-routing.module';
 import { LandingPageComponent } from './components/landing-page/landing-page.component';
-import { SignUpModule } from '../sign-up/sign-up.module';
+import { RegisterModule } from '../register/register.module';
 
 
 @NgModule({
@@ -13,7 +13,7 @@ import { SignUpModule } from '../sign-up/sign-up.module';
   imports: [
     CommonModule,
 		LandingRoutingModule,
-		SignUpModule
+		RegisterModule
 	],
 	exports: [
 		LandingRoutingModule
