@@ -26,4 +26,4 @@ import { SharedModule } from '../../shared/shared.module';
 		SignUpStepperFormComponent
 	]
 })
-export class SignUpModule { }
+export class RegisterModule { }
