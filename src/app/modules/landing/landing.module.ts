@@ -3,15 +3,14 @@ import { CommonModule } from '@angular/common';
 
 import { LandingRoutingModule } from './landing-routing.module';
 import { LandingPageComponent } from './components/landing-page/landing-page.component';
-import { RegisterModule } from '../register/register.module';
-
+import { RegisterModule } from "@app/modules/register";
 
 @NgModule({
   declarations: [
     LandingPageComponent
   ],
   imports: [
-    CommonModule,
+		CommonModule,
 		LandingRoutingModule,
 		RegisterModule
 	],

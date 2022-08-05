@@ -1,1 +1,1 @@
-export * from './sign-up.model'
+export * from './user-form.model'

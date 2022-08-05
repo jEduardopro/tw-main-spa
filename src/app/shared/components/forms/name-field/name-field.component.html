@@ -9,8 +9,13 @@
 		placeholder="Name"
 	/>
 </div>
-<div *ngIf="name.invalid && (name.dirty || name.touched)">
+<div *ngIf="name.invalid && (name.dirty || name.touched || error)">
 	<span *ngIf="name.errors?.['required']" class="block text-red-500 text-sm">
-		What's your name?
+		{{error ? error : "What's your name?"}}
 	</span>
 </div>
+<!-- 
+<div class="text-white">
+	{{error}}
+	{{name.errors | json}}
+</div> -->

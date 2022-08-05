@@ -10,11 +10,11 @@
 		(keypress)="restrictSpace($event)"
 	/>
 </div>
-<div *ngIf="phone.invalid && (phone.dirty || phone.touched)">
+<div *ngIf="phone.invalid && (phone.dirty || phone.touched || error)">
 	<span *ngIf="phone.errors?.['required']" class="block text-red-500 text-sm">
-		What's your phone?
+		{{ error ? error : "What's your phone?" }}
 	</span>
 	<span *ngIf="phone.errors?.['pattern']" class="block text-red-500 text-sm">
-		Please enter a valid phone.
+		{{ error ? error : "Please enter a valid phone." }}
 	</span>
 </div>

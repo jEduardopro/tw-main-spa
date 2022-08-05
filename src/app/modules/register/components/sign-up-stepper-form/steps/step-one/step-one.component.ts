@@ -1,5 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { SignUp } from '../../../../models/sign-up.model';
+import { UserForm } from '@app/modules/register/models';
 
 @Component({
 	selector: 'app-step-one',
@@ -9,7 +9,8 @@ import { SignUp } from '../../../../models/sign-up.model';
 })
 export class StepOneComponent implements OnInit {
 
-	@Input() user!: SignUp;
+	@Input() user!: UserForm;
+	@Input() errors: any = {};
 
 	public identifierType: ('email' | 'phone') = 'email';
 

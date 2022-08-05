@@ -13,6 +13,8 @@ export class NameFieldComponent implements OnInit {
 	@Input() value!: string;
 	@Output() valueChange = new EventEmitter<string>();
 
+	@Input() error: any;
+
   constructor() { }
 
 	ngOnInit(): void {
@@ -26,6 +28,6 @@ export class NameFieldComponent implements OnInit {
 			this.valueChange.emit(v)				
 
 		})
-  }
 
+	}
 }

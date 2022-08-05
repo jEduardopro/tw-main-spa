@@ -13,6 +13,8 @@ export class PhoneFieldComponent implements OnInit, OnDestroy {
 	@Input() value!: string;
 	@Output() valueChange = new EventEmitter<string>();
 
+	@Input() error: any;
+
   constructor() { }
 
 	ngOnInit(): void {

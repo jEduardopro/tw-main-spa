@@ -24,7 +24,7 @@
 				<div class="px-16 py-4 flex flex-col h-full">
 					<!-- Steps -->
 					<div class="flex flex-grow flex-col">
-						<app-step-one [user]="user" *ngIf="step == 1"></app-step-one>
+						<app-step-one [user]="user" *ngIf="step == 1" [errors]="errors"></app-step-one>
 						<app-step-two *ngIf="step == 2"></app-step-two>
 						<app-step-three *ngIf="step == 3"></app-step-three>
 					</div>
@@ -35,15 +35,18 @@
 								justify-center
 								items-center
 								text-black
-								bg-white
 								py-3
 								rounded-full
 								font-bold
-								hover:bg-slate-100
-							" 
+							"
 							role="button"
-							(click)="next()"
-						>
+							(click)="registerUser()"
+							>
+							<!-- [ngClass]="[!firstStepFormIsValid 
+								? 'cursor-not-allowed bg-white opacity-50' 
+								: 'bg-white hover:bg-slate-100'
+							]" -->
+							<!-- [disabled]="!firstStepFormIsValid" -->
 							<span class="inline-block">Next</span>
 						</button>
 					</div>

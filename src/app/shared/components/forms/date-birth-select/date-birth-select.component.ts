@@ -30,6 +30,8 @@ export class DateBirthSelectComponent implements OnInit {
 	@Input() value!: string;
 	@Output() valueChange = new EventEmitter<string>();
 
+	@Input() error: any;
+
 	months = Array(12).fill(0).map((i, idx) => getMonth(idx + 1));
 	years: Array<number | string> = [];
 

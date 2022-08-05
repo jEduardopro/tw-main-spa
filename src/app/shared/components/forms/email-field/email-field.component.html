@@ -9,11 +9,11 @@
 		placeholder="Email"
 	/>
 </div>
-<div *ngIf="email.invalid && (email.dirty || email.touched)">
+<div *ngIf="email.invalid && (email.dirty || email.touched || error)">
 	<span *ngIf="email.errors?.['required']" class="block text-red-500 text-sm">
-		What's your email?
+		 {{error ? error : "What's your email?"}}
 	</span>
 	<span *ngIf="email.errors?.['pattern']" class="block text-red-500 text-sm">
-		Please enter a valid email.
+		{{ error ? error : "Please enter a valid email." }}
 	</span>
 </div>

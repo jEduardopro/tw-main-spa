@@ -4,12 +4,17 @@
 	</div>
 	<div class="flex flex-col">
 		<div class="mb-5">
-			<app-name-field [(value)]="user.name!"></app-name-field>
+			<app-name-field [(value)]="user.name!" [error]="errors.name ? errors.name[0] : null"></app-name-field>
 		</div>
 		<div class="mb-5">
-			<app-email-field *ngIf="identifierType == 'email'; else insteadPhone" [(value)]="user.email!"></app-email-field>
+			<app-email-field 
+				*ngIf="identifierType == 'email'; else insteadPhone" 
+				[(value)]="user.email!"
+				[error]="errors.email ? errors.email[0] : null"
+			>
+			</app-email-field>
 			<ng-template #insteadPhone>
-				<app-phone-field [(value)]="user.phone!"></app-phone-field>
+				<app-phone-field [(value)]="user.phone!" [error]="errors.phone ? errors.phone[0] : null"></app-phone-field>
 			</ng-template>
 			
 			<div class="flex flex-row justify-end mt-4">
@@ -23,7 +28,7 @@
 			</div>
 		</div>
 		<div class="mb-5">
-			<app-date-birth-select [(value)]="user.date_birth!"></app-date-birth-select>
+			<app-date-birth-select [(value)]="user.date_birth!" [error]="errors.date_birth ? errors.date_birth[0] : null"></app-date-birth-select>
 		</div>
 	</div>
 </div>
