@@ -1,0 +1,43 @@
+.toaster {
+	position: fixed;
+	z-index: 50;
+	min-width: 300px;
+	max-width: 500px;
+	height: fit-content;
+
+	&.right-top {
+		top: 10px;
+		left: auto;
+		right: 10px;
+	}
+
+	&.left-top {
+		top: 10px;
+		right: auto;
+		left: 10px;
+	}
+
+	&.center-top {
+		top: 10px;
+		left: 50%;
+		margin-left: -130px;
+	}
+
+	&.right-bottom {
+		bottom: 10px;
+		left: auto;
+		right: 10px;
+	}
+
+	&.left-bottom {
+		bottom: 10px;
+		right: auto;
+		left: 10px;
+	}
+
+	&.center-bottom {
+		bottom: 10px;
+		left: 50%;
+		margin-left: -130px;
+	}
+}

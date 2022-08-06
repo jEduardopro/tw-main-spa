@@ -9,7 +9,7 @@ export class SignUpButtonComponent implements OnInit {
 
 	@Output() openSignUpForm = new EventEmitter()
 
-  constructor() { }
+	constructor() { }
 
   ngOnInit(): void {
 	}

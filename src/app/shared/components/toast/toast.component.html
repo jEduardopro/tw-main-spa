@@ -1,0 +1,16 @@
+<div class="toast success fade mt-2 rounded-md p-2">
+	<div class="toast-header flex justify-between">
+		<b class="text-md text-white">
+			<i *ngIf="type == 'error'" class="fa fa-exclamation-circle text-red-700"></i>
+			<i *ngIf="type == 'warning'" class="fa fa-exclamation-triangle text-yellow-700"></i>
+			<i *ngIf="type == 'info'" class="fa fa-info-circle text-sky-700"></i>
+			{{title | titlecase}}
+		</b>
+		<button type="button" class="text-sm text-gray-600 font-light flex self-start" (click)="hide()">
+			<i class="fa fa-times text-sm"></i>
+		</button>
+	</div>
+	<div class="message text-white" *ngIf="message">
+		{{message}}
+	</div>
+</div>

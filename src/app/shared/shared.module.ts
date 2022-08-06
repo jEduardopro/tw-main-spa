@@ -5,6 +5,8 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { EmailFieldComponent } from './components/forms/email-field/email-field.component';
 import { DateBirthSelectComponent } from './components/forms/date-birth-select/date-birth-select.component';
 import { PhoneFieldComponent } from './components/forms/phone-field/phone-field.component';
+import { ToastComponent } from './components/toast/toast.component';
+import { ToasterComponent } from './components/toast/toaster.component';
 
 
 
@@ -13,7 +15,9 @@ import { PhoneFieldComponent } from './components/forms/phone-field/phone-field.
     NameFieldComponent,
     EmailFieldComponent,
     DateBirthSelectComponent,
-    PhoneFieldComponent
+    PhoneFieldComponent,
+    ToasterComponent,
+    ToastComponent,
   ],
   imports: [
 		CommonModule,
@@ -23,7 +27,8 @@ import { PhoneFieldComponent } from './components/forms/phone-field/phone-field.
 		NameFieldComponent,
 		EmailFieldComponent,
 		PhoneFieldComponent,
-		DateBirthSelectComponent
+		DateBirthSelectComponent,
+		ToasterComponent,
 	]
 })
 export class SharedModule { }

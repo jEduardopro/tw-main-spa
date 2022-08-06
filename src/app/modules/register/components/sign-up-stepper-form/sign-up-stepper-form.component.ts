@@ -2,6 +2,7 @@ import { HttpErrorResponse } from '@angular/common/http';
 import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 import { UserForm } from '@app/modules/register/models';
 import { RegisterService } from '../../services/register.service';
+import { ToastService } from '@app/shared/services/toast.service';
 
 @Component({
   selector: 'app-sign-up-stepper-form',
@@ -16,7 +17,8 @@ export class SignUpStepperFormComponent implements OnInit {
 	public errors: any = {};
 
 	constructor(
-		private registerService: RegisterService
+		private registerService: RegisterService,
+		private toastService: ToastService
 	) {
 		// this.user.name = 'Eduardo'
 		// this.user.email = 'jesus@gmail.com'
@@ -51,7 +53,7 @@ export class SignUpStepperFormComponent implements OnInit {
 			console.log({response});
 			
 		}, (error: HttpErrorResponse) => {
-			const { errors } = error.error
+			const { errors, message } = error.error
 			this.errors = {}
 			if (errors) {
 				this.errors = errors
@@ -60,10 +62,13 @@ export class SignUpStepperFormComponent implements OnInit {
 				}, 2000);
 				return;
 			}
-			console.log(error.error);
-			console.log(error.message);
-			console.log(error.status);
-			console.log(error.type);
+			
+			if (!message) {
+				this.toastService.toastError({title: 'Error', message: error.message})
+				return
+			}
+
+			this.toastService.toastError({title: 'Error', message})
 		})
 	}
 
