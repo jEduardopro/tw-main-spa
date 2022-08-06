@@ -7,6 +7,7 @@ import { DateBirthSelectComponent } from './components/forms/date-birth-select/d
 import { PhoneFieldComponent } from './components/forms/phone-field/phone-field.component';
 import { ToastComponent } from './components/toast/toast.component';
 import { ToasterComponent } from './components/toast/toaster.component';
+import { VerificationCodeFieldComponent } from './components/forms/verification-code-field/verification-code-field.component';
 
 
 
@@ -16,6 +17,7 @@ import { ToasterComponent } from './components/toast/toaster.component';
     EmailFieldComponent,
     DateBirthSelectComponent,
     PhoneFieldComponent,
+    VerificationCodeFieldComponent,
     ToasterComponent,
     ToastComponent,
   ],
@@ -28,6 +30,7 @@ import { ToasterComponent } from './components/toast/toaster.component';
 		EmailFieldComponent,
 		PhoneFieldComponent,
 		DateBirthSelectComponent,
+		VerificationCodeFieldComponent,
 		ToasterComponent,
 	]
 })

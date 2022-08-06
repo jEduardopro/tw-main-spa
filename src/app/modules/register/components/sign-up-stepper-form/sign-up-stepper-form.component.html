@@ -10,7 +10,7 @@
 						<i *ngIf="step == 1; else backIcon"
 						 class="fas fa-times text-white" (click)="closeForm()"></i>
 						<ng-template #backIcon>
-							<i class="fas fa-arrow-left text-white" (click)="prev()"></i>
+							<i class="fas fa-arrow-left text-white" (click)="prevStep()"></i>
 						</ng-template>
 					</div>
 					<div class="ml-11">
@@ -40,13 +40,13 @@
 								font-bold
 							"
 							role="button"
-							(click)="registerUser()"
-							>
-							<!-- [ngClass]="[!firstStepFormIsValid 
+							[ngClass]="[!firstStepFormIsValid 
 								? 'cursor-not-allowed bg-white opacity-50' 
 								: 'bg-white hover:bg-slate-100'
-							]" -->
-							<!-- [disabled]="!firstStepFormIsValid" -->
+							]"
+							[disabled]="!firstStepFormIsValid"
+							(click)="registerUser()"
+							>
 							<span class="inline-block">Next</span>
 						</button>
 					</div>

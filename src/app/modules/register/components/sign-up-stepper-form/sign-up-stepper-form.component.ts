@@ -3,6 +3,7 @@ import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 import { UserForm } from '@app/modules/register/models';
 import { RegisterService } from '../../services/register.service';
 import { ToastService } from '@app/shared/services/toast.service';
+import { RegisterResponse } from '../../interfaces/register-response.interface';
 
 @Component({
   selector: 'app-sign-up-stepper-form',
@@ -40,17 +41,14 @@ export class SignUpStepperFormComponent implements OnInit {
 	}
 
 	registerUser() {
-		// if (!this.firstStepFormIsValid) {			
-		// 	return
-		// }
+		if (!this.firstStepFormIsValid) {			
+			return
+		}
 		let user = this.user;
-		user.email ? delete user.phone : delete user.email
+		user.email ? delete user.phone : delete user.email		
 
-		console.log({user});
-		
-
-		this.registerService.register(user).subscribe((response: any) => {
-			console.log({response});
+		this.registerService.register(user).subscribe((response) => {
+			// console.log(response.);
 			
 		}, (error: HttpErrorResponse) => {
 			const { errors, message } = error.error
@@ -72,11 +70,11 @@ export class SignUpStepperFormComponent implements OnInit {
 		})
 	}
 
-	next() {
+	nextStep() {
 		this.step++
 	}
 
-	prev() {
+	prevStep() {
 		this.step--
 	}
 }
