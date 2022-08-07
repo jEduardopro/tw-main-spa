@@ -1,7 +1,7 @@
 
-export class UserForm {
+export class UserFormData {
 	name?: string;
-	email?: string;
-	phone?: string;
+	email?: string | null;
+	phone?: string | null;
 	date_birth?: string;
 }

@@ -1,18 +1,26 @@
 <div>
 	<label for="code" class="text-white font-bold text-sm mb-1 block">Verification code</label>
-	<input id="code" 
+	<input 
+		#inputCode
+		id="code" 
 		class="tw_input_sky" 
 		[ngClass]="{'error': code.invalid && (code.dirty || code.touched)}"
 		type="text" 
 		[formControl]="code" 
-		placeholder="Verification code" 
+		placeholder="Verification code"
+		autofocus
 	/>
 </div>
 <div *ngIf="code.invalid && (code.dirty || code.touched || error)">
 	<span *ngIf="code.errors?.['required']" class="block text-red-500 text-sm">
 		{{ error ? error : "Enter you code" }}
 	</span>
-	<span *ngIf="code.errors?.['maxLength']" class="block text-red-500 text-sm">
-		{{ error ? error : 'The verification code must not be greater than ' + code.errors?.['maxLength'] + ' characters.' }}
+	<span *ngIf="code.errors?.['maxlength']" class="block text-red-500 text-sm">
+		{{ error ? error : 'The verification code must not be greater than ' + code.errors?.['maxlength']?.requiredLength + ' characters.' }}
+	</span>
+</div>
+<div *ngIf="code.valid && error">
+	<span class="block text-red-500 text-sm">
+		{{error}}
 	</span>
 </div>

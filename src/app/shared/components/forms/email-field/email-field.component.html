@@ -17,3 +17,8 @@
 		{{ error ? error : "Please enter a valid email." }}
 	</span>
 </div>
+<div *ngIf="email.valid && error">
+	<span class="block text-red-500 text-sm">
+		 {{error}}
+	</span>
+</div>

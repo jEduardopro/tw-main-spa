@@ -1,6 +1,7 @@
 <div>
 	<label for="name" class="text-white font-bold text-sm mb-1 block">Name</label>
 	<input
+		#inputName
 		id="name"
 		class="tw_input_sky"
 		[ngClass]="{'error': name.invalid && (name.dirty || name.touched)}"

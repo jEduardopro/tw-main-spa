@@ -1,4 +1,4 @@
-import { Component, Input, OnInit, Output, EventEmitter } from '@angular/core';
+import { Component, Input, OnInit, Output, EventEmitter, ViewChild, ElementRef, AfterViewInit } from '@angular/core';
 import { FormControl, Validators } from '@angular/forms';
 
 @Component({
@@ -7,7 +7,7 @@ import { FormControl, Validators } from '@angular/forms';
   styles: [
   ]
 })
-export class NameFieldComponent implements OnInit {
+export class NameFieldComponent implements OnInit, AfterViewInit {
 
 	name = new FormControl('', [Validators.required])
 	@Input() value!: string;
@@ -15,9 +15,12 @@ export class NameFieldComponent implements OnInit {
 
 	@Input() error: any;
 
+	@ViewChild('inputName') inputName!: ElementRef
+
   constructor() { }
 
 	ngOnInit(): void {
+
 		this.name.setValue(this.value)
 
 		this.name.valueChanges.subscribe((v) => {
@@ -29,5 +32,9 @@ export class NameFieldComponent implements OnInit {
 
 		})
 
+	}
+
+	ngAfterViewInit(): void {
+		this.inputName.nativeElement.focus()
 	}
 }

@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output, ViewChild, ElementRef, OnDestroy, AfterViewInit } from '@angular/core';
 import { FormControl, Validators } from '@angular/forms';
 
 @Component({
@@ -7,13 +7,15 @@ import { FormControl, Validators } from '@angular/forms';
   styles: [
   ]
 })
-export class VerificationCodeFieldComponent implements OnInit {
+export class VerificationCodeFieldComponent implements OnInit, OnDestroy, AfterViewInit {
 
 	code = new FormControl('', [Validators.required, Validators.maxLength(8)])
 	@Input() value!: string;
 	@Output() valueChange = new EventEmitter<string>();
 
 	@Input() error: any;
+
+	@ViewChild('inputCode') inputCode!: ElementRef;
 
 	constructor() { }
 
@@ -28,6 +30,10 @@ export class VerificationCodeFieldComponent implements OnInit {
 			this.valueChange.emit(v)
 
 		})
+	}
+
+	ngAfterViewInit(): void {
+		this.inputCode.nativeElement.focus();
 	}
 
 	ngOnDestroy(): void {

@@ -1,9 +1,9 @@
 
-export type SignUpFieldType = 'signup_with_email' | 'signup_with_phone'
+export type SignUpDescription = 'signup_with_email' | 'signup_with_phone'
 
 export interface RegisterResponse {
 	message: string,
-	description: SignUpFieldType,
+	description: SignUpDescription,
 	email?: string,
 	phone?: string | number
 }

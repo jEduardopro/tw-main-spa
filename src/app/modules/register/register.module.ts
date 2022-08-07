@@ -8,6 +8,8 @@ import { StepOneComponent } from './components/sign-up-stepper-form/steps/step-o
 import { StepTwoComponent } from './components/sign-up-stepper-form/steps/step-two/step-two.component';
 import { StepThreeComponent } from './components/sign-up-stepper-form/steps/step-three/step-three.component';
 import { SharedModule } from '@app/shared/';
+import { StoreModule } from '@ngrx/store';
+import { registerFeatureKey, registerReducer } from './store/reducers/register.reducer';
 
 
 
@@ -21,7 +23,8 @@ import { SharedModule } from '@app/shared/';
   ],
   imports: [
 		CommonModule,
-		SharedModule
+		SharedModule,
+		StoreModule.forFeature(registerFeatureKey, registerReducer)
 	],
 	exports: [
 		SignUpButtonComponent,
