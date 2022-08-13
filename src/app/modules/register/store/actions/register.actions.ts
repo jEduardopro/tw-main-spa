@@ -12,3 +12,8 @@ export const setRegisterResponse = createAction(
 	'[REGISTER] Set Response of Register',
 	props<{registerResponse: RegisterResponse}>()
 );
+
+export const toggleLoading = createAction(
+	'[REGISTER] Toggle Loading',
+	props<{status: boolean}>()
+);

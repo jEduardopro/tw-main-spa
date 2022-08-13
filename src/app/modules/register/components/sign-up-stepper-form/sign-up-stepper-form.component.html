@@ -25,8 +25,8 @@
 					<!-- Steps -->
 					<!-- <div class="flex flex-col h-full"> -->
 						<app-step-one class="h-full justify-between flex flex-col" *ngIf="step == 1" (nextStep)="nextStep()"></app-step-one>
-						<app-step-two class="h-full justify-between flex flex-col" *ngIf="step == 2"></app-step-two>
-						<app-step-three *ngIf="step == 3"></app-step-three>
+						<app-step-two class="h-full justify-between flex flex-col" *ngIf="step == 2" (nextStep)="nextStep()"></app-step-two>
+						<app-step-three class="h-full justify-between flex flex-col" *ngIf="step == 3"></app-step-three>
 					<!-- </div> -->
 					<!-- Steps -->
 					<!-- <div>

@@ -91,10 +91,10 @@ export class DateBirthSelectComponent implements OnInit {
 		let month = dateParts[1];
 		let day = dateParts[2];
 		if (parseFloat(dateParts[1]) < 10) {
-			month = `0${month}`
+			month = month.replace('0', '')
 		}
 		if (parseFloat(dateParts[2]) < 10) {
-			day = `0${day}`
+			day = day.replace('0', '')
 		}
 		this.form.setValue({
 			month: month,

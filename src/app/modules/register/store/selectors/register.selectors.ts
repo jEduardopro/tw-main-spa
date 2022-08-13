@@ -16,4 +16,10 @@ export const selectRegisterResponse = createSelector(
 export const selectDescriptionResponse = createSelector(
 	registerFeatureState,
 	(state) => state.registerResponse.description
-)
+);
+
+export const selectLoading = createSelector(
+	registerFeatureState,
+	(state) => state.loading
+);
+

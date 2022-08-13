@@ -9,7 +9,7 @@ import { FormControl, Validators } from '@angular/forms';
 })
 export class EmailFieldComponent implements OnInit, OnDestroy {
 
-	email = new FormControl('', [Validators.required, Validators.pattern("^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$")])
+	email = new FormControl('', [Validators.required, Validators.pattern("^[a-z0-9._%+-]+@[a-z0-9.-]{2,8}\.[a-z]{2,4}$")])
 
 	@Input() value!: string;
 	@Output() valueChange = new EventEmitter<string>();

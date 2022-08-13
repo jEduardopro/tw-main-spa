@@ -8,6 +8,9 @@ import { PhoneFieldComponent } from './components/forms/phone-field/phone-field.
 import { ToastComponent } from './components/toast/toast.component';
 import { ToasterComponent } from './components/toast/toaster.component';
 import { VerificationCodeFieldComponent } from './components/forms/verification-code-field/verification-code-field.component';
+import { StoreModule } from '@ngrx/store';
+import { httpErrorFeatureKey, httpErrorReducer } from './store/reducers/http-error.reducer';
+import { PasswordFieldComponent } from './components/forms/password-field/password-field.component';
 
 
 
@@ -20,10 +23,12 @@ import { VerificationCodeFieldComponent } from './components/forms/verification-
     VerificationCodeFieldComponent,
     ToasterComponent,
     ToastComponent,
+    PasswordFieldComponent,
   ],
   imports: [
 		CommonModule,
-		ReactiveFormsModule
+		ReactiveFormsModule,
+		StoreModule.forFeature(httpErrorFeatureKey, httpErrorReducer)
 	],
 	exports: [
 		NameFieldComponent,
@@ -31,6 +36,7 @@ import { VerificationCodeFieldComponent } from './components/forms/verification-
 		PhoneFieldComponent,
 		DateBirthSelectComponent,
 		VerificationCodeFieldComponent,
+		PasswordFieldComponent,
 		ToasterComponent,
 	]
 })

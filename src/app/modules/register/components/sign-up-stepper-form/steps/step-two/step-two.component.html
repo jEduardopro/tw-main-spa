@@ -12,18 +12,16 @@
 	</div>
 </div>
 <div>
-	<button class="w-full flex flex-col px-10 
-					justify-center
-					items-center
-					text-black
-					py-3
-					rounded-full
-					font-bold
-					bg-white hover:bg-slate-100
-				" role="button" [ngClass]="[!code.length 
-					? 'cursor-not-allowed bg-white opacity-50' 
-					: 'bg-white hover:bg-slate-100'
-				]" [disabled]="!code.length" (click)="verifyCode()">
-		<span class="inline-block">Next</span>
+	<button 
+		class="w-full flex flex-col px-10 justify-center items-center text-black py-3 rounded-full font-bold" 
+		[ngClass]="[buttonStatusClasses]"
+		[disabled]="mustBeDisabled" 
+		role="button" 
+		(click)="verifyCode()"
+		>
+		<span class="inline-block">
+			<span>Next </span>
+			<i *ngIf="loading" class="ml-1 fa fa-circle-notch fa-spin"></i>
+		</span>
 	</button>
 </div>

@@ -1,11 +1,12 @@
-import { Component, OnInit } from '@angular/core';
-import { RegisterState } from '@app/modules/register/store/reducers/register.reducer';
+import { Component, OnInit, OnDestroy, EventEmitter, Output } from '@angular/core';
 import { Store } from '@ngrx/store';
+import * as registerActions from '@app/modules/register/store/actions/register.actions';
 import * as registerSelectors from '@app/modules/register/store/selectors/register.selectors';
+import * as httpErrorSelectors from '@app/shared/store/selectors/http-error.selectors';
 import { RegisterResponse } from '@app/modules/register/interfaces/register-response.interface';
 import { AccountVerificationService } from '@app/modules/register/services/account-verification.service';
-import { HttpErrorResponse } from '@angular/common/http';
-import { ToastService } from '@app/shared/services/toast.service';
+import { Subscription, firstValueFrom } from 'rxjs';
+import { AppState } from '@app/store/app.reducers';
 
 @Component({
   selector: 'app-step-two',
@@ -13,23 +14,54 @@ import { ToastService } from '@app/shared/services/toast.service';
   styles: [
   ]
 })
-export class StepTwoComponent implements OnInit {
+export class StepTwoComponent implements OnInit, OnDestroy {
 
 	code: string = '';
+	loading = false;
 	errors: any = {};
 
 	subTitleDescription = '';
 
+	storeSubscription: Subscription = new Subscription;
+
+	@Output() nextStep = new EventEmitter();
+
 	constructor(
-		private store: Store<RegisterState>,
+		private store: Store<AppState>,
 		private accountVerificationService: AccountVerificationService,
-		private toastService: ToastService,
 	) { }
 
 	ngOnInit(): void {
-		this.store.select(registerSelectors.selectRegisterResponse).subscribe(registerResponse => {
+		const registerResponseData$ = this.store.select(registerSelectors.selectRegisterResponse).subscribe(registerResponse => {
 			this.setSubTitleDescription(registerResponse);
 		})
+		const loading$ = this.store.select(registerSelectors.selectLoading).subscribe(loading => {
+			this.loading = loading
+		})
+		const errors$ = this.store.select(httpErrorSelectors.selectFieldErrors).subscribe(fieldErrors => {
+			if (fieldErrors) {
+				this.errors = fieldErrors
+				return;
+			}
+			this.errors = {}
+		})
+		this.storeSubscription.add(registerResponseData$)
+		this.storeSubscription.add(loading$)
+		this.storeSubscription.add(errors$)
+	}
+
+	ngOnDestroy(): void {
+		this.storeSubscription.unsubscribe();
+	}
+
+	get mustBeDisabled(): boolean {
+		return this.loading || !this.code.trim().length
+	}
+
+	get buttonStatusClasses(): string {
+		return this.mustBeDisabled
+			? 'cursor-not-allowed bg-white opacity-50'
+			: 'bg-white hover:bg-slate-100'
 	}
 	
 	private setSubTitleDescription(response: RegisterResponse) {
@@ -39,30 +71,16 @@ export class StepTwoComponent implements OnInit {
 		this.subTitleDescription = `${baseDescription} ${fieldWithWhichItWasRegistered}`
 	}
 
-	verifyCode() {
-
-		this.accountVerificationService.verify(this.code).subscribe((response) => {
-			console.log({response});
-			
-		}, (error: HttpErrorResponse) => {			
-			const { errors, message } = error.error
-			
-			if (errors) {
-				this.errors = errors
-				setTimeout(() => {
-					this.errors = {}
-				}, 2000);
-				return;
-			}
-
-			if (!message) {
-				this.toastService.toastError({ title: 'Error', message: error.message })
-				return
-			}
-
-			this.toastService.toastError({ title: 'Error', message })
-		})
-
+	async verifyCode() {
+		this.store.dispatch(registerActions.toggleLoading({ status: true }))
+		try {
+			const response = await firstValueFrom(this.accountVerificationService.verify(this.code));
+			console.log({ response });
+			// this.store.dispatch(registerActions.setRegisterResponse({ registerResponse: response }))
+			this.nextStep.emit();
+		} catch (error) {
+			// console.log(error);
+		}
+		this.store.dispatch(registerActions.toggleLoading({ status: false }))
 	}
-
 }

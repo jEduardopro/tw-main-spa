@@ -5,5 +5,5 @@ export interface RegisterResponse {
 	message: string,
 	description: SignUpDescription,
 	email?: string,
-	phone?: string | number
+	phone?: string
 }
