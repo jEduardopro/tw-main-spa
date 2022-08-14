@@ -11,6 +11,10 @@ import { VerificationCodeFieldComponent } from './components/forms/verification-
 import { StoreModule } from '@ngrx/store';
 import { httpErrorFeatureKey, httpErrorReducer } from './store/reducers/http-error.reducer';
 import { PasswordFieldComponent } from './components/forms/password-field/password-field.component';
+import { LayoutComponent } from './components/layout/layout.component';
+import { RouterModule } from '@angular/router';
+import { SidebarMenuComponent } from './components/sidebar-menu/sidebar-menu.component';
+import { SidebarColumnComponent } from './components/sidebar-column/sidebar-column.component';
 
 
 
@@ -24,10 +28,14 @@ import { PasswordFieldComponent } from './components/forms/password-field/passwo
     ToasterComponent,
     ToastComponent,
     PasswordFieldComponent,
+    LayoutComponent,
+    SidebarMenuComponent,
+    SidebarColumnComponent,
   ],
   imports: [
 		CommonModule,
 		ReactiveFormsModule,
+		RouterModule,
 		StoreModule.forFeature(httpErrorFeatureKey, httpErrorReducer)
 	],
 	exports: [
@@ -38,6 +46,7 @@ import { PasswordFieldComponent } from './components/forms/password-field/passwo
 		VerificationCodeFieldComponent,
 		PasswordFieldComponent,
 		ToasterComponent,
+		LayoutComponent
 	]
 })
 export class SharedModule { }

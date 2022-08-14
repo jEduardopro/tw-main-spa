@@ -1,4 +1,4 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component, OnInit, OnDestroy, Output, EventEmitter } from '@angular/core';
 import { AppState } from '@app/store/app.reducers';
 import { Store } from '@ngrx/store';
 import { RegisterResponse } from '@app/modules/register/interfaces/register-response.interface';
@@ -7,8 +7,9 @@ import * as registerActions from '@app/modules/register/store/actions/register.a
 import * as registerSelectors from '@app/modules/register/store/selectors/register.selectors';
 import * as httpErrorSelectors from '@app/shared/store/selectors/http-error.selectors';
 import { Subscription, firstValueFrom } from 'rxjs';
-import { SignUpPayload } from '../../../../interfaces/sign-up-payload.interface';
-import { SignUpService } from '../../../../services/sign-up.service';
+import { SignUpPayload } from '@app/modules/register/interfaces';
+import { SignUpService } from '@app/modules/register/services';
+import { AuthService } from '@app/modules/auth/services/auth.service';
 
 @Component({
   selector: 'app-step-three',
@@ -28,10 +29,13 @@ export class StepThreeComponent implements OnInit, OnDestroy {
 
 	storeSubscription: Subscription = new Subscription;
 
+	@Output() registerFinished = new EventEmitter()
+
 
 	constructor(
 		private store: Store<AppState>,
-		private signUpService: SignUpService
+		private signUpService: SignUpService,
+		private authService: AuthService
 	) { }
 
 	ngOnInit(): void {
@@ -72,8 +76,10 @@ export class StepThreeComponent implements OnInit, OnDestroy {
 
 		this.store.dispatch(registerActions.toggleLoading({ status: true }));
 		try {
-			const response = await firstValueFrom(this.signUpService.signUp(signUpPayload))
-			console.log({response});
+			const {user, token} = await firstValueFrom(this.signUpService.signUp(signUpPayload))
+			this.authService.saveAuthenticatedUser(user)
+			this.authService.saveTokenInLocalStorage(token)
+			this.registerFinished.emit();
 			
 		} catch (error) {
 			

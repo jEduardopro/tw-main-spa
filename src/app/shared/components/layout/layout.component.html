@@ -1,0 +1,19 @@
+<div class="flex flex-shrink-0 w-full h-screen min-h-[780px] items-stretch basis-auto box-border relative">
+	<app-sidebar-menu>
+	</app-sidebar-menu>
+
+	<main class="flex flex-col items-start flex-grow flex-shrink basis-auto box-border h-full relative">
+		<div class="w-[990px] flex flex-col items-stretch flex-grow flex-shrink box-border relative">
+			<div class="flex flex-grow items-stretch box-border flex-shrink-0 flex-col basis-auto relative" style="backface-visibility: hidden;">
+				<div class="items-stretch flex-grow justify-between min-h-full w-full flex box-border flex-shrink-0 relative">
+					<div class="max-w-[600px] border-r border-l w-full border-twitter-white-200 dark:border-twitter-gray-200 items-stretch box-border flex flex-col basis-auto flex-shrink-0 relative">
+						<router-outlet></router-outlet>
+					</div>
+					<app-sidebar-column></app-sidebar-column>
+				</div>
+			</div>
+		</div>
+	</main>
+
+</div>
+

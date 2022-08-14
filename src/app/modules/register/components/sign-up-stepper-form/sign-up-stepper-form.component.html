@@ -23,37 +23,12 @@
 				<!-- Content -->
 				<div class="px-16 py-4 flex flex-col h-full">
 					<!-- Steps -->
-					<!-- <div class="flex flex-col h-full"> -->
-						<app-step-one class="h-full justify-between flex flex-col" *ngIf="step == 1" (nextStep)="nextStep()"></app-step-one>
-						<app-step-two class="h-full justify-between flex flex-col" *ngIf="step == 2" (nextStep)="nextStep()"></app-step-two>
-						<app-step-three class="h-full justify-between flex flex-col" *ngIf="step == 3"></app-step-three>
-					<!-- </div> -->
-					<!-- Steps -->
-					<!-- <div>
-						<button 
-							class="w-full flex flex-col px-10 
-								justify-center
-								items-center
-								text-black
-								py-3
-								rounded-full
-								font-bold
-							"
-							role="button"
-							[ngClass]="[!firstStepFormIsValid 
-								? 'cursor-not-allowed bg-white opacity-50' 
-								: 'bg-white hover:bg-slate-100'
-							]"
-							[disabled]="!firstStepFormIsValid"
-							(click)="registerUser()"
-						>
-							<span class="inline-block">Next {{firstStepFormIsValid}}</span>
-						</button>
-					</div> -->
+					<app-step-one class="h-full justify-between flex flex-col" *ngIf="step == 1" (nextStep)="nextStep()"></app-step-one>
+					<app-step-two class="h-full justify-between flex flex-col" *ngIf="step == 2" (nextStep)="nextStep()"></app-step-two>
+					<app-step-three class="h-full justify-between flex flex-col" *ngIf="step == 3" (registerFinished)="closeForm()"></app-step-three>
 				</div>
 				<!-- Content -->
 			</div>
-
 		</div>
 	</div>
 </div>

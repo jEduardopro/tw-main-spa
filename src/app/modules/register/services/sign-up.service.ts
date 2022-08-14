@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { environment } from '@env/environment';
-import { SignUpPayload } from '../interfaces/sign-up-payload.interface';
+import { SignUpPayload, SignUpResponse} from '../interfaces';
 
 @Injectable({
   providedIn: 'root'
@@ -16,7 +16,6 @@ export class SignUpService {
 
 
 	signUp(payload: SignUpPayload) {
-
-		return this.http.post(`${this.apiUrl}/auth/signup`, payload);
+		return this.http.post<SignUpResponse>(`${this.apiUrl}/auth/signup`, payload);
 	}
 }
