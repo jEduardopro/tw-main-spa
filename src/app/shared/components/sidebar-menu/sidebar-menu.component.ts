@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { CustomizeViewService } from '../../../modules/customize-view/services/customize-view.service';
 
 export interface Menu {
 	text: string,
@@ -6,7 +7,7 @@ export interface Menu {
 	icon: string,
 	actionType: 'link' | 'popup',
 	link: string | null,
-	popup: string | null
+	popup: 'customize-view' | null
 }
 
 @Component({
@@ -65,27 +66,45 @@ export class SidebarMenuComponent implements OnInit {
 		},
 	]
 
-  constructor() { }
+	showCustomizeViewModal = false
+
+	constructor(
+		public customizeViewService: CustomizeViewService
+	) { }
 
   ngOnInit(): void {
 	}
 	
 	onMouseEnter(event: MouseEvent) {
-		const element = event.target as HTMLElement
-		let firstChild = element.firstChild as HTMLElement
-		firstChild.classList.add('bg-twitter-black-btn-hover')
+		this.toggleBgClass(event)
 		// firstChild.classList.add('bg-twitter-gray-btn-hover')
 	}
 	
 	onMouseLeave(event: MouseEvent) {
-		const element = event.target as HTMLElement
-		let firstChild = element.firstChild as HTMLElement
-		firstChild.classList.remove('bg-twitter-black-btn-hover')
+		this.toggleBgClass(event)
+		// const element = event.target as HTMLElement
+		// let firstChild = element.firstChild as HTMLElement
+		// firstChild.classList.toggle('bg-twitter-black-btn-hover')
 		// firstChild.classList.remove('bg-twitter-gray-btn-hover')
 	}
 
-	openPopup() {
-		console.log('here');
+	toggleBgClass(event: MouseEvent) {
+		const element = event.target as HTMLElement
+		let firstChild = element.firstChild as HTMLElement
+
+		const displaySettings = this.customizeViewService.viewSettings
+		
+		const { themeBackground } = displaySettings
+		if (themeBackground.name == 'lights out') {
+			firstChild.classList.toggle('bg-twitter-black-btn-hover')
+			return
+		}
+		firstChild.classList.toggle('bg-twitter-gray-btn-hover')
+
+	}
+
+	openCustomizeViewModal() {
+		this.showCustomizeViewModal = true;
 	}
 
 }

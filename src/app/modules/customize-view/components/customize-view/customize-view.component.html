@@ -1,0 +1,112 @@
+<div class="fixed z-10 top-0 left-0 w-full h-full">
+	<div 
+		class="w-full h-full relative flex bg-sky-400 opacity-50 z-20"
+		(click)="close()"
+	>
+	</div>
+	<div class="w-full justify-center items-center top-0 left-0 h-full flex flex-col absolute">
+		<div class="min-w-[600px] max-w-[600px] max-h-[90vh] h-[650px] bg-white dark:bg-black absolute rounded-2xl z-30">
+			<div class="flex flex-col w-full h-full px-8 py-8">
+				<!-- header -->
+				<div class="flex flex-row items-center mb-5">
+					<div class="flex flex-col items-stretch box-border justify-center text-center">
+						<div class="text-twitter-black-100 dark:text-twitter-white-100 text-2xl font-bold mb-2">
+							<span>
+								Customize your view
+							</span>
+						</div>
+						<div class="px-2 text-twitter-gray-100">
+							<span>
+								Manage your font size, color, and background. These settings affect all the Twitter accounts on this browser.
+							</span>
+						</div>
+					</div>
+				</div>
+				<!-- header -->
+				<!-- Content -->
+				<div class="py-4 flex flex-col justify-between h-full">
+					<div class="flex flex-col">
+						<div class="flex mb-5">
+							<div class="flex flex-col w-full">
+								<div class="mb-1">
+									<span class="text-twitter-gray-100 font-semibold">Color</span>
+								</div>
+								<div class="flex flex-row justify-between py-3 px-8 items-center bg-twitter-white-50 dark:bg-twitter-black-btn-hover rounded-3xl">
+									<button
+										*ngFor="let accentColor of accentColors"
+										class="w-11 h-11 text-white rounded-full flex flex-col box-border justify-center text-center items-center"
+										[ngClass]="accentColor.bg"									
+										type="button"
+										(click)="setAccentColor(accentColor)"
+									>
+										<i *ngIf="customizeViewService.themeColor.name == accentColor.name" class="fa fa-check"></i>
+									</button>
+								</div>
+							</div>
+						</div>
+						<div class="flex">
+							<div class="flex flex-col w-full">
+								<div class="mb-1">
+									<span class="text-twitter-gray-100 font-semibold">Background</span>
+								</div>
+								<div class="flex flex-row justify-between py-3 px-8 items-center bg-twitter-white-50 dark:bg-twitter-black-btn-hover rounded-3xl">
+									<button
+										*ngFor="let bgColor of backgroundColors"
+										class="w-40 h-16 rounded-md border-2 box-border"
+										[ngClass]="[customizeViewService.themeBackground.name == bgColor.name 
+											? customizeViewService.themeColor.border : 'border-twitter-gray-100',
+											bgColor.background
+										]"
+										type="button"
+										(click)="setBgColor(bgColor)"
+									>
+										<div class="box-border flex flex-col justify-center items-center">
+											<div class="flex flex-row box-border items-center">
+												<div>
+													<span class="flex flex-col justify-center 
+															items-center text-center w-5 h-5 rounded-full
+															text-white
+														"
+														[ngClass]="[customizeViewService.themeBackground.name == bgColor.name 
+															? customizeViewService.themeColor.bg : 'bg-transparent border border-twitter-gray-100'
+														]"
+													>
+														<i *ngIf="customizeViewService.themeBackground.name == bgColor.name" class="fa fa-check text-xs"></i>
+													</span>
+												</div>
+												<div class="min-w-0 max-w-full box-border ml-4">
+													<span
+													 class="font-semibold"
+														[ngClass]="[
+															bgColor.name == 'default' 
+																? 'text-twitter-black-100' : 'text-white'
+														]"
+													>
+														{{bgColor.name | titlecase}}
+													</span>
+												</div>
+											</div>
+										</div>
+									</button>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="flex flex-row items-center justify-center w-full">
+						<button 
+							class="w-16 h-9 rounded-full text-white flex box-border flex-col justify-center items-center"
+							[ngClass]="[customizeViewService.themeColor.bg, customizeViewService.themeColor.bgHover]"
+							type="button"
+							(click)="close()"
+						>
+							<span class="font-semibold">
+								Done
+							</span>
+						</button>
+					</div>
+				</div>
+				<!-- Content -->
+			</div>
+		</div>
+	</div>
+</div>

@@ -15,6 +15,7 @@ import { LayoutComponent } from './components/layout/layout.component';
 import { RouterModule } from '@angular/router';
 import { SidebarMenuComponent } from './components/sidebar-menu/sidebar-menu.component';
 import { SidebarColumnComponent } from './components/sidebar-column/sidebar-column.component';
+import { CustomizeViewModule } from '../modules/customize-view/customize-view.module';
 
 
 
@@ -35,6 +36,7 @@ import { SidebarColumnComponent } from './components/sidebar-column/sidebar-colu
   imports: [
 		CommonModule,
 		ReactiveFormsModule,
+		CustomizeViewModule,
 		RouterModule,
 		StoreModule.forFeature(httpErrorFeatureKey, httpErrorReducer)
 	],

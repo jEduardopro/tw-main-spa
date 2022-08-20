@@ -11,9 +11,24 @@ module.exports = {
 					'100': '#1d9bf0',
 					'200': '#1a8cd8'
 				},
+				'twitter-accent': {
+					'sky': '#1D9BF0',
+					'sky200': '#1a8cd8',
+					'yellow': '#FFD400',
+					'yellow200': '#E6BF00',
+					'pink': '#F91880',
+					'pink200': '#E01672',
+					'purple': '#7856FF',
+					'purple200': '#6C4DE6',
+					'orange': '#FD7A00',
+					'orange200': '#E66E00',
+					'avocado': '#19BA7C',
+					'avocado200': '#16A770'
+				},
 				'twitter-white': {
+					'50': '#F7F9F9',
 					'100': '#e7e9ea',
-					'200': '#eff3f4'
+					'200': '#eff3f4',
 				},
 				'twitter-black': {
 					'btn-hover': '#15202b',
