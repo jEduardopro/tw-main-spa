@@ -10,6 +10,7 @@ import { StepThreeComponent } from './components/sign-up-stepper-form/steps/step
 import { SharedModule } from '@app/shared/';
 import { StoreModule } from '@ngrx/store';
 import { registerFeatureKey, registerReducer } from './store/reducers/register.reducer';
+import { RouterModule } from '@angular/router';
 
 
 
@@ -24,7 +25,8 @@ import { registerFeatureKey, registerReducer } from './store/reducers/register.r
   imports: [
 		CommonModule,
 		SharedModule,
-		StoreModule.forFeature(registerFeatureKey, registerReducer)
+		RouterModule,
+		StoreModule.forFeature(registerFeatureKey, registerReducer),
 	],
 	exports: [
 		SignUpButtonComponent,

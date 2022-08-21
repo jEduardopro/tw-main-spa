@@ -1,0 +1,67 @@
+<div 
+	class="flex flex-col items-center xl:items-stretch basis-auto flex-shrink-0 my-3 relative box-border"
+	clickOutside (clickOutside)="closeLogoutMenu()"
+>
+	<div class="flex flex-col items-stretch basis-auto flex-shrink-0 relative box-border">
+		<div 
+			class="
+				flex flex-row items-center p-[11px] 
+				rounded-full box-border basis-auto flex-shrink-0 relative
+				hover:bg-twitter-gray-btn-hover
+				dark:hover:bg-twitter-black-btn-hover
+			" 
+			aria-label="Account menu" 
+			role="button"
+			(click)="toggleLogoutMenu()"
+		>
+			<div class="items-stretch box-border flex flex-col basis-auto flex-shrink-0 relative">
+				<div class="w-9 h-9 overflow-visible block relative items-stretch basis-auto box-border flex-col flex-shrink-0">
+					<div class="w-full h-full rounded-full flex flex-col items-center justify-center">
+						<!-- <span
+							class="text-white rounded-full box-border border-[#38444d] border w-full h-full flex flex-col items-center justify-center">
+							<i class="fa fa-user text-lg text-twitter-gray-100"></i>
+						</span> -->
+						<img
+										class="rounded-full w-full h-full box-border" 
+										src="https://pbs.twimg.com/profile_images/1260046816034254848/5cy9OTw__400x400.jpg">
+					</div>
+				</div>
+			</div>
+			<div class="hidden flex-shrink max-w-full items-stretch box-border relative xl:flex flex-col basis-auto">
+				<div class="flex-shrink max-w-full flex-grow mx-3 items-stretch box-border relative flex flex-col basis-auto">
+					<div class="flex flex-shrink max-w-full items-stretch box-border relative flex-col basis-auto">
+						<div class="font-bold text-[15px] text-twitter-black-100 dark:text-twitter-white-100">
+							<span>jesus eduardo</span>
+						</div>
+					</div>
+					<div class="flex flex-shrink max-w-full items-stretch box-border relative flex-col basis-auto">
+						<div class="font-normal text-[15px] text-twitter-gray-100">
+							<span>@jesus_edu22</span>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<!-- Logout Menu -->
+		<div *ngIf="logoutMenuIsOpen" class="absolute left-0 bottom-[115%] z-10 flex flex-col box-border w-full flex-grow">
+			<div class="flex flex-col flex-grow py-1 box-border rounded-xl shadow shadow-slate-500/50 dark:shadow-slate-100/50">
+				<div class="flex flex-shrink max-w-full h-16 items-stretch justify-center box-border relative flex-col basis-auto">
+					<div 
+						class="
+							flex flex-row w-full
+							transition-colors hover:bg-twitter-gray-btn-hover dark:hover:bg-twitter-black-btn-hover 
+							p-[14px] box-border
+						"
+						aria-label="Logout of Twitter Clone" 
+						role="button"
+						(click)="logout()"
+					>
+						<div class="text-sm text-twitter-black-100 dark:text-twitter-white-100">
+							<span>Log out @jesus76256356</span>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>

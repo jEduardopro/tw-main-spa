@@ -10,6 +10,7 @@ import { Subscription, firstValueFrom } from 'rxjs';
 import { SignUpPayload } from '@app/modules/register/interfaces';
 import { SignUpService } from '@app/modules/register/services';
 import { AuthService } from '@app/modules/auth/services/auth.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-step-three',
@@ -35,7 +36,8 @@ export class StepThreeComponent implements OnInit, OnDestroy {
 	constructor(
 		private store: Store<AppState>,
 		private signUpService: SignUpService,
-		private authService: AuthService
+		private authService: AuthService,
+		private router: Router
 	) { }
 
 	ngOnInit(): void {
@@ -80,9 +82,10 @@ export class StepThreeComponent implements OnInit, OnDestroy {
 			this.authService.saveAuthenticatedUser(user)
 			this.authService.saveTokenInLocalStorage(token)
 			this.registerFinished.emit();
+			this.router.navigateByUrl("/home")
 			
 		} catch (error) {
-			
+			console.log(error);
 		}
 		this.store.dispatch(registerActions.toggleLoading({ status: false }));
 	}

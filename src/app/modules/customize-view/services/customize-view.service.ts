@@ -79,7 +79,6 @@ export class CustomizeViewService {
 					return
 				}
 				const { themeColor, themeBackground } = cursor.value
-				console.log({themeColor, themeBackground});
 				this.displaySettings = { ...this.displaySettings, themeColor, themeBackground }
 				this.setThemeBackground(themeBackground)
 			}
