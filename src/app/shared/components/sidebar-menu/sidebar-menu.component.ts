@@ -51,7 +51,7 @@ export class SidebarMenuComponent implements OnInit {
 		{
 			text: 'Settings',
 			ariaLabel: 'Settings',
-			icon: 'fa fa-cog',
+			icon: 'fas fa-cog',
 			actionType: 'link',
 			link: '/settings',
 			popup: null
@@ -59,7 +59,7 @@ export class SidebarMenuComponent implements OnInit {
 		{
 			text: 'Display',
 			ariaLabel: 'Display',
-			icon: 'fa fa-paint-brush',
+			icon: 'fas fa-palette',
 			actionType: 'popup',
 			link: null,
 			popup: 'customize-view'

@@ -1,126 +1,141 @@
-<header class="flex w-[320px] flex-col flex-grow flex-shrink-0 box-border basis-auto items-end relative">
-	<div class="w-[275px] flex flex-col flex-shrink-0 box-border basis-auto items-stretch relative">
-		<div class="h-full fixed top-0 flex flex-col flex-shrink-0 box-border basis-auto items-stretch" style="backface-visibility: hidden;">
-			<div class="overflow-y-auto flex flex-col flex-shrink-0 box-border basis-auto items-stretch justify-between h-full w-[275px] px-3 relative">
-				<div class="items-start box-border flex flex-col basis-auto flex-shrink-0 relative">
-					<div class="max-w-full py-[2px] items-stretch box-border flex flex-col basis-auto flex-shrink-0 relative">
-						<h1 class="min-w-[32px] self-stretch items-center justify-center flex flex-grow basis-auto flex-col flex-shrink-0 box-border relative">
-							<a 
-								class="min-w-[52px] min-h-[52px] flex basis-auto items-stretch flex-col flex-shrink-0 box-border relative"
-								href="#"
+<header 
+	role="banner" 
+	class="w-[68px] md:w-[88px] xl:w-[275px] flex flex-col items-stretch flex-shrink-0 basis-auto box-border relative"
+>
+	<div class="h-full fixed top-0 flex flex-col flex-shrink-0 box-border basis-auto items-stretch" 
+		style="backface-visibility: hidden;"
+	>
+		<div class="overflow-y-auto flex flex-col flex-shrink-0 box-border basis-auto items-stretch justify-between h-full 
+			w-[68px] md:w-[88px] xl:w-[275px] px-3 relative"
+		>
+			<div class="items-center xl:items-start box-border flex flex-col basis-auto flex-shrink-0 relative">
+				<div class="max-w-full py-[2px] items-stretch box-border flex flex-col basis-auto flex-shrink-0 relative">
+					<h1 class="min-w-[32px] self-stretch items-center justify-center flex flex-grow basis-auto flex-col flex-shrink-0 box-border relative">
+						<a 
+							class="min-w-[52px] min-h-[52px] flex basis-auto items-stretch flex-col flex-shrink-0 box-border relative"
+							href="#"
+						>
+							<div class="text-[15px] font-bold leading-5 items-center justify-center flex flex-grow text-center box-border">
+								<svg 
+									class="h-8 w-6 max-w-full flex-grow text-twitter-sky-100 dark:text-twitter-white-100 fill-current"
+									viewBox="0 0 24 24" aria-hidden="true" 
+								>
+									<g>
+										<path d="M23.643 4.937c-.835.37-1.732.62-2.675.733.962-.576 1.7-1.49 2.048-2.578-.9.534-1.897.922-2.958 1.13-.85-.904-2.06-1.47-3.4-1.47-2.572 0-4.658 2.086-4.658 4.66 0 .364.042.718.12 1.06-3.873-.195-7.304-2.05-9.602-4.868-.4.69-.63 1.49-.63 2.342 0 1.616.823 3.043 2.072 3.878-.764-.025-1.482-.234-2.11-.583v.06c0 2.257 1.605 4.14 3.737 4.568-.392.106-.803.162-1.227.162-.3 0-.593-.028-.877-.082.593 1.85 2.313 3.198 4.352 3.234-1.595 1.25-3.604 1.995-5.786 1.995-.376 0-.747-.022-1.112-.065 2.062 1.323 4.51 2.093 7.14 2.093 8.57 0 13.255-7.098 13.255-13.254 0-.2-.005-.402-.014-.602.91-.658 1.7-1.477 2.323-2.41z">
+										</path>
+									</g>
+								</svg>
+							</div>
+						</a>
+					</h1>
+				</div>
+				<div class="mt-[2px] mb-1 w-full items-stretch box-border flex basis-auto flex-col flex-shrink-0 relative">
+					<nav
+						class="flex flex-col items-center xl:items-start box-border basis-auto flex-shrink-0 relative" 
+						role="navigation" aria-label="Primary"
+					>
+						<ng-container *ngFor="let menuItem of menu">
+							<a
+								*ngIf="menuItem.actionType == 'link'"
+								class="flex flex-col box-border relative basis-auto items-start text-twitter-black-100 dark:text-twitter-white-100 flex-grow w-auto xl:w-full py-1 flex-shrink-0"
+								[attr.aria-label]="menuItem.ariaLabel"
+								role="link"
+								(mouseenter)="onMouseEnter($event)"
+								(mouseleave)="onMouseLeave($event)"
+								[routerLink]="menuItem.link"
+								routerLinkActive="itemMenuActive"								
 							>
-								<div class="text-[15px] font-bold leading-5 items-center justify-center flex flex-grow text-center box-border">
-									<svg 
-										class="h-8 w-6 max-w-full flex-grow text-twitter-sky-100 dark:text-twitter-white-100 fill-current"
-										viewBox="0 0 24 24" aria-hidden="true" 
-									>
-										<g>
-											<path d="M23.643 4.937c-.835.37-1.732.62-2.675.733.962-.576 1.7-1.49 2.048-2.578-.9.534-1.897.922-2.958 1.13-.85-.904-2.06-1.47-3.4-1.47-2.572 0-4.658 2.086-4.658 4.66 0 .364.042.718.12 1.06-3.873-.195-7.304-2.05-9.602-4.868-.4.69-.63 1.49-.63 2.342 0 1.616.823 3.043 2.072 3.878-.764-.025-1.482-.234-2.11-.583v.06c0 2.257 1.605 4.14 3.737 4.568-.392.106-.803.162-1.227.162-.3 0-.593-.028-.877-.082.593 1.85 2.313 3.198 4.352 3.234-1.595 1.25-3.604 1.995-5.786 1.995-.376 0-.747-.022-1.112-.065 2.062 1.323 4.51 2.093 7.14 2.093 8.57 0 13.255-7.098 13.255-13.254 0-.2-.005-.402-.014-.602.91-.658 1.7-1.477 2.323-2.41z">
-											</path>
-										</g>
-									</svg>
+								<div class="items-center transition-colors flex justify-center max-w-full p-3 rounded-full box-border basis-auto flex-shrink-0 relative">
+									<div class="flex flex-col items-center justify-center box-border">
+										<div class="w-6 h-6 flex flex-col box-border items-center justify-center">
+											<i class="text-xl" [ngClass]="menuItem.icon"></i>
+										</div>
+									</div>
+									<div class="box-border hidden xl:flex flex-col justify-center items-center self-center ml-5 mr-4 text-[20px] leading-6 break-words max-w-full min-w-0 overflow-hidden text-ellipsis">
+										<span class="inline">{{menuItem.text}}</span>
+									</div>
 								</div>
 							</a>
-						</h1>
-					</div>
-					<div class="mt-[2px] mb-1 w-full items-stretch box-border flex basis-auto flex-col flex-shrink-0 relative">
-						<nav
-							class="flex flex-col items-start box-border basis-auto flex-shrink-0 relative" 
-							role="navigation" aria-label="Primary">
-							<ng-container *ngFor="let menuItem of menu">
-								<a
-									*ngIf="menuItem.actionType == 'link'"
-									class="flex flex-col box-border relative basis-auto items-start text-twitter-black-100 dark:text-twitter-white-100 flex-grow w-full py-1 flex-shrink-0"
-									[attr.aria-label]="menuItem.ariaLabel"
-									role="link"
-									(mouseenter)="onMouseEnter($event)"
-									(mouseleave)="onMouseLeave($event)"
-									[routerLink]="menuItem.link"
-									routerLinkActive="itemMenuActive"								
-								>
-									<div class="items-center transition-colors flex justify-center max-w-full p-3 rounded-full box-border basis-auto flex-shrink-0 relative">
-										<div class="flex flex-col items-stretch basis-auto box-border flex-shrink-0">
-											<div class="w-6 h-6">
-												<i class="text-xl" [ngClass]="menuItem.icon"></i>
-											</div>
-										</div>
-										<div class="box-border flex flex-col justify-center items-center mt-1 self-center ml-5 mr-4 text-[20px] leading-6 break-words max-w-full min-w-0 overflow-hidden text-ellipsis">
-											<span class="inline">{{menuItem.text}}</span>
+							<a
+								*ngIf="menuItem.actionType == 'popup' && menuItem.popup == 'customize-view'"
+								class="flex flex-col box-border relative basis-auto items-start text-twitter-black-100 dark:text-twitter-white-100 flex-grow w-auto xl:w-full py-1 flex-shrink-0"
+								[attr.aria-label]="menuItem.ariaLabel"
+								role="button"
+								(mouseenter)="onMouseEnter($event)"
+								(mouseleave)="onMouseLeave($event)"
+								(click)="openCustomizeViewModal()"				
+							>
+								<div class="items-center transition-colors flex justify-center max-w-full p-3 rounded-full box-border basis-auto flex-shrink-0 relative">
+									<div class="flex flex-col items-stretch basis-auto box-border flex-shrink-0">
+										<div class="w-6 h-6 flex flex-col box-border items-center justify-center">
+											<i class="text-xl" [ngClass]="menuItem.icon"></i>
 										</div>
 									</div>
-								</a>
-								<a
-									*ngIf="menuItem.actionType == 'popup' && menuItem.popup == 'customize-view'"
-									class="flex flex-col box-border relative basis-auto items-start text-twitter-black-100 dark:text-twitter-white-100 flex-grow w-full py-1 flex-shrink-0"
-									[attr.aria-label]="menuItem.ariaLabel"
-									role="button"
-									(mouseenter)="onMouseEnter($event)"
-									(mouseleave)="onMouseLeave($event)"
-									(click)="openCustomizeViewModal()"				
-								>
-									<div class="items-center transition-colors flex justify-center max-w-full p-3 rounded-full box-border basis-auto flex-shrink-0 relative">
-										<div class="flex flex-col items-stretch basis-auto box-border flex-shrink-0">
-											<div class="w-6 h-6">
-												<i class="text-xl" [ngClass]="menuItem.icon"></i>
-											</div>
-										</div>
-										<div class="box-border flex flex-col justify-center items-center mt-1 self-center ml-5 mr-4 text-[20px] leading-6 break-words max-w-full min-w-0 overflow-hidden text-ellipsis">
-											<span class="inline">{{menuItem.text}}</span>
-										</div>
-									</div>
-								</a>
-							</ng-container>
-						</nav>
-					</div>
-					<div class="w-[90%] my-1 flex flex-col items-stretch basis-auto relative box-border flex-shrink-0">
-						<button 
-							class="min-w-[52px] min-h-[52px] transition-colors pl-8 pr-8 
-								rounded-full box-border flex relative basis-auto items-stretch flex-col 
-							"
-							[ngClass]="[customizeViewService.viewSettings.themeColor.bg, customizeViewService.viewSettings.themeColor.bgHover]"
-							type="button" 
-							aria-label="Tweet"
-						>
-							<div class="text-white font-bold text-[15px] leading-5 min-w-0 items-center justify-center flex-grow flex box-border flex-row text-center">
-								<span class="inline text-[17px] min-w-0 max-w-full leading-5">
-									Tweet
-								</span>
-							</div>
-						</button>
-					</div>
-				</div>
-				<div class="my-3 relative box-border flex flex-col items-stretch basis-auto flex-shrink-0">
-					<div class="relative box-border flex flex-col items-stretch basis-auto flex-shrink-0">
-						<div
-							class="items-center transition-colors flex flex-row p-3 rounded-full box-border basis-auto flex-shrink-0 relative
-								hover:bg-twitter-gray-btn-hover
-								dark:hover:bg-twitter-black-btn-hover"
-							aria-label="Account menu"
-							role="button"
-						>
-							<div class="items-stretch box-border flex flex-col basis-auto flex-shrink-0 relative">
-								<div class="w-10 h-10 overflow-visible block relative items-stretch basis-auto box-border flex-col flex-shrink-0">
-									<div class="w-full h-full rounded-full flex flex-col items-center justify-center">
-										<span class="text-white rounded-full box-border border-[#38444d] border w-full h-full flex flex-col items-center justify-center">
-											<i class="fa fa-user text-lg text-twitter-gray-100"></i>
-										</span>
-										<!-- <img
-											class="rounded-full w-full h-full box-border" 
-											src="https://pbs.twimg.com/profile_images/1260046816034254848/5cy9OTw__400x400.jpg"> -->
+									<div class="box-border hidden xl:flex flex-col justify-center items-center self-center ml-5 mr-4 text-[20px] leading-6 break-words max-w-full min-w-0 overflow-hidden text-ellipsis">
+										<span class="inline">{{menuItem.text}}</span>
 									</div>
 								</div>
+							</a>
+						</ng-container>
+					</nav>
+				</div>
+				<div class="w-[90%] my-1 flex flex-col items-center xl:items-stretch basis-auto relative box-border flex-shrink-0">
+					<button 
+						class="w-[45px] xl:w-full h-[45px] xl:min-h-[47px] transition-colors xl:pl-8 xl:pr-8 
+							rounded-full box-border flex relative basis-auto items-stretch flex-col 
+						"
+						[ngClass]="[customizeViewService.viewSettings.themeColor.bg, customizeViewService.viewSettings.themeColor.bgHover]"
+						type="button" 
+						aria-label="Tweet"
+					>
+						<div class="text-white font-bold text-[15px] leading-5 min-w-0 items-center justify-center flex-grow flex box-border flex-col text-center">
+							<span class="hidden xl:inline text-[17px] min-w-0 max-w-full leading-5">
+								Tweet
+							</span>
+							<i class="visible xl:hidden fas fa-feather"></i>
+						</div>
+					</button>
+				</div>
+			</div>
+			<div 
+				class="
+					flex flex-col items-center xl:items-stretch basis-auto flex-shrink-0
+					my-3 relative box-border
+				"
+			>
+				<div class="flex flex-col items-stretch basis-auto flex-shrink-0 relative box-border">
+					<div
+						class="
+							flex flex-row items-center p-[11px] 
+							rounded-full box-border basis-auto flex-shrink-0 relative
+							hover:bg-twitter-gray-btn-hover
+							dark:hover:bg-twitter-black-btn-hover
+						"
+						aria-label="Account menu"
+						role="button"
+					>
+						<div class="items-stretch box-border flex flex-col basis-auto flex-shrink-0 relative">
+							<div class="w-9 h-9 overflow-visible block relative items-stretch basis-auto box-border flex-col flex-shrink-0">
+								<div class="w-full h-full rounded-full flex flex-col items-center justify-center">
+									<span class="text-white rounded-full box-border border-[#38444d] border w-full h-full flex flex-col items-center justify-center">
+										<i class="fa fa-user text-lg text-twitter-gray-100"></i>
+									</span>
+									<!-- <img
+										class="rounded-full w-full h-full box-border" 
+										src="https://pbs.twimg.com/profile_images/1260046816034254848/5cy9OTw__400x400.jpg"> -->
+								</div>
 							</div>
-							<div class="flex-shrink max-w-full items-stretch box-border relative flex flex-col basis-auto">
-								<div class="flex-shrink max-w-full flex-grow mx-3 items-stretch box-border relative flex flex-col basis-auto">
-									<div class="flex flex-shrink max-w-full items-stretch box-border relative flex-col basis-auto">
-										<div class="font-bold text-[15px] text-twitter-black-100 dark:text-twitter-white-100">
-											<span>jesus eduardo</span>
-										</div>
+						</div>
+						<div class="hidden flex-shrink max-w-full items-stretch box-border relative xl:flex flex-col basis-auto">
+							<div class="flex-shrink max-w-full flex-grow mx-3 items-stretch box-border relative flex flex-col basis-auto">
+								<div class="flex flex-shrink max-w-full items-stretch box-border relative flex-col basis-auto">
+									<div class="font-bold text-[15px] text-twitter-black-100 dark:text-twitter-white-100">
+										<span>jesus eduardo</span>
 									</div>
-									<div class="flex flex-shrink max-w-full items-stretch box-border relative flex-col basis-auto">
-										<div class="font-normal text-[15px] text-twitter-gray-100">
-											<span>@jesus_edu22</span>
-										</div>
+								</div>
+								<div class="flex flex-shrink max-w-full items-stretch box-border relative flex-col basis-auto">
+									<div class="font-normal text-[15px] text-twitter-gray-100">
+										<span>@jesus_edu22</span>
 									</div>
 								</div>
 							</div>
@@ -131,5 +146,4 @@
 		</div>
 	</div>
 </header>
-<!-- *ngIf="showCustomizeViewModal" -->
 <app-customize-view *ngIf="showCustomizeViewModal" (closeModal)="showCustomizeViewModal = false"></app-customize-view>
