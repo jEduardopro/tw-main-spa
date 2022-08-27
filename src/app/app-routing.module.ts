@@ -10,6 +10,15 @@ const routes: Routes = [
 		loadChildren: () =>  import("./modules/landing/landing.module").then(m => m.LandingModule)
 	},
 	{
+		path: 'i/flow',
+		children: [
+			{
+				path: 'signup',
+				loadChildren: () => import("./modules/register/register.module").then(m => m.RegisterModule)
+			}
+		]
+	},
+	{
 		path: 'home',
 		canActivate: [AuthGuard],
 		loadChildren: () => import("./modules/home/home.module").then(m => m.HomeModule)

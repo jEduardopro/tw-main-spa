@@ -4,6 +4,7 @@ import { CommonModule } from '@angular/common';
 import { LandingRoutingModule } from './landing-routing.module';
 import { LandingPageComponent } from './components/landing-page/landing-page.component';
 import { RegisterModule } from "@app/modules/register";
+import { LoginModule } from '../login/login.module';
 
 @NgModule({
   declarations: [
@@ -12,7 +13,8 @@ import { RegisterModule } from "@app/modules/register";
   imports: [
 		CommonModule,
 		LandingRoutingModule,
-		RegisterModule
+		RegisterModule,
+		LoginModule
 	],
 	exports: [
 		LandingRoutingModule

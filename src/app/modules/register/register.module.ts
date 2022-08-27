@@ -11,6 +11,7 @@ import { SharedModule } from '@app/shared/';
 import { StoreModule } from '@ngrx/store';
 import { registerFeatureKey, registerReducer } from './store/reducers/register.reducer';
 import { RouterModule } from '@angular/router';
+import { RegisterRoutingModule } from './register-routing.module';
 
 
 
@@ -26,6 +27,7 @@ import { RouterModule } from '@angular/router';
 		CommonModule,
 		SharedModule,
 		RouterModule,
+		RegisterRoutingModule,
 		StoreModule.forFeature(registerFeatureKey, registerReducer),
 	],
 	exports: [

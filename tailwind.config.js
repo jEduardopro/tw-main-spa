@@ -32,7 +32,8 @@ module.exports = {
 				},
 				'twitter-black': {
 					'btn-hover': '#15202b',
-					'100': '#0F1419'
+					'100': '#0F1419',
+					'200': '#000D1A',
 				},
 				'twitter-gray': {
 					'btn-hover': '#EAEAEA',

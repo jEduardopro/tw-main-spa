@@ -21,6 +21,7 @@ import { CustomizeViewModule } from '../modules/customize-view/customize-view.mo
 import { AccountMenuComponent } from './components/account-menu/account-menu.component';
 
 import { ClickOutsideDirective } from './directives/click-outside.directive';
+import { IdentifierFieldComponent } from './components/forms/identifier-field/identifier-field.component';
 
 
 @NgModule({
@@ -38,6 +39,7 @@ import { ClickOutsideDirective } from './directives/click-outside.directive';
     SidebarColumnComponent,
     AccountMenuComponent,
     ClickOutsideDirective,
+    IdentifierFieldComponent,
   ],
   imports: [
 		CommonModule,
@@ -55,7 +57,8 @@ import { ClickOutsideDirective } from './directives/click-outside.directive';
 		PasswordFieldComponent,
 		ToasterComponent,
 		LayoutComponent,
-		ClickOutsideDirective
+		ClickOutsideDirective,
+		IdentifierFieldComponent
 	]
 })
 export class SharedModule { }

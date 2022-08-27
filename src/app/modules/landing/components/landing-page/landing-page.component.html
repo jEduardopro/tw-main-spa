@@ -19,8 +19,14 @@
 							<div class="text-3xl mb-9 font-bold text-white">
 								<span>Join Twitter today.</span>
 							</div>
-							<app-sign-up-button (openSignUpForm)="openSignUpForm = !openSignUpForm"></app-sign-up-button>
+							<app-sign-up-button (openSignUpForm)="openSignUpForm = !openSignUpForm"></app-sign-up-button>							
+							<div class="font-bold text-white text-md mt-10 mb-3">
+								<span>Already have an account?</span>
+							</div>							
+							<app-login-button (openLoginForm)="openLoginForm = !openLoginForm"></app-login-button>
+
 							<app-sign-up-stepper-form *ngIf="openSignUpForm" (close)="openSignUpForm = false"></app-sign-up-stepper-form>
+							<app-login-form ></app-login-form>
 						</div>
 					</div>
 					<div class="left l-ilustration h-full justify-center flex-1 flex relative overflow-hidden flex-col">

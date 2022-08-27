@@ -1,0 +1,16 @@
+<div>
+	<label for="identifier" class="text-white font-bold text-sm mb-1 block">Email, phone, or username</label>
+	<input
+		id="identifier"
+		class="tw_input_sky"
+		[ngClass]="{'error': identifier.invalid && (identifier.dirty || identifier.touched)}"
+		type="text" 
+		[formControl]="identifier"
+		placeholder="Email, phone or username"
+	/>
+</div>
+<div *ngIf="identifier.invalid && (identifier.dirty || identifier.touched)">
+	<span *ngIf="identifier.errors?.['required']" class="block text-red-500 text-sm">
+		Enter your email, phone or username
+	</span>
+</div>
