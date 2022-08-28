@@ -6,6 +6,8 @@ import { IdentifierComponent } from './components/login-form/form-screens/identi
 import { SignInComponent } from './components/login-form/form-screens/sign-in/sign-in.component';
 import { SharedModule } from '@app/shared/shared.module';
 import { RouterModule } from '@angular/router';
+import { StoreModule } from '@ngrx/store';
+import { loginFeatureKey, loginReducer } from './store/reducers/login.reducer';
 
 
 
@@ -19,7 +21,8 @@ import { RouterModule } from '@angular/router';
   imports: [
 		CommonModule,
 		RouterModule,
-		SharedModule
+		SharedModule,
+		StoreModule.forFeature(loginFeatureKey, loginReducer)
 	],
 	exports: [
 		LoginButtonComponent,

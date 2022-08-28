@@ -22,6 +22,7 @@ import { AccountMenuComponent } from './components/account-menu/account-menu.com
 
 import { ClickOutsideDirective } from './directives/click-outside.directive';
 import { IdentifierFieldComponent } from './components/forms/identifier-field/identifier-field.component';
+import { HttpClientModule } from '@angular/common/http';
 
 
 @NgModule({
@@ -46,6 +47,7 @@ import { IdentifierFieldComponent } from './components/forms/identifier-field/id
 		ReactiveFormsModule,
 		CustomizeViewModule,
 		RouterModule,
+		HttpClientModule,
 		StoreModule.forFeature(httpErrorFeatureKey, httpErrorReducer)
 	],
 	exports: [

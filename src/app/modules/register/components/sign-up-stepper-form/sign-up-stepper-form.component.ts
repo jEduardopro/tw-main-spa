@@ -23,7 +23,6 @@ export class SignUpStepperFormComponent implements OnInit {
 	) {}
 
 	ngOnInit(): void {
-		console.log(this.router.url);
 		if (this.router.url == '/i/flow/signup') {
 			this.redirectToLandingAfterClose = true
 		}
@@ -31,8 +30,8 @@ export class SignUpStepperFormComponent implements OnInit {
 
 	closeForm() {
 		this.close.emit()
+		this.store.dispatch(registerActions.setUserFormData({userFormData: {...this.userFormData} }))
 		if (this.redirectToLandingAfterClose) {
-			this.store.dispatch(registerActions.setUserFormData({userFormData: {...this.userFormData} }))
 			this.router.navigateByUrl("/")
 		}
 	}

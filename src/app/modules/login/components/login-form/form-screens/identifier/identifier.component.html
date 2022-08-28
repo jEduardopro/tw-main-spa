@@ -8,12 +8,12 @@
 		</div>
 	</div>
 	<div class="my-8">
-		<!-- (click)="registerUser()" -->
 		<button 
 			class="w-full flex flex-col px-10 justify-center items-center text-black py-2 rounded-full font-bold" 
 			role="button" 
 			[ngClass]="[buttonStatusClasses]"
-			[disabled]="mustBeDisabled" 
+			[disabled]="mustBeDisabled"
+			(click)="findAccountByUserIdentifier()"
 		>
 			<span class="inline-block">
 				<span>Next </span>
@@ -41,7 +41,6 @@
 			role="button" 
 			type="button" 
 		>
-			<!-- (click)="fireLoginForm()" -->
 			<div class="w-full flex flex-row flex-grow justify-center items-center leading-5">
 				<span class="text-sm">Forgot password?</span>
 			</div>

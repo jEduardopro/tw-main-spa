@@ -26,7 +26,7 @@
 							<app-login-button (openLoginForm)="openLoginForm = !openLoginForm"></app-login-button>
 
 							<app-sign-up-stepper-form *ngIf="openSignUpForm" (close)="openSignUpForm = false"></app-sign-up-stepper-form>
-							<app-login-form ></app-login-form>
+							<app-login-form *ngIf="openLoginForm" (close)="openLoginForm = false"></app-login-form>
 						</div>
 					</div>
 					<div class="left l-ilustration h-full justify-center flex-1 flex relative overflow-hidden flex-col">

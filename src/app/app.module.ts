@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { HttpErrorInterceptor } from './core/interceptors/http-error.interceptor';
+import { HttpAuthInterceptor } from './core/interceptors/http-auth.interceptor';
 
 import { StoreModule } from '@ngrx/store';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
@@ -24,7 +25,10 @@ import { SharedModule } from '@app/shared/';
 		StoreModule.forRoot({}, {}),
 		StoreDevtoolsModule.instrument({ maxAge: 25, logOnly: environment.production })
   ],
-  providers: [{ provide: HTTP_INTERCEPTORS, useClass: HttpErrorInterceptor, multi: true}],
+	providers: [
+		{ provide: HTTP_INTERCEPTORS, useClass: HttpErrorInterceptor, multi: true },
+		{ provide: HTTP_INTERCEPTORS, useClass: HttpAuthInterceptor, multi : true}
+	],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

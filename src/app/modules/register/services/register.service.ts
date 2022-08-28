@@ -1,6 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { environment } from '@env/environment';
+import { Observable } from 'rxjs';
 import { RegisterResponse } from '../interfaces/register-response.interface';
 import { UserFormData } from '../models/user-form.model';
 
@@ -16,7 +17,7 @@ export class RegisterService {
 	) { }
 
 
-	register(user: UserFormData) {
+	register(user: UserFormData): Observable<RegisterResponse> {
 		
 		return this.http.post<RegisterResponse>(`${this.apiUrl}/auth/register`, user);
 	}

@@ -31,15 +31,16 @@ export class HttpAuthInterceptor implements HttpInterceptor {
 			})
 		}
 
-		return next.handle(req).pipe(
-			catchError((err: HttpErrorResponse) => {
+		// return next.handle(req).pipe(
+		// 	catchError((err: HttpErrorResponse) => {
 
-				if (err.status === 401) {
-					this.router.navigateByUrl("/")
-				}
+		// 		if (err.status === 401) {
+		// 			this.router.navigateByUrl("/")
+		// 		}
 
-				throw new Error(err.message)
-			})
-		)
+		// 		throw new Error(err.message)
+		// 	})
+		// )
+		return next.handle(req)
   }
 }

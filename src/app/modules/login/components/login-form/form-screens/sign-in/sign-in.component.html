@@ -1,1 +1,54 @@
-<p>sign-in works!</p>
+<div class="min-w-[480px] max-w-[480px] mx-auto flex flex-col flex-shrink-0 px-7 flex-grow justify-between">
+	<div class="flex flex-col">
+		<div class="mb-8 text-3xl font-bold">
+			<h2 class="text-white">Enter your password</h2>
+		</div>
+		<div class="flex flex-col">
+			<div class="mb-5">
+				<label class="text-white font-bold text-sm mb-1 block">Username</label>
+				<div class="flex flex-grow h-14 p-2 items-center bg-twitter-black-btn-hover rounded-md">
+					<span class="text-twitter-gray-200">{{username}}</span>
+				</div>
+			</div>
+			<div>
+				<app-password-field [value]="login.password!" (valueChange)="updateUserPassword($event)"></app-password-field>
+				<span 
+					class="text-twitter-sky-100 text-sm hover:underline ml-2 mt-1"
+					role="button"
+				>
+					Forgot password?
+				</span>
+			</div>
+		</div>
+	</div>
+	<div>
+		<div class="mb-5">
+			<button 
+				class="w-full flex flex-col px-10 justify-center items-center text-black py-3 rounded-full font-bold" 
+				role="button" 
+				[ngClass]="[buttonStatusClasses]"
+				[disabled]="mustBeDisabled"
+				(click)="signIn()"
+			>
+				<span class="inline-block">
+					<span>Log in </span>
+					<i *ngIf="loading" class="ml-1 fa fa-circle-notch fa-spin"></i>
+				</span>
+			</button>
+		</div>
+		<div>
+			<div class="w-full flex flex-row flex-grow">
+				<span class="text-twitter-gray-100 mr-1 text-sm">
+					Don't have an account?
+				</span>
+				<span 
+					class="text-twitter-sky-100 text-sm hover:underline"
+					role="button"
+					(click)="fireSignUpFlow()"
+				>
+					Sign up
+				</span>
+			</div>
+		</div>
+	</div>
+</div>

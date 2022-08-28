@@ -11,18 +11,24 @@ import { Store } from '@ngrx/store';
 import { HttpErrorState } from '@app/shared/store/reducers/http-error.reducer';
 import { setFieldErrors } from '@app/shared/store/actions/http-error.actions';
 import { ToastService } from '@app/shared/services/toast.service';
+import { Router } from '@angular/router';
 
 @Injectable()
 export class HttpErrorInterceptor implements HttpInterceptor {
 
 	constructor(
 		private store: Store<HttpErrorState>,
-		private toastService: ToastService
+		private toastService: ToastService,
+		private router: Router,
 	) {}
 
   intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
 		return next.handle(request).pipe(
-			catchError((error: HttpErrorResponse) => {				
+			catchError((error: HttpErrorResponse) => {
+				if (error.status === 401) {
+					this.router.navigateByUrl("/")
+				}
+				
 				const { errors, message } = error.error
 				if (errors) {
 					this.store.dispatch(setFieldErrors({fieldErrors: errors}))

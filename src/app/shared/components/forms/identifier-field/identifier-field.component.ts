@@ -28,6 +28,6 @@ export class IdentifierFieldComponent implements OnInit {
 
 		})
 
-  }
+	}
 
 }
