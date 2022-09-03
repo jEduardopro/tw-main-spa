@@ -13,6 +13,8 @@ export class EmailFieldComponent implements OnInit, OnDestroy {
 
 	@Input() value!: string;
 	@Output() valueChange = new EventEmitter<string>();
+	@Output() onEnter = new EventEmitter<void>();
+
 
 	@Input() error: any;
 
@@ -33,6 +35,10 @@ export class EmailFieldComponent implements OnInit, OnDestroy {
 	ngOnDestroy(): void {
 		this.email.setValue('')
 		this.valueChange.emit('')
+	}
+
+	emitPressEnterKey() {
+		this.onEnter.emit()
 	}
 
 }

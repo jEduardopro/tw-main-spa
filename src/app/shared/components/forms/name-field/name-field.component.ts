@@ -12,6 +12,7 @@ export class NameFieldComponent implements OnInit, AfterViewInit {
 	name = new FormControl('', [Validators.required])
 	@Input() value!: string;
 	@Output() valueChange = new EventEmitter<string>();
+	@Output() onEnter = new EventEmitter<void>();
 
 	@Input() error: any;
 
@@ -36,5 +37,9 @@ export class NameFieldComponent implements OnInit, AfterViewInit {
 
 	ngAfterViewInit(): void {
 		this.inputName.nativeElement.focus()
+	}
+
+	emitPressEnterKey() {
+		this.onEnter.emit()
 	}
 }

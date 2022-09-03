@@ -36,6 +36,7 @@ export class ToastService {
 	{
 		this.toast({ type: 'success', title, message, timeout, position })
 	}
+	
 	toastInfo({ title, message, timeout, position }:ToastPayload)
 	{
 		this.toast({ type: 'info', title, message, timeout, position })

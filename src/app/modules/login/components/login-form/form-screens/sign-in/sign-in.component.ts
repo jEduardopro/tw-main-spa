@@ -7,6 +7,7 @@ import { AppState } from '@app/store/app.reducers';
 import { Store } from '@ngrx/store';
 import { firstValueFrom, Subscription } from 'rxjs';
 import { LoginService } from '../../../../services/login.service';
+import * as httpErrorSelectors from '@app/shared/store/selectors/http-error.selectors';
 
 @Component({
   selector: 'app-sign-in',
@@ -17,6 +18,8 @@ import { LoginService } from '../../../../services/login.service';
 export class SignInComponent implements OnInit, OnDestroy {
 
 	login: LoginForm = new LoginForm();
+	errors: any = {};
+
 	username!: string
 	loading = false;
 
@@ -38,8 +41,20 @@ export class SignInComponent implements OnInit, OnDestroy {
 		const username$ = this.store.select(loginSelectors.selectUsername).subscribe(username => {
 			this.username = username
 		})
+		const flow_token$ = this.store.select(loginSelectors.selectFlowToken).subscribe(flow_token => {
+			this.login.flow_token = flow_token
+		})
+		const errors$ = this.store.select(httpErrorSelectors.selectFieldErrors).subscribe(fieldErrors => {
+			if (fieldErrors) {
+				this.errors = fieldErrors
+				return;
+			}
+			this.errors = {}
+		})
 		this.subscriptionStore.add(user_identifier$)
 		this.subscriptionStore.add(username$)
+		this.subscriptionStore.add(flow_token$)
+		this.subscriptionStore.add(errors$)
 	}
 
 	ngOnDestroy(): void {
@@ -60,10 +75,6 @@ export class SignInComponent implements OnInit, OnDestroy {
 		this.login.password = value;
 	}
 
-	fireSignUpFlow() {
-		this.router.navigateByUrl("/i/flow/signup")
-	}
-
 	async signIn() {
 		if (this.mustBeDisabled) {
 			return;
@@ -71,17 +82,24 @@ export class SignInComponent implements OnInit, OnDestroy {
 
 		this.loading = true;
 		try {
-			
-			const {user, token} = await firstValueFrom(this.loginService.login(this.login))
+
+			const { user, token } = await firstValueFrom(this.loginService.login(this.login))
 			// console.log(response);
 			this.authService.saveAuthenticatedUser(user)
 			this.authService.saveTokenInLocalStorage(token)
 			this.loginFinished.emit();
 			this.router.navigateByUrl("/home")
 		} catch (error) {
-			
+
 		}
 		this.loading = false
 	}
+	
+	firePasswordResetFlow() {
+		this.router.navigateByUrl("/i/flow/password_reset")
+	}
 
+	fireSignUpFlow() {
+		this.router.navigateByUrl("/i/flow/signup")
+	}
 }

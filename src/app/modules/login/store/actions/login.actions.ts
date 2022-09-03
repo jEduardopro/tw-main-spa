@@ -7,6 +7,11 @@ export const setUserIdentifier = createAction(
 );
 
 export const setUsername = createAction(
-	'[LOGIN] Set Ussername',
+	'[LOGIN] Set Username',
 	props<{username: string}>()
+);
+
+export const setFlowToken = createAction(
+	'[LOGIN] Set Flow Token',
+	props<{flow_token: string}>()
 );

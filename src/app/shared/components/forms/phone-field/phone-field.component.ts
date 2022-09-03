@@ -12,6 +12,8 @@ export class PhoneFieldComponent implements OnInit, OnDestroy {
 	phone = new FormControl('', [Validators.required, Validators.pattern("^([0-9]{3})?[-]?([0-9]{3})[-]?([0-9]{4})$")])
 	@Input() value!: string;
 	@Output() valueChange = new EventEmitter<string>();
+	@Output() onEnter = new EventEmitter<void>();
+
 
 	@Input() error: any;
 
@@ -41,6 +43,10 @@ export class PhoneFieldComponent implements OnInit, OnDestroy {
 			return false;
 		}
 		return true
+	}
+
+	emitPressEnterKey() {
+		this.onEnter.emit()
 	}
 
 }

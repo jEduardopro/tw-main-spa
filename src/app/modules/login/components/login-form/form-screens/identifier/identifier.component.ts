@@ -6,6 +6,7 @@ import { firstValueFrom } from 'rxjs';
 import { Store } from '@ngrx/store';
 import { AppState } from '@app/store/app.reducers';
 import * as loginActions from '@app/modules/login/store/actions/login.actions'
+import { LOGIN_BEGIN } from '@app/core/utils/tasks';
 
 @Component({
   selector: 'app-identifier',
@@ -50,16 +51,21 @@ export class IdentifierComponent implements OnInit {
 		this.loading = true
 
 		try {
-			const { account_info: { username } } = await firstValueFrom(this.findAccountService.find(this.login.user_identifier!))
+			const { account_info: { username }, flow_token } = await firstValueFrom(this.findAccountService.find(this.login.user_identifier!, LOGIN_BEGIN))
 			// console.log({account_info});
 			this.store.dispatch(loginActions.setUserIdentifier({user_identifier: this.login.user_identifier!}))
 			this.store.dispatch(loginActions.setUsername({username}))
+			this.store.dispatch(loginActions.setFlowToken({flow_token}))
 			this.showNextScreen.emit();
 
 		} catch (error) {
 
 		}
 		this.loading = false
+	}
+
+	firePasswordResetFlow() {
+		this.router.navigateByUrl("/i/flow/password_reset")
 	}
 
 	fireSignUpFlow() {

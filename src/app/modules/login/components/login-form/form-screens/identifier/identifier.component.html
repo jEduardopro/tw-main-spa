@@ -4,7 +4,12 @@
 			<h2 class="text-white">Sign in to Twitter</h2>
 		</div>
 		<div class="flex flex-col">
-			<app-identifier-field [value]="login.user_identifier!" (valueChange)="updateUserIdentifier($event)"></app-identifier-field>
+			<app-identifier-field 
+				[value]="login.user_identifier!" 
+				(valueChange)="updateUserIdentifier($event)"
+				(onEnter)="findAccountByUserIdentifier()"
+			>
+			</app-identifier-field>
 		</div>
 	</div>
 	<div class="my-8">
@@ -39,7 +44,8 @@
 					transition-colors
 				" 
 			role="button" 
-			type="button" 
+			type="button"
+			(click)="firePasswordResetFlow()" 
 		>
 			<div class="w-full flex flex-row flex-grow justify-center items-center leading-5">
 				<span class="text-sm">Forgot password?</span>

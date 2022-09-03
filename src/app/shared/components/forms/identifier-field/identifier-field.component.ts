@@ -12,6 +12,7 @@ export class IdentifierFieldComponent implements OnInit {
 	identifier = new FormControl('', [Validators.required])
 	@Input() value!: string;
 	@Output() valueChange = new EventEmitter<string>();
+	@Output() onEnter = new EventEmitter<void>();
 
   constructor() { }
 
@@ -28,6 +29,10 @@ export class IdentifierFieldComponent implements OnInit {
 
 		})
 
+	}
+
+	emitPressEnterKey() {
+		this.onEnter.emit()
 	}
 
 }

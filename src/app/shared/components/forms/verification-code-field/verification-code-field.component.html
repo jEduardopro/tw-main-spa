@@ -9,6 +9,7 @@
 		[formControl]="code" 
 		placeholder="Verification code"
 		autofocus
+		(keydown.enter)="emitPressEnterKey()"
 	/>
 </div>
 <div *ngIf="code.invalid && (code.dirty || code.touched || error)">

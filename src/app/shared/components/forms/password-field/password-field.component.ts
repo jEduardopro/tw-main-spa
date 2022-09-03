@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output, OnDestroy } from '@angular/core';
 import { FormControl, Validators } from '@angular/forms';
 
 @Component({
@@ -7,12 +7,14 @@ import { FormControl, Validators } from '@angular/forms';
   styles: [
   ]
 })
-export class PasswordFieldComponent implements OnInit {
+export class PasswordFieldComponent implements OnInit, OnDestroy{
 
 	password = new FormControl('', [Validators.required, Validators.minLength(8)])
 
 	@Input() value!: string;
 	@Output() valueChange = new EventEmitter<string>();
+	@Output() onEnter = new EventEmitter<void>();
+
 
 	@Input() error: any;
 
@@ -33,6 +35,10 @@ export class PasswordFieldComponent implements OnInit {
 	ngOnDestroy(): void {
 		this.password.setValue('')
 		this.valueChange.emit('')
+	}
+
+	emitPressEnterKey() {
+		this.onEnter.emit()
 	}
 
 }

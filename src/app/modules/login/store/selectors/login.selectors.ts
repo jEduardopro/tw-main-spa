@@ -13,3 +13,8 @@ export const selectUsername = createSelector(
 	loginFeatureState,
 	(state) => state.username
 );
+
+export const selectFlowToken = createSelector(
+	loginFeatureState,
+	(state) => state.flow_token
+);

@@ -8,6 +8,7 @@ export interface AccountInfoFound {
 export interface FindAccountResponse {
 
 	account_info: AccountInfoFound,
-	message: string
+	message: string,
+	flow_token: string
 	
 }

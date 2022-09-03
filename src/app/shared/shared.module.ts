@@ -23,6 +23,8 @@ import { AccountMenuComponent } from './components/account-menu/account-menu.com
 import { ClickOutsideDirective } from './directives/click-outside.directive';
 import { IdentifierFieldComponent } from './components/forms/identifier-field/identifier-field.component';
 import { HttpClientModule } from '@angular/common/http';
+import { SvgLogoComponent } from './components/svg-logo/svg-logo.component';
+import { PasswordConfirmationFieldComponent } from './components/forms/password-confirmation-field/password-confirmation-field.component';
 
 
 @NgModule({
@@ -41,6 +43,8 @@ import { HttpClientModule } from '@angular/common/http';
     AccountMenuComponent,
     ClickOutsideDirective,
     IdentifierFieldComponent,
+    SvgLogoComponent,
+    PasswordConfirmationFieldComponent,
   ],
   imports: [
 		CommonModule,
@@ -60,7 +64,9 @@ import { HttpClientModule } from '@angular/common/http';
 		ToasterComponent,
 		LayoutComponent,
 		ClickOutsideDirective,
-		IdentifierFieldComponent
+		IdentifierFieldComponent,
+		SvgLogoComponent,
+		PasswordConfirmationFieldComponent
 	]
 })
 export class SharedModule { }

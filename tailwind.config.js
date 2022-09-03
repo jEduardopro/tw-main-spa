@@ -39,6 +39,9 @@ module.exports = {
 					'btn-hover': '#EAEAEA',
 					'100': '#536471',
 					'200': '#38444d'
+				},
+				'twitter-overlay': {
+					'100': '#5b708366'
 				}
 			}
 		},

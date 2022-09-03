@@ -5,6 +5,7 @@ import { LandingRoutingModule } from './landing-routing.module';
 import { LandingPageComponent } from './components/landing-page/landing-page.component';
 import { RegisterModule } from "@app/modules/register";
 import { LoginModule } from '../login/login.module';
+import { SharedModule } from '../../shared/shared.module';
 
 @NgModule({
   declarations: [
@@ -12,6 +13,7 @@ import { LoginModule } from '../login/login.module';
   ],
   imports: [
 		CommonModule,
+		SharedModule,
 		LandingRoutingModule,
 		RegisterModule,
 		LoginModule

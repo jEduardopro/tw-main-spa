@@ -8,6 +8,7 @@
 		type="text" 
 		[formControl]="name"
 		placeholder="Name"
+		(keydown.enter)="emitPressEnterKey()"
 	/>
 </div>
 <div *ngIf="name.invalid && (name.dirty || name.touched || error)">

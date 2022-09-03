@@ -12,6 +12,8 @@ export class VerificationCodeFieldComponent implements OnInit, OnDestroy, AfterV
 	code = new FormControl('', [Validators.required, Validators.maxLength(8)])
 	@Input() value!: string;
 	@Output() valueChange = new EventEmitter<string>();
+	@Output() onEnter = new EventEmitter<void>();
+
 
 	@Input() error: any;
 
@@ -39,5 +41,9 @@ export class VerificationCodeFieldComponent implements OnInit, OnDestroy, AfterV
 	ngOnDestroy(): void {
 		this.code.setValue('')
 		this.valueChange.emit('')
+	}
+
+	emitPressEnterKey() {
+		this.onEnter.emit()
 	}
 }

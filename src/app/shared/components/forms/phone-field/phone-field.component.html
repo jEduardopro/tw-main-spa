@@ -8,6 +8,7 @@
 		[formControl]="phone"
 		placeholder="Phone"
 		(keypress)="restrictSpace($event)"
+		(keydown.enter)="emitPressEnterKey()"
 	/>
 </div>
 <div *ngIf="phone.invalid && (phone.dirty || phone.touched || error)">
