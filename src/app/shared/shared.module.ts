@@ -25,26 +25,32 @@ import { IdentifierFieldComponent } from './components/forms/identifier-field/id
 import { HttpClientModule } from '@angular/common/http';
 import { SvgLogoComponent } from './components/svg-logo/svg-logo.component';
 import { PasswordConfirmationFieldComponent } from './components/forms/password-confirmation-field/password-confirmation-field.component';
+import { UserProfileImageComponent } from './components/user-profile-image/user-profile-image.component';
+import { StickyTopSectionComponent } from './components/sticky-top-section/sticky-top-section.component';
+import { NewTweetComponent } from './components/new-tweet/new-tweet.component';
 
 
 @NgModule({
   declarations: [
-    NameFieldComponent,
-    EmailFieldComponent,
-    DateBirthSelectComponent,
-    PhoneFieldComponent,
-    VerificationCodeFieldComponent,
-    ToasterComponent,
-    ToastComponent,
-    PasswordFieldComponent,
-    LayoutComponent,
-    SidebarMenuComponent,
-    SidebarColumnComponent,
     AccountMenuComponent,
     ClickOutsideDirective,
+    DateBirthSelectComponent,
+    EmailFieldComponent,
     IdentifierFieldComponent,
-    SvgLogoComponent,
+    LayoutComponent,
+    NameFieldComponent,
     PasswordConfirmationFieldComponent,
+    PasswordFieldComponent,
+    PhoneFieldComponent,
+    SidebarColumnComponent,
+    SidebarMenuComponent,
+    SvgLogoComponent,
+    ToastComponent,
+    ToasterComponent,
+    UserProfileImageComponent,
+    VerificationCodeFieldComponent,
+    StickyTopSectionComponent,
+    NewTweetComponent,
   ],
   imports: [
 		CommonModule,
@@ -55,18 +61,21 @@ import { PasswordConfirmationFieldComponent } from './components/forms/password-
 		StoreModule.forFeature(httpErrorFeatureKey, httpErrorReducer)
 	],
 	exports: [
-		NameFieldComponent,
-		EmailFieldComponent,
-		PhoneFieldComponent,
-		DateBirthSelectComponent,
-		VerificationCodeFieldComponent,
-		PasswordFieldComponent,
-		ToasterComponent,
-		LayoutComponent,
 		ClickOutsideDirective,
+		DateBirthSelectComponent,
+		EmailFieldComponent,
 		IdentifierFieldComponent,
+		LayoutComponent,
+		NameFieldComponent,
+		PasswordConfirmationFieldComponent,
+		PasswordFieldComponent,
+		PhoneFieldComponent,
 		SvgLogoComponent,
-		PasswordConfirmationFieldComponent
+		ToasterComponent,
+		UserProfileImageComponent,
+		VerificationCodeFieldComponent,
+		StickyTopSectionComponent,
+		NewTweetComponent
 	]
 })
 export class SharedModule { }
