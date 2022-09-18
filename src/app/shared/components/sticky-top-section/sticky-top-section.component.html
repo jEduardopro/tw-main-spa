@@ -1,3 +1,8 @@
-<div class="flex flex-col items-stretch relative bg-[rgba(0, 0, 0, 0.65)]" style="backdrop-filter: blur(12px);">
+<div
+	(click)="goToTop()"
+	class="flex flex-col items-stretch relative bg-[rgba(0, 0, 0, 0.65)]" 
+	style="backdrop-filter: blur(12px);"
+	role="button"
+>
 	<ng-content select=".stickyContent"></ng-content>
 </div>

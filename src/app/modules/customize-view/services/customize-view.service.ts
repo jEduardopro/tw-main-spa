@@ -16,6 +16,7 @@ export class CustomizeViewService {
 
 	private accentColorDefault: AccentColor = {
 		color: 'text-twitter-accent-sky',
+		hex: '#1D9BF0',
 		bg: 'bg-twitter-accent-sky',
 		bgHover: 'hover:bg-twitter-accent-sky200',
 		border: 'border-twitter-accent-sky',

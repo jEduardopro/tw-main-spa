@@ -3,6 +3,8 @@ import { CommonModule } from '@angular/common';
 import { ReactiveFormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 
+import { MentionModule } from 'angular-mentions';
+
 import { StoreModule } from '@ngrx/store';
 import { httpErrorFeatureKey, httpErrorReducer } from './store/reducers/http-error.reducer';
 
@@ -54,6 +56,7 @@ import { NewTweetComponent } from './components/new-tweet/new-tweet.component';
   ],
   imports: [
 		CommonModule,
+		MentionModule,
 		ReactiveFormsModule,
 		CustomizeViewModule,
 		RouterModule,

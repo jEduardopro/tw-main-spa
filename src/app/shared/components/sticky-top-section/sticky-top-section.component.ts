@@ -11,6 +11,16 @@ export class StickyTopSectionComponent implements OnInit {
   constructor() { }
 
   ngOnInit(): void {
-  }
+	}
+	
+	goToTop() {
+		const contentColumns = document.getElementById('contentColumns')
+		if (!contentColumns) {
+			return;
+		}
+		contentColumns.scrollIntoView({behavior: 'smooth', block: 'start'});
+		
+		
+	}
 
 }

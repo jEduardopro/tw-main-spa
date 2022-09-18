@@ -31,55 +31,83 @@
 							<!-- text content and button -->
 							<div class="static pt-1 flex flex-col justify-center basis-0 flex-grow">
 								<!-- text -->
-								<div class="z-[1] flex flex-col items-stretch basis-auto relative box-border">
-									<label class="flex flex-row flex-grow cursor-text flex-1">
-										<div class="flex flex-col flex-shrink flex-grow">
-											<div 
-												class="leading-6 text-[18px] font-normal text-twitter-black-100 dark:text-twitter-white-100 flex min-w-0"							
-												dir="auto"
-												style="word-wrap: break-word; white-space: pre-wrap;"
-											>
-												<div class="py-[11px] inline-flex w-full flex-col">
-													<div class="draftjs-styles">
-														<div class="max-h-[660px] min-h-[22px] text-inherit outline-none box-border">
-															<div class="draftEditorRoot w-full relative select-none">
-																<div *ngIf="showPlaceholder" class="draftEditorPlaceholder text-[#71767b] absolute -left-1 top-0 py-[2px] select-none">
-																	<div>
-																		What's happening?
-																	</div>
-																</div>
-																<div class="draftEditor-editorContainer relative">																				
-																	<div
-																	 	#draftEditorContent
-																		class="public-DraftEditor-content" 
-																		aria-label="Tweet text" 
-																		aria-multiline="true" 
-																		contenteditable="true" 
-																		role="textbox" 
-																		spellcheck="true" 
-																		tabindex="0"																		
-																		style="outline: none; user-select: text; white-space: pre-wrap; overflow-wrap: break-word;"
-																		(input)="updateTweet($event)"
-																	>
+								<div class="z-[1] flex flex-col items-stretch basis-auto relative box-border pt-2 pb-1 border-b border-twitter-white-200 dark:border-twitter-gray-200">
+									<div>
+										<span *ngIf="shouldBeDisabled" aria-label="Tweet Placeholder" class="absolute left-[1px] font-medium top-3 text-twitter-gray-200 dark:text-twitter-gray-100">
+											What's happening?
+										</span>
+										<div
+											class="w-full relative box-border min-h-[40px] max-h-[300px] overflow-y-auto pt-1 text-twitter-gray-200 dark:text-twitter-white-100"
+											aria-activedescendant="typeaheadFocus-0.3054431271824538" 
+											aria-autocomplete="list"
+											aria-controls="typeaheadDropdownWrapped-4" 
+											aria-label="Tweet text"
+											aria-multiline="true" 
+											contenteditable="true"
+											role="textbox" 
+											spellcheck="true" 
+											tabindex="0" 
+											no-focustrapview-refocus="true"
+											style="outline: none; user-select: text; white-space: pre-wrap; overflow-wrap: break-word;"
+											(keyup)="updateTweet($event)"
+										>
+										</div>
+									</div>
+									<!-- preview photos -->
+									<div id="previewPhotos" class="flex flex-wrap flex-row flex-grow py-1 items-center justify-between">
 
-																	</div>
-																	<!-- <span #myTextArea																		
-																		id="hello"
-																		class="hello h-20 border p-4 w-full"
-																		contenteditable 
-																		(keyup)="getSelectionCursor($event)"
-																		(keydown.backspace)="jumpCursor()"
-																		[textContent]="tweet"																		
-																	>
-																	</span> -->
-																</div>
-															</div>
-														</div>
-													</div>
+									</div>
+								</div>
+								<div class="flex flex-row w-full items-center py-2">
+									<div class="flex flex-row flex-grow items-center justify-start">
+										<button 
+											class="rounded-full w-8 h-8 flex flex-col justify-center text-center items-center hover:bg-slate-100 dark:hover:bg-twitter-black-btn-hover"
+											type="button"
+											title="Add photo"
+											(click)="openFileDialog()"
+										>
+											<input type="file" id="tweetInputMedia" multiple accept="image/*" class="opacity-0 w-0 h-0" style="visibility: hidden;">
+											<i class="fas fa-image" [ngClass]="customizeViewService.themeColor.color"></i>
+										</button>
+									</div>
+									<div class="flex flex-row flex-shrink-0 flex-grow items-center justify-end">
+										<div class="flex flex-col justify-center items-stretch">
+											<div 
+												class="circle-progressbar transition-all"
+												[attr.aria-valuenow]="circleProgressCharacters" 
+												role="progressbar" 
+												aria-valuemin="0" 
+												aria-valuemax="100" 
+											>
+												<div 
+													*ngIf="remaining <= 20" 
+													class="remaining-value text-xs absolute"
+													[ngClass]="[remaining < 0 ? 'text-[#F4212E]': 'text-twitter-gray-100']"
+												>
+													{{remaining}}
 												</div>
 											</div>
 										</div>
-									</label>
+										<div class="flex flex-col justify-center items-stretch ml-3">
+											<button 
+												class="w-[69px] h-8 flex flex-col text-center justify-center items-center rounded-full transition-colors"
+												[ngClass]="[
+													customizeViewService.viewSettings.themeColor.bg, 
+													customizeViewService.viewSettings.themeColor.bgHover,
+													(shouldBeDisabled || remaining < 0) ? 'opacity-50 cursor-not-allowed' : ''
+												]"
+												[disabled]="(shouldBeDisabled || remaining < 0)"
+												type="button" 
+												aria-label="Tweet"
+											>
+												<div class="text-white font-bold text-[15px] leading-4 min-w-0 items-center justify-center flex-grow flex box-border flex-col text-center">
+													<span class="text-[14px] min-w-0 max-w-full leading-4">
+														Tweet
+													</span>
+												</div>
+											</button>
+										</div>
+									</div>
 								</div>
 							</div>
 						</div>

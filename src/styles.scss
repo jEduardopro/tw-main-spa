@@ -8,4 +8,28 @@
 
 body {
 	font-family: 'Open Sans', sans-serif;
+	overflow-y: hidden;
+}
+
+.circle-progressbar{
+	position: relative;
+	height: 20px;
+	width: 20px;
+	border-radius: 50%;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	&::before{
+		content: '';
+		position: absolute;
+		height: 84%;
+		width: 84%;
+		background-color: white;
+		border-radius: 50%;
+	}
+}
+
+.dark .dark\:bg-black .circle-progressbar::before{
+	content: '';
+	background-color: black;
 }
