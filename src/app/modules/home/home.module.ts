@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { TimelineComponent } from './components/timeline/timeline.component';
 import { HomeRoutingModule } from './home-routing.module';
 import { SharedModule } from '../../shared/shared.module';
+import { TweetsModule } from '../tweets/tweets.module';
 
 
 
@@ -13,6 +14,7 @@ import { SharedModule } from '../../shared/shared.module';
   imports: [
 		CommonModule,
 		SharedModule,
+		TweetsModule,
 		HomeRoutingModule
 	],
 	exports: [

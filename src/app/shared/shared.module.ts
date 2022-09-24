@@ -3,8 +3,6 @@ import { CommonModule } from '@angular/common';
 import { ReactiveFormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 
-import { MentionModule } from 'angular-mentions';
-
 import { StoreModule } from '@ngrx/store';
 import { httpErrorFeatureKey, httpErrorReducer } from './store/reducers/http-error.reducer';
 
@@ -29,7 +27,6 @@ import { SvgLogoComponent } from './components/svg-logo/svg-logo.component';
 import { PasswordConfirmationFieldComponent } from './components/forms/password-confirmation-field/password-confirmation-field.component';
 import { UserProfileImageComponent } from './components/user-profile-image/user-profile-image.component';
 import { StickyTopSectionComponent } from './components/sticky-top-section/sticky-top-section.component';
-import { NewTweetComponent } from './components/new-tweet/new-tweet.component';
 
 
 @NgModule({
@@ -52,11 +49,9 @@ import { NewTweetComponent } from './components/new-tweet/new-tweet.component';
     UserProfileImageComponent,
     VerificationCodeFieldComponent,
     StickyTopSectionComponent,
-    NewTweetComponent,
   ],
   imports: [
 		CommonModule,
-		MentionModule,
 		ReactiveFormsModule,
 		CustomizeViewModule,
 		RouterModule,
@@ -78,7 +73,6 @@ import { NewTweetComponent } from './components/new-tweet/new-tweet.component';
 		UserProfileImageComponent,
 		VerificationCodeFieldComponent,
 		StickyTopSectionComponent,
-		NewTweetComponent
 	]
 })
 export class SharedModule { }

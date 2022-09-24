@@ -1,20 +1,7 @@
 .toast {
 	width: 100%;
-	min-height: 55px;
+	min-height: fit-content;
 	box-shadow: 0px 0px 20px rgba(0,0,0,0.5);
-	&.success {
-		background-color: #1d9bf0;
-		// @apply bg-green-600
-	}
-	&.info {
-		@apply bg-green-600
-	}
-	&.warning {
-		@apply bg-green-600
-	}
-	&.error {
-		@apply bg-green-600
-	}
 }
 
 .fade {

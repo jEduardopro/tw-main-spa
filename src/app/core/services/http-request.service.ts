@@ -34,7 +34,11 @@ export class HttpRequestService {
 		return this.http.delete(`${this.apiUrl}${url}`, {headers: this.headers})
 	}
 
-	private setHeaders() {
+	protected setHeaders(headers: HttpHeaders | null = null) {
+		if (headers) {
+			this.headers = headers
+			return
+		}
 		this.headers = new HttpHeaders()
 			.set('Content-Type', "application/json")
 			.set('Accept', "application/json")

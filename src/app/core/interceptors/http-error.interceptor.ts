@@ -12,6 +12,7 @@ import { HttpErrorState } from '@app/shared/store/reducers/http-error.reducer';
 import { setFieldErrors } from '@app/shared/store/actions/http-error.actions';
 import { ToastService } from '@app/shared/services/toast.service';
 import { Router } from '@angular/router';
+import { AuthService } from '../../modules/auth/services/auth.service';
 
 @Injectable()
 export class HttpErrorInterceptor implements HttpInterceptor {
@@ -19,6 +20,7 @@ export class HttpErrorInterceptor implements HttpInterceptor {
 	constructor(
 		private store: Store<HttpErrorState>,
 		private toastService: ToastService,
+		private authService: AuthService,
 		private router: Router,
 	) {}
 
@@ -26,6 +28,7 @@ export class HttpErrorInterceptor implements HttpInterceptor {
 		return next.handle(request).pipe(
 			catchError((error: HttpErrorResponse) => {
 				if (error.status === 401) {
+					this.authService.clearLocalStorageData()
 					this.router.navigateByUrl("/")
 				}
 				

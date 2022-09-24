@@ -31,9 +31,9 @@
 							<!-- text content and button -->
 							<div class="static pt-1 flex flex-col justify-center basis-0 flex-grow">
 								<!-- text -->
-								<div class="z-[1] flex flex-col items-stretch basis-auto relative box-border pt-2 pb-1 border-b border-twitter-white-200 dark:border-twitter-gray-200">
+								<div id="tweetBox" class="z-[1] flex flex-col items-stretch basis-auto relative box-border pt-1 pb-1 border-b border-twitter-white-200 dark:border-twitter-gray-200">
 									<div>
-										<span *ngIf="shouldBeDisabled" aria-label="Tweet Placeholder" class="absolute left-[1px] font-medium top-3 text-twitter-gray-200 dark:text-twitter-gray-100">
+										<span *ngIf="tweet.trim().length == 0" aria-label="Tweet Placeholder" class="absolute left-[1px] font-medium top-3 text-twitter-gray-200 dark:text-twitter-gray-100">
 											What's happening?
 										</span>
 										<div
@@ -49,14 +49,20 @@
 											tabindex="0" 
 											no-focustrapview-refocus="true"
 											style="outline: none; user-select: text; white-space: pre-wrap; overflow-wrap: break-word;"
+											[mentionConfig]="mentionConfig"
+											[mention]="people"
+											(searchTerm)="searchPeople($event)"
+											(itemSelected)="saveMention($event)"
 											(keyup)="updateTweet($event)"
+											[mentionListTemplate]="mentionListTemplate"
 										>
 										</div>
+										<ng-template #mentionListTemplate let-item="item">
+											<span>{{item.name}}</span>
+										</ng-template>
 									</div>
 									<!-- preview photos -->
-									<div id="previewPhotos" class="flex flex-wrap flex-row flex-grow py-1 items-center justify-between">
-
-									</div>
+									
 								</div>
 								<div class="flex flex-row w-full items-center py-2">
 									<div class="flex flex-row flex-grow items-center justify-start">

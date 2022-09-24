@@ -72,7 +72,10 @@ export class AuthService {
 				}, (error) => {
 					console.log(error);
 				});
-		
+		this.clearLocalStorageData()
+	}
+
+	clearLocalStorageData() {
 		localStorage.removeItem(this.tokenKey)
 		localStorage.removeItem(this.authUserKey)
 	}

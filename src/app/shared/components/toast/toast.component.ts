@@ -1,4 +1,6 @@
 import { Component, Input, OnInit, Output, EventEmitter } from '@angular/core';
+import { AuthService } from '@app/modules/auth/services/auth.service';
+import { CustomizeViewService } from '@app/modules/customize-view/services/customize-view.service';
 
 @Component({
   selector: 'app-toast',
@@ -14,7 +16,10 @@ export class ToastComponent implements OnInit {
 	@Input() title!: string;
 	@Input() message!: string | null;
 
-  constructor() { }
+	constructor(
+		public customizeService: CustomizeViewService,
+		public authService: AuthService
+	) { }
 
   ngOnInit(): void {
 	}
