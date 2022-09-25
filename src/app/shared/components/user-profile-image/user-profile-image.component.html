@@ -1,12 +1,16 @@
 <div class="w-full h-full rounded-full flex flex-col items-center justify-center">
-	<!-- *ngIf="!image" -->
-	<!-- <span
+	<span
+		*ngIf="!image"
 		class="text-white rounded-full box-border border-[#38444d] border w-full h-full flex flex-col items-center justify-center">
 		<i class="fa fa-user text-lg text-twitter-gray-100"></i>
-	</span> -->
-	<!-- *ngIf="image" -->
+	</span>
 	<img
+		*ngIf="image"
+		class="rounded-full w-full h-full box-border object-cover" 
+		[src]="image | imageUrl:'small'"
+	>
+	<!-- <img
 		class="rounded-full w-full h-full box-border" 
 		src="https://pbs.twimg.com/profile_images/1568873841371521024/ntNPuZDC_400x400.jpg"
-	>
+	> -->
 </div>

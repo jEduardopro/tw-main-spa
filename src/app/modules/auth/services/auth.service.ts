@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { AppState } from '@app/store/app.reducers';
 import { Store } from '@ngrx/store';
-import { AuthUser } from '../interfaces/auth-user.interface';
+import { User } from '../interfaces/user.interface';
 import * as authActions from '../store/actions/auth.actions';
 import { HttpClient } from '@angular/common/http';
 import { environment } from '@env/environment';
@@ -30,13 +30,13 @@ export class AuthService {
 		this.store.dispatch(authActions.setAuthUser({authUser}))
 	}
 
-	saveAuthenticatedUser(authUser:AuthUser) {
+	saveAuthenticatedUser(authUser:User) {
 		this.store.dispatch(authActions.setAuthUser({ authUser }))
 
 		this.saveAuthUserInLocalStorage(authUser);
 	}
 
-	private saveAuthUserInLocalStorage(authUser: AuthUser) {
+	private saveAuthUserInLocalStorage(authUser: User) {
 		localStorage.setItem(this.authUserKey, JSON.stringify(authUser));
 	}
 
@@ -52,12 +52,12 @@ export class AuthService {
 		return token
 	}
 
-	getAuthUserFromLocalStorage(): AuthUser | null {
+	getAuthUserFromLocalStorage(): User | null {
 		const authUser = localStorage.getItem(this.authUserKey);
 		if (!authUser) {
 			return null;
 		}
-		return JSON.parse(authUser) as AuthUser
+		return JSON.parse(authUser) as User
 	}
 
 	isAuth(): boolean {

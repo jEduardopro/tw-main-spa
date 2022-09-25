@@ -6,7 +6,6 @@ import { SharedModule } from '../../shared/shared.module';
 import { TweetsModule } from '../tweets/tweets.module';
 
 
-
 @NgModule({
   declarations: [
     TimelineComponent

@@ -1,7 +1,7 @@
-import { AuthUser } from '@app/modules/auth/interfaces/auth-user.interface';
+import { User } from '@app/modules/auth/interfaces/user.interface';
 
 export interface LoginResponse {
 	message: string,
 	token: string,
-	user: AuthUser
+	user: User
 }

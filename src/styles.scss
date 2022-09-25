@@ -33,3 +33,7 @@ body {
 	content: '';
 	background-color: black;
 }
+
+.mention-active > a {
+	background-color: #F7F9F9 !important;
+}

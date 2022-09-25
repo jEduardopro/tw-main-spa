@@ -1,11 +1,13 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
+import { selectAuthUserImage } from '@app/modules/auth/store/selectors/auth.selectors';
 import { CustomizeViewService } from '@app/modules/customize-view/services/customize-view.service';
-import { MediaService } from '@app/modules/media/services/media.service';
-import { SearcherService } from '@app/modules/searcher/services/searcher.service';
-import { ToastService } from '@app/shared/services/toast.service';
-import { MentionConfig } from 'angular-mentions';
-import { firstValueFrom } from 'rxjs';
-
+import { AppState } from '@app/store/app.reducers';
+import { Store } from '@ngrx/store';
+import { firstValueFrom, Subscription } from 'rxjs';
+import { PeopleMentioned } from '../../interfaces/people-mentioned.interface';
+import { TweetPayload } from '../../interfaces/tweet-payload.interface';
+import { TweetService } from '../../services/tweet.service';
+import { Image } from '../../../auth/interfaces/user.interface';
 
 @Component({
 	selector: 'app-new-tweet',
@@ -13,48 +15,33 @@ import { firstValueFrom } from 'rxjs';
 	styles: [
 	]
 })
-export class NewTweetComponent implements OnInit {
+export class NewTweetComponent implements OnInit, OnDestroy {
 
 	tweet = '';
 	media: string[] = [];
-	peopleMentioned: any[] = [];
-	remaining = 280;
-	limitCharacters = 280;
+	peopleMentioned: PeopleMentioned[] = [];
 
-	mentionConfig: MentionConfig = {
-		triggerChar: '@',
-		labelKey: 'username',
-		disableSearch: true,
-	}
+	waitingResponse = false;
 
-	people: any[] = []
-
-	inputFile!: HTMLInputElement
-	tweetBox!: HTMLElement
-	mediaOutput!: HTMLElement
+	authUserImage: Image | null = null;
+	storeSubscription: Subscription = new Subscription;
+	
 
 	constructor(
 		public customizeViewService: CustomizeViewService,
-		private mediaService: MediaService,
-		private searcherService: SearcherService,
-		private toastService: ToastService
+		private tweetService: TweetService,
+		private store: Store<AppState>
 	) { }
 
 	ngOnInit(): void {
-		this.inputFile = document.getElementById('tweetInputMedia') as HTMLInputElement
-		this.inputFile.addEventListener('change', (e) => this.setPreviewPhotos(e))
-		this.tweetBox = document.getElementById('tweetBox') as HTMLElement
+		const authUserImage$ = this.store.select(selectAuthUserImage).subscribe(image => {
+			this.authUserImage = image
+		})
+		this.storeSubscription.add(authUserImage$)
 	}
 
-	get shouldBeDisabled() {
-		return this.tweet.trim().length == 0 && this.media.length == 0
-	}
-
-	get circleProgressCharacters() {
-		if (this.shouldBeDisabled) {
-			return 0
-		}
-		return Math.round((this.tweet.length * 100) / this.limitCharacters)
+	ngOnDestroy(): void {
+		this.storeSubscription.unsubscribe()
 	}
 	
 	updateTweet(event: Event) {
@@ -62,13 +49,48 @@ export class NewTweetComponent implements OnInit {
 		this.tweet = target.innerText
 
 		this.syncMentions()
-		this.updateRemainingCharacters();
-		this.updateCircleProgressCharacters()
 	}
 
-	async searchPeople(q: string) {
-		let peopleResponse = await firstValueFrom(this.searcherService.searchPeople(q))
-		this.people = peopleResponse.data
+	updateMedia(media: string[] = []) {
+		this.media = media
+	}
+
+	async saveTweet() {
+		this.waitingResponse = true
+		try {
+			let newTweet: TweetPayload = this.buildTweetPayload()
+			const tweetResponse = await firstValueFrom(this.tweetService.postTweet(newTweet))
+			console.log({tweetResponse});
+			this.clearTweetData()
+		} catch (error) {
+			
+		}
+		this.waitingResponse = false
+	}
+
+	private buildTweetPayload(): TweetPayload {
+		let tweet: TweetPayload = {
+			body: this.tweet
+		}
+
+		if (this.peopleMentioned.length > 0) {
+			tweet.mentions = this.peopleMentioned.map(p => p.id)
+		}
+		if (this.media.length > 0) {
+			tweet.media = this.media
+		}
+		return tweet
+	}
+
+	private clearTweetData() {
+		const tweetBodyEditable = document.getElementById('tweetBody')
+		if (tweetBodyEditable) {
+			tweetBodyEditable.innerHTML = ''
+			tweetBodyEditable.innerText = ''
+		}
+		this.tweet = ''
+		this.media = []
+		this.peopleMentioned = []
 	}
 
 	syncMentions() {
@@ -83,125 +105,4 @@ export class NewTweetComponent implements OnInit {
 		this.peopleMentioned.push({username: `@${user.username}`, id: user.id})
 	}
 
-	updateRemainingCharacters() {
-		this.remaining = this.limitCharacters - this.tweet.length
-	}
-
-	updateCircleProgressCharacters() {
-		const progressBar = document.querySelector('.circle-progressbar') as HTMLElement
-		progressBar.style.display = 'flex'
-		if (this.shouldBeDisabled) {
-			progressBar.style.display = 'none'
-			return;
-		}
-
-		let backColor = this.customizeViewService.themeBackground.name == 'default' ? '#EFF3F4' : '#2F3336'
-		let strokeColor = this.customizeViewService.themeColor.hex		
-
-		if (this.remaining <= 20) {
-			progressBar.style.width = '30px'
-			progressBar.style.height = '30px'
-			strokeColor = '#FFD400'
-		}
-		if (this.remaining > 20) {
-			progressBar.style.width = '20px'
-			progressBar.style.height = '20px'
-		}
-		if (this.remaining < 0) {
-			strokeColor = '#F4212E'
-		}
-
-		progressBar.style.background = `conic-gradient(
-			${strokeColor} ${this.circleProgressCharacters * 3.6}deg,
-			${backColor} ${this.circleProgressCharacters * 3.6}deg
-		)`;
-	}
-
-	openFileDialog() {
-		this.inputFile?.click()
-	}
-
-	async setPreviewPhotos(e: Event) {		
-		const target = e.target as HTMLInputElement
-		const files = target.files
-		if (!files) {
-			return;
-		}
-		if (files.length > 4) {
-			this.toastService.toastInfo({title: 'Please choose either 1 GIF or up to 4 photos'})
-			return
-		}
-
-		this.mediaOutput = document.createElement('div') as HTMLElement
-		this.mediaOutput.classList.add('flex', 'flex-wrap', 'flex-row', 'flex-grow', 'items-center', 'justify-between')
-		this.mediaOutput.id = 'previewPhotos'
-		this.tweetBox.appendChild(this.mediaOutput)
-
-		await this.uploadMediaFiles(files)
-
-		const removeMediaBtns = document.querySelectorAll('#previewPhotos div[aria-label="media"] button[aria-label="Remove media"]')
-		
-		for (let i = 0; i < removeMediaBtns.length; i++) {
-			removeMediaBtns[i].addEventListener("click", (e) => this.removePhoto(e));
-		}
-	}
-
-	async uploadMediaFiles(files: FileList) {
-		for (let i = 0; i < files.length; i++) {
-			
-			let file = files[i];
-			if (!file.type.match('image'))
-				continue;
-				
-			const mediaForm = new FormData()
-			mediaForm.append('media', file)
-			mediaForm.append('media_category', 'tweet_image')
-
-			let mediaResponse = await firstValueFrom(this.mediaService.upload(mediaForm))
-			this.displayHTMLMedia(mediaResponse)
-			this.media.push(mediaResponse.media_id)
-		}
-	}
-
-	displayHTMLMedia(mediaData: any) {		
-		const media = document.createElement('div')
-		media.classList.add('w-60', 'h-36', 'rounded-lg', 'mb-2', 'relative')
-		media.ariaLabel = 'media'
-		media.setAttribute('role','group')
-
-		const removeMediaButton = document.createElement('button')
-		removeMediaButton.classList.add('absolute',
-			'left-1', 'top-1', 'rounded-full', 'w-7', 'h-7', 'flex',
-			'flex-col', 'text-center', 'items-center', 'justify-center',
-			'bg-black', 'opacity-70'
-		)
-		removeMediaButton.ariaLabel = 'Remove media'
-		removeMediaButton.title = 'Remove'
-		removeMediaButton.setAttribute('data-media-id', mediaData.media_id)
-		
-		const trashIcon = document.createElement('i')
-		trashIcon.classList.add('fas', 'fa-times', 'text-md', 'text-twitter-white-100')
-		trashIcon.setAttribute('data-media-id', mediaData.media_id)
-		removeMediaButton.appendChild(trashIcon)
-
-
-		const image = document.createElement('img')
-		image.classList.add('rounded-lg', 'w-full', 'h-full', 'object-cover')
-		image.src = mediaData.media_url
-
-		media.appendChild(removeMediaButton)
-		media.appendChild(image)
-		this.mediaOutput.appendChild(media)
-	}
-
-	async removePhoto(event: Event) {
-		event.preventDefault()
-		event.stopPropagation()
-		const el = event.target as HTMLElement
-		const mediaId = el.getAttribute('data-media-id')
-		const mediaElement = el.closest('div[aria-label="media"]')
-		mediaElement?.remove()
-		this.media = this.media.filter(m => m != mediaId)
-		const mediaResponseDeleted = await firstValueFrom(this.mediaService.remove(mediaId!))
-	}
 }

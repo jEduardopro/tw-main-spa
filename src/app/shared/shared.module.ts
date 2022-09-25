@@ -27,6 +27,8 @@ import { SvgLogoComponent } from './components/svg-logo/svg-logo.component';
 import { PasswordConfirmationFieldComponent } from './components/forms/password-confirmation-field/password-confirmation-field.component';
 import { UserProfileImageComponent } from './components/user-profile-image/user-profile-image.component';
 import { StickyTopSectionComponent } from './components/sticky-top-section/sticky-top-section.component';
+import { ImageUrlPipe } from '@app/core/pipes/image-url.pipe';
+import { AuthModule } from '@app/modules/auth/auth.module';
 
 
 @NgModule({
@@ -48,12 +50,14 @@ import { StickyTopSectionComponent } from './components/sticky-top-section/stick
     ToasterComponent,
     UserProfileImageComponent,
     VerificationCodeFieldComponent,
-    StickyTopSectionComponent,
+		StickyTopSectionComponent,
+		ImageUrlPipe
   ],
   imports: [
 		CommonModule,
 		ReactiveFormsModule,
 		CustomizeViewModule,
+		AuthModule,
 		RouterModule,
 		HttpClientModule,
 		StoreModule.forFeature(httpErrorFeatureKey, httpErrorReducer)

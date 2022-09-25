@@ -1,4 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
+import { Image } from '@app/modules/auth/interfaces/user.interface';
 
 @Component({
   selector: 'app-user-profile-image',
@@ -8,7 +9,7 @@ import { Component, Input, OnInit } from '@angular/core';
 })
 export class UserProfileImageComponent implements OnInit {
 
-	@Input() image: string | null | undefined;
+	@Input() image: Image | null | undefined;
 
   constructor() { }
 

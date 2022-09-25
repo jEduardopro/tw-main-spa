@@ -1,0 +1,52 @@
+<div id="tweetBox" class="z-[1] flex flex-col items-stretch basis-auto relative box-border pt-1 pb-1 border-b border-twitter-white-200 dark:border-twitter-gray-200">
+	<div>
+		<span *ngIf="body.trim().length == 0" aria-label="Tweet Placeholder" class="absolute left-[1px] font-medium top-3 text-twitter-gray-200 dark:text-twitter-gray-100">
+			What's happening?
+		</span>
+		<div
+			id="tweetBody"
+			class="w-full relative box-border min-h-[40px] max-h-[300px] overflow-y-auto pt-1 text-twitter-gray-200 dark:text-twitter-white-100"
+			aria-activedescendant="typeaheadFocus-0.3054431271824538" 
+			aria-autocomplete="list"
+			aria-controls="typeaheadDropdownWrapped-4" 
+			aria-label="Tweet text"
+			aria-multiline="true" 
+			contenteditable="true"
+			role="textbox" 
+			spellcheck="true" 
+			tabindex="0" 
+			no-focustrapview-refocus="true"
+			style="outline: none; user-select: text; white-space: pre-wrap; overflow-wrap: break-word;"
+			[mentionConfig]="mentionConfig"
+			[mention]="people"
+			(searchTerm)="searchPeople($event)"
+			(itemSelected)="saveMention($event)"
+			(keyup)="updateTweet($event)"
+			[mentionListTemplate]="mentionListTemplate"
+		>
+		</div>
+		<ng-template #mentionListTemplate let-item="item">
+			<div class="flex flex-row flex-grow box-border items-center" role="button">
+				<div class="w-[36px] h-[36px] rounded-full">
+					<app-user-profile-image [image]="item.image"></app-user-profile-image>
+				</div>
+				<div class="flex-shrink max-w-full box-border relative flex flex-col">
+					<div class="flex-shrink max-w-full mx-3 box-border relative flex flex-col">
+						<div class="flex flex-shrink max-w-full box-border relative flex-col">
+							<div class="font-bold text-[13px] text-twitter-black-100 leading-5">
+								<span>{{item.name}}</span>
+							</div>
+						</div>
+						<div class="flex flex-shrink max-w-full box-border relative flex-col">
+							<div class="font-normal text-[12px] text-twitter-gray-100 leading-3">
+								<span>@{{item.username}}</span>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</ng-template>
+	</div>
+	<!-- preview photos -->
+	
+</div>

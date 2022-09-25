@@ -1,0 +1,78 @@
+<div class="flex flex-row w-full items-center py-2">
+	<div class="flex flex-row flex-grow items-center justify-start">
+		<button 
+			class="rounded-full w-8 h-8 flex flex-col justify-center text-center items-center"
+			[ngClass]="[mediaButtonShouldBeDisabled ? 'opacity-50 cursor-default' : 'hover:bg-slate-100 dark:hover:bg-twitter-black-btn-hover']"
+			type="button"
+			title="Add photo"
+			(click)="openFileDialog()"
+		>
+			<input 
+				*ngIf="!mediaButtonShouldBeDisabled" 
+				type="file" 
+				id="tweetInputMedia" 
+				[multiple]="shouldBeAcceptMultipleFiles" 
+				accept="image/*" 
+				class="opacity-0 w-0 h-0" 
+				style="visibility: hidden;"
+			>
+			<i 
+				class="fas fa-image" 
+				[ngClass]="customizeViewService.themeColor.color"
+			></i>
+		</button>
+		<button 
+			class="rounded-full w-8 h-8 flex flex-col justify-center text-center items-center"
+			[ngClass]="[mediaButtonShouldBeDisabled ? 'opacity-50 cursor-default' : 'hover:bg-slate-100 dark:hover:bg-twitter-black-btn-hover']"
+			type="button"
+			title="GIF"
+			(click)="openFileDialog()"
+		>
+			<div 
+				class="w-5 h-[14px] rounded-sm box-border border flex flex-col justify-center items-center"
+				[ngClass]="customizeViewService.themeColor.border"
+			>
+				<span class="text-[8px] font-medium" [ngClass]="customizeViewService.themeColor.color">GIF</span>
+			</div>
+		</button>
+	</div>
+	<div class="flex flex-row flex-shrink-0 flex-grow items-center justify-end">
+		<div class="flex flex-col justify-center items-stretch">
+			<div 
+				class="circle-progressbar transition-all"
+				[attr.aria-valuenow]="circleProgressCharacters" 
+				role="progressbar" 
+				aria-valuemin="0" 
+				aria-valuemax="100" 
+			>
+				<div 
+					*ngIf="remaining <= 20" 
+					class="remaining-value text-xs absolute"
+					[ngClass]="[remaining < 0 ? 'text-[#F4212E]': 'text-twitter-gray-100']"
+				>
+					{{remaining}}
+				</div>
+			</div>
+		</div>
+		<div class="flex flex-col justify-center items-stretch ml-3">
+			<button 
+				class="w-[69px] h-8 flex flex-col text-center justify-center items-center rounded-full transition-colors"
+				[ngClass]="[
+					customizeViewService.viewSettings.themeColor.bg, 
+					customizeViewService.viewSettings.themeColor.bgHover,
+					(shouldBeDisabled || remaining < 0) ? 'opacity-50 cursor-not-allowed' : ''
+				]"
+				[disabled]="(shouldBeDisabled || remaining < 0)"
+				type="button" 
+				aria-label="Tweet"
+				(click)="saveTweet()"
+			>
+				<div class="text-white font-bold text-[15px] leading-4 min-w-0 items-center justify-center flex-grow flex box-border flex-col text-center">
+					<span class="text-[14px] min-w-0 max-w-full leading-4">
+						Tweet
+					</span>
+				</div>
+			</button>
+		</div>
+	</div>
+</div>

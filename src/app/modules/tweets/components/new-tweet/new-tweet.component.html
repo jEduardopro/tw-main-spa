@@ -13,12 +13,12 @@
 										<div class="w-full h-full absolute overflow-visible block">
 											<div class="w-full h-full absolute top-0 left-0 bottom-0 block">											
 												<a
-													class="outline-none bg-black w-full h-full rounded-full transition-colors duration-200 flex flex-col items-stretch relative" 
+													class="outline-none w-full h-full rounded-full transition-colors duration-200 flex flex-col items-stretch relative" 
 													href="#" 
 													role="link"
 												>
 													<div class="w-full h-full rounded-full">
-														<app-user-profile-image></app-user-profile-image>
+														<app-user-profile-image [image]="authUserImage"></app-user-profile-image>
 													</div>
 												</a>
 											</div>
@@ -28,93 +28,15 @@
 							</div>
 
 
-							<!-- text content and button -->
-							<div class="static pt-1 flex flex-col justify-center basis-0 flex-grow">
-								<!-- text -->
-								<div id="tweetBox" class="z-[1] flex flex-col items-stretch basis-auto relative box-border pt-1 pb-1 border-b border-twitter-white-200 dark:border-twitter-gray-200">
-									<div>
-										<span *ngIf="tweet.trim().length == 0" aria-label="Tweet Placeholder" class="absolute left-[1px] font-medium top-3 text-twitter-gray-200 dark:text-twitter-gray-100">
-											What's happening?
-										</span>
-										<div
-											class="w-full relative box-border min-h-[40px] max-h-[300px] overflow-y-auto pt-1 text-twitter-gray-200 dark:text-twitter-white-100"
-											aria-activedescendant="typeaheadFocus-0.3054431271824538" 
-											aria-autocomplete="list"
-											aria-controls="typeaheadDropdownWrapped-4" 
-											aria-label="Tweet text"
-											aria-multiline="true" 
-											contenteditable="true"
-											role="textbox" 
-											spellcheck="true" 
-											tabindex="0" 
-											no-focustrapview-refocus="true"
-											style="outline: none; user-select: text; white-space: pre-wrap; overflow-wrap: break-word;"
-											[mentionConfig]="mentionConfig"
-											[mention]="people"
-											(searchTerm)="searchPeople($event)"
-											(itemSelected)="saveMention($event)"
-											(keyup)="updateTweet($event)"
-											[mentionListTemplate]="mentionListTemplate"
-										>
-										</div>
-										<ng-template #mentionListTemplate let-item="item">
-											<span>{{item.name}}</span>
-										</ng-template>
-									</div>
-									<!-- preview photos -->
-									
-								</div>
-								<div class="flex flex-row w-full items-center py-2">
-									<div class="flex flex-row flex-grow items-center justify-start">
-										<button 
-											class="rounded-full w-8 h-8 flex flex-col justify-center text-center items-center hover:bg-slate-100 dark:hover:bg-twitter-black-btn-hover"
-											type="button"
-											title="Add photo"
-											(click)="openFileDialog()"
-										>
-											<input type="file" id="tweetInputMedia" multiple accept="image/*" class="opacity-0 w-0 h-0" style="visibility: hidden;">
-											<i class="fas fa-image" [ngClass]="customizeViewService.themeColor.color"></i>
-										</button>
-									</div>
-									<div class="flex flex-row flex-shrink-0 flex-grow items-center justify-end">
-										<div class="flex flex-col justify-center items-stretch">
-											<div 
-												class="circle-progressbar transition-all"
-												[attr.aria-valuenow]="circleProgressCharacters" 
-												role="progressbar" 
-												aria-valuemin="0" 
-												aria-valuemax="100" 
-											>
-												<div 
-													*ngIf="remaining <= 20" 
-													class="remaining-value text-xs absolute"
-													[ngClass]="[remaining < 0 ? 'text-[#F4212E]': 'text-twitter-gray-100']"
-												>
-													{{remaining}}
-												</div>
-											</div>
-										</div>
-										<div class="flex flex-col justify-center items-stretch ml-3">
-											<button 
-												class="w-[69px] h-8 flex flex-col text-center justify-center items-center rounded-full transition-colors"
-												[ngClass]="[
-													customizeViewService.viewSettings.themeColor.bg, 
-													customizeViewService.viewSettings.themeColor.bgHover,
-													(shouldBeDisabled || remaining < 0) ? 'opacity-50 cursor-not-allowed' : ''
-												]"
-												[disabled]="(shouldBeDisabled || remaining < 0)"
-												type="button" 
-												aria-label="Tweet"
-											>
-												<div class="text-white font-bold text-[15px] leading-4 min-w-0 items-center justify-center flex-grow flex box-border flex-col text-center">
-													<span class="text-[14px] min-w-0 max-w-full leading-4">
-														Tweet
-													</span>
-												</div>
-											</button>
-										</div>
-									</div>
-								</div>
+							<!-- Text content and Buttons -->
+							<div class="relative pt-1 flex flex-col justify-center basis-0 flex-grow">
+								<div *ngIf="waitingResponse" class="absolute top-0 left-0 z-50 w-full h-full bg-white dark:bg-black opacity-50"></div>
+								<!-- Text Box -->
+								<app-text-box [body]="tweet" (changeBody)="updateTweet($event)" (userMentioned)="saveMention($event)"></app-text-box>
+								<!-- Text Box -->
+								
+								<!-- Tweet Actions -->
+								<app-button-actions [body]="tweet" [creating]="waitingResponse" (changeMedia)="updateMedia($event)" (save)="saveTweet()"></app-button-actions>
 							</div>
 						</div>
 					</div>

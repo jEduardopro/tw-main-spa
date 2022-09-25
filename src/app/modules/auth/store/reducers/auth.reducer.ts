@@ -1,11 +1,11 @@
 import { createReducer, on } from '@ngrx/store';
-import { AuthUser } from '../../interfaces/auth-user.interface';
+import { User } from '../../interfaces/user.interface';
 import { setAuthUser } from '../actions/auth.actions';
 
 export const authFeatureKey = 'auth';
 
 export interface AuthState {
-	authUser: AuthUser
+	authUser: User
 };
 
 const initialState: AuthState = {
@@ -13,9 +13,9 @@ const initialState: AuthState = {
 		id: '',
 		name: '',
 		username: '',
-		email: '',
-		is_activated: false,
-		created_at: ''
+		description: '',
+		image: null,
+		readable_joined_date: ''
 	}
 };
 
