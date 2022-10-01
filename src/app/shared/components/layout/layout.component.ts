@@ -20,6 +20,5 @@ export class LayoutComponent implements OnInit {
 		// this.bodyElement = document.body
 		// this.bodyElement.style.backgroundColor = '#000000'
 		// document.documentElement.classList.add('dark')
-  }
-
+	}
 }
