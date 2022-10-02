@@ -50,7 +50,7 @@ export class ButtonActionsComponent implements OnInit, AfterViewInit, OnChanges 
 			const creating = changes['creating']
 			if (creating.currentValue == false && !creating.isFirstChange()) {
 				this.tweetMedia.media = []
-				this.tweetMedia.mediaOutput.remove()
+				this.tweetMedia.mediaOutput ? this.tweetMedia.mediaOutput.remove() : null
 			}
 		}
 	}

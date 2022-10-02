@@ -1,5 +1,11 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input, OnDestroy, OnInit } from '@angular/core';
 import { Tweet } from '../../interfaces/tweet.interface';
+import { TimeagoIntl } from 'ngx-timeago';
+import { strings as englishStrings } from 'ngx-timeago/language-strings/en';
+import { Store } from '@ngrx/store';
+import { AppState } from '@app/store/app.reducers';
+import { Subscription } from 'rxjs';
+import { selectAuthUserId } from '../../../auth/store/selectors/auth.selectors';
 
 @Component({
   selector: 'app-tweet',
@@ -7,13 +13,30 @@ import { Tweet } from '../../interfaces/tweet.interface';
   styles: [
   ]
 })
-export class TweetComponent implements OnInit {
+export class TweetComponent implements OnInit, OnDestroy{
 
 	@Input() tweet!: Tweet
 
-  constructor() { }
+	userId: string = ''
+	storeSubscription: Subscription = new Subscription
 
-  ngOnInit(): void {
+	constructor(
+		intl: TimeagoIntl,
+		private store: Store<AppState>
+	) {
+    intl.strings = englishStrings;
+    intl.changes.next();
   }
 
+	ngOnInit(): void {
+		const userId$ = this.store.select(selectAuthUserId).subscribe(userId => this.userId = userId)
+
+		this.storeSubscription.add(userId$)
+	}
+	
+	ngOnDestroy(): void {
+		this.storeSubscription.unsubscribe()	
+	}
+
+	get tweetMenuShouldBeVisible() {return this.userId === this.tweet.owner.id}
 }

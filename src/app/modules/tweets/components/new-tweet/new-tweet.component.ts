@@ -1,4 +1,4 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, EventEmitter, OnDestroy, OnInit, Output } from '@angular/core';
 import { selectAuthUserImage } from '@app/modules/auth/store/selectors/auth.selectors';
 import { CustomizeViewService } from '@app/modules/customize-view/services/customize-view.service';
 import { AppState } from '@app/store/app.reducers';
@@ -8,6 +8,7 @@ import { PeopleMentioned } from '../../interfaces/people-mentioned.interface';
 import { TweetPayload } from '../../interfaces/tweet-payload.interface';
 import { TweetService } from '../../services/tweet.service';
 import { Image } from '../../../auth/interfaces/user.interface';
+import { Tweet } from '../../interfaces/tweet.interface';
 
 @Component({
 	selector: 'app-new-tweet',
@@ -26,6 +27,7 @@ export class NewTweetComponent implements OnInit, OnDestroy {
 	authUserImage: Image | null = null;
 	storeSubscription: Subscription = new Subscription;
 	
+	@Output() tweetCreated = new EventEmitter<Tweet>()
 
 	constructor(
 		public customizeViewService: CustomizeViewService,
@@ -60,7 +62,8 @@ export class NewTweetComponent implements OnInit, OnDestroy {
 		try {
 			let newTweet: TweetPayload = this.buildTweetPayload()
 			const tweetResponse = await firstValueFrom(this.tweetService.postTweet(newTweet))
-			console.log({tweetResponse});
+			// console.log({tweetResponse});
+			this.tweetCreated.emit(tweetResponse)
 			this.clearTweetData()
 		} catch (error) {
 			

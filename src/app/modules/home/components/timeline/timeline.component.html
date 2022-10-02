@@ -12,7 +12,7 @@
 	</div>
 </app-sticky-top-section>
 
-<app-new-tweet></app-new-tweet>
+<app-new-tweet (tweetCreated)="insertNewTweetToHomeTimeline($event)"></app-new-tweet>
 
 <div 
 	class="relative border-t border-twitter-white-200 dark:border-twitter-gray-200 pb-40"
@@ -25,10 +25,10 @@
 	[scrollWindow]="false"
 >
 	<div *ngIf="waitingResponse" class="flex flex-row justify-center items-center">
-		<i class="fas fa-circle-notch fa-spin fa-2x" [ngClass]="customizeView.themeColor.color"></i>
+		<i class="fas fa-circle-notch fa-spin text-lg" [ngClass]="customizeView.themeColor.color"></i>
 	</div>
 	<app-tweet *ngFor="let tweetItem of tweets" [tweet]="tweetItem"></app-tweet>
 	<div *ngIf="loadingMoreTweets" class="flex flex-row justify-center items-center mt-2">
-		<i class="fas fa-circle-notch fa-spin fa-2x" [ngClass]="customizeView.themeColor.color"></i>
+		<i class="fas fa-circle-notch fa-spin text-lg" [ngClass]="customizeView.themeColor.color"></i>
 	</div>
 </div>

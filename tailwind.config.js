@@ -39,6 +39,7 @@ module.exports = {
 				},
 				'twitter-gray': {
 					'btn-hover': '#EAEAEA',
+					'50': '#71767B',
 					'100': '#536471',
 					'200': '#38444d',
 				},

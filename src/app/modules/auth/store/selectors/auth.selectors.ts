@@ -7,6 +7,10 @@ export const selectAuthUser = createSelector(
 	authFeatureState,
 	(state) => state.authUser
 );
+export const selectAuthUserId = createSelector(
+	authFeatureState,
+	(state) => state.authUser.id
+);
 export const selectAuthUserImage = createSelector(
 	authFeatureState,
 	(state) => state.authUser.image

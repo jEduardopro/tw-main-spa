@@ -6,7 +6,7 @@
 		<div class="flex flex-row flex-grow box-border relative">
 			<div class="flex flex-col justify-start relative box-border mr-3">
 				<div class="flex flex-col items-stretch">
-					<a href="#" role="link" class="flex flex-col items-center w-[43px] h-[43px] rounded-full relative outline-none">
+					<a href="#" role="link" class="flex flex-col items-center w-12 h-12 rounded-full relative outline-none">
 						<div class="w-full h-full rounded-full">
 							<app-user-profile-image [image]="tweet.owner.image"></app-user-profile-image>
 						</div>
@@ -27,17 +27,19 @@
 								</div>
 								<div class="flex flex-col box-border relative mr-1">
 									<a href="#" class="outline-none flex flex-col">
-										<span class="text-sm text-twitter-gray-100">@{{tweet.owner.username}}</span>
+										<span class="text-sm text-twitter-gray-100 dark:text-twitter-gray-50">@{{tweet.owner.username}}</span>
 									</a>
 								</div>
 								<div class="flex flex-col box-border relative">
 									<a href="#" class="outline-none flex flex-col">
-										<span class="text-sm text-twitter-gray-100 hover:underline">15h</span>
+										<span class="text-sm text-twitter-gray-100 dark:text-twitter-gray-50 hover:underline">
+											{{tweet.created_at | timeago:'live'}}
+										</span>
 									</a>
 								</div>
 							</div>
 						</div>
-						<div class="flex flex-col justify-center items-center relative box-border">
+						<div *ngIf="tweetMenuShouldBeVisible" class="flex flex-col justify-center items-center relative box-border">
 							<button
 								class="w-6 h-6 flex flex-col relative box-border rounded-full text-center 
 									justify-center items-center text-twitter-gray-100 hover:bg-[#E4EEF7] hover:text-twitter-sky-100
@@ -69,7 +71,7 @@
 							title="Reply"
 							role="button"
 						>
-							<div class="flex flex-row transition-colors items-center relative box-border group-hover:text-twitter-sky-100 text-[#536471] dark:text-[#71767b]">
+							<div class="flex flex-row transition-colors items-center relative box-border group-hover:text-twitter-sky-100 text-twitter-gray-100 dark:text-twitter-gray-50">
 								<div class="group-hover:bg-[#E4EEF7] dark:group-hover:bg-[#0D1720] w-8 h-8 mr-1 rounded-full flex flex-col relative box-border justify-center text-center items-center">
 									<i class="far fa-comment text-sm"></i>
 								</div>
@@ -82,7 +84,7 @@
 							title="Retweet"
 							role="button"
 						>
-							<div class="flex flex-row transition-colors items-center relative box-border group-hover:text-[#00BA7C] text-[#536471] dark:text-[#71767b]">
+							<div class="flex flex-row transition-colors items-center relative box-border group-hover:text-[#00BA7C] text-twitter-gray-100 dark:text-twitter-gray-50">
 								<div class="group-hover:bg-[#E3F1EA] dark:group-hover:bg-[#0D1720] w-8 h-8 mr-1 rounded-full flex flex-col relative box-border justify-center text-center items-center">
 									<i class="fas fa-retweet text-sm"></i>
 								</div>
@@ -95,7 +97,7 @@
 							title="Like"
 							role="button"
 						>
-							<div class="flex flex-row transition-colors items-center relative box-border group-hover:text-[#C31864] text-[#536471] dark:text-[#71767b]">
+							<div class="flex flex-row transition-colors items-center relative box-border group-hover:text-[#C31864] text-twitter-gray-100 dark:text-twitter-gray-50">
 								<div class="group-hover:bg-[#F8E3EB] dark:group-hover:bg-[#0D1720] w-8 h-8 mr-1 rounded-full flex flex-col relative box-border justify-center text-center items-center">
 									<i class="far fa-heart text-sm"></i>
 								</div>
