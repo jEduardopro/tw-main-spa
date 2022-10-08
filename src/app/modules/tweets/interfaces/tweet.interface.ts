@@ -7,6 +7,7 @@ export interface Tweet {
 	retweets_count:         number;
 	replies_count:          number;
 	likes_count:            number;
+	liked:									boolean;
 	creation_date_readable: string;
 	created_at:             string;
 }

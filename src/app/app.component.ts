@@ -1,5 +1,14 @@
 import { Component, OnInit } from '@angular/core';
 import { NavigationEnd, NavigationError, NavigationStart, Router } from '@angular/router';
+import { environment } from '@env/environment';
+import Echo from 'laravel-echo'
+import { AuthService } from './modules/auth/services/auth.service';
+
+declare global {
+  interface Window { // ⚠️ notice that "Window" is capitalized here
+    Echo: Echo;
+  }
+}
 
 interface DocTitle {
 	[key: string]: string
@@ -18,9 +27,13 @@ export class AppComponent implements OnInit {
 		"/i/flow/signup": "Sign up for Twitter / Twitter",
 		"/home": "Home / Twitter",
 	}
+
+	private apiURL = environment.apiUrl
+	private pusherAppKey = environment.pusherKey
 	
 	constructor(
-		private router: Router
+		private router: Router,
+		private authService: AuthService,
 	) {
 
 	}
@@ -48,6 +61,21 @@ export class AppComponent implements OnInit {
 				console.log(event.error);
 			}
 
+		})
+
+		const token: string | null = this.authService.getToken();
+		window.Echo = new Echo({
+			broadcaster: 'pusher',
+			key: this.pusherAppKey,
+			cluster: 'us2',
+			forceTLS: true,
+			authEndpoint: `${this.apiURL}/broadcasting/auth`,
+			auth: {
+        headers: {
+					Accept: 'application/json',
+					'Authorization': `Bearer ${token}`,
+				}
+      }
 		})
 	}
 

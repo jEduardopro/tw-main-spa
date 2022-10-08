@@ -3,7 +3,6 @@ import { Tweet } from '@app/modules/tweets/interfaces/tweet.interface';
 import { firstValueFrom, Subscription } from 'rxjs';
 import { TimelineService } from '../../services/timeline.service';
 import { CustomizeViewService } from '../../../customize-view/services/customize-view.service';
-import { PusherEchoService } from '../../../../core/services/pusher-echo.service';
 import { Store } from '@ngrx/store';
 import { AppState } from '@app/store/app.reducers';
 import { selectAuthUserId } from '../../../auth/store/selectors/auth.selectors';
@@ -35,7 +34,6 @@ export class TimelineComponent implements OnInit, OnDestroy {
 	constructor(
 		private timelineService: TimelineService,
 		public customizeView: CustomizeViewService,
-		private pusherEchoService: PusherEchoService,
 		private store: Store<AppState>
 	) {	}
 
@@ -46,9 +44,12 @@ export class TimelineComponent implements OnInit, OnDestroy {
 			this.userId = userId
 		})
 
-		this.pusherEchoService.listenPrivateNotification(`users.${this.userId}`)
-
-		this.pusherEchoService.pusherNotifications.subscribe((notification: any) => {
+		window.Echo.private(`users.${this.userId}`).notification((notification: any) => {
+			console.log('timeline notification');
+			if (notification.type !== 'tweet.added') {
+				return;
+			}
+			
 			let tweetNotification = JSON.parse(JSON.stringify(notification))
 			delete tweetNotification.type
 			const tweet: Tweet = tweetNotification

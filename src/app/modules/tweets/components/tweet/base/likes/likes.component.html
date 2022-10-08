@@ -1,0 +1,23 @@
+<div 
+	class="flex flex-col box-border relative group"
+	aria-label="Like"
+	[title]="tweet.liked ? 'Unlike' : 'Like'"
+	role="button"
+	(click)="tweet.liked ? unlike() : sendLike()"
+>
+	<div 
+		class="flex flex-row transition-colors items-center relative box-border"
+		[ngClass]="[
+			tweet.liked ? 'text-[#C31864]' 
+									: 'group-hover:text-[#C31864] text-twitter-gray-100 dark:text-twitter-gray-50'
+		]"
+	>
+		<div 
+			class="group-hover:bg-[#F8E3EB] dark:group-hover:bg-[#0D1720] 
+				w-8 h-8 mr-1 rounded-full flex flex-col relative box-border justify-center text-center items-center"
+		>
+			<i [ngClass]="[tweet.liked ? 'fas' : 'far', 'fa-heart text-sm']"></i>
+		</div>
+		<span *ngIf="tweet.likes_count" class="text-[12px]">{{tweet.likes_count}}</span>
+	</div>
+</div>

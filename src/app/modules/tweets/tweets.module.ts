@@ -7,6 +7,9 @@ import { TextBoxComponent } from './components/new-tweet/base/text-box/text-box.
 import { ButtonActionsComponent } from './components/new-tweet/base/button-actions/button-actions.component';
 import { TweetComponent } from './components/tweet/tweet.component';
 import { TimeagoClock, TimeagoCustomFormatter, TimeagoFormatter, TimeagoIntl, TimeagoModule } from 'ngx-timeago';
+import { LikesComponent } from './components/tweet/base/likes/likes.component';
+import { RepliesComponent } from './components/tweet/base/replies/replies.component';
+import { RetweetsComponent } from './components/tweet/base/retweets/retweets.component';
 
 
 
@@ -15,7 +18,10 @@ import { TimeagoClock, TimeagoCustomFormatter, TimeagoFormatter, TimeagoIntl, Ti
 		NewTweetComponent,
 		TextBoxComponent,
 		ButtonActionsComponent,
-		TweetComponent
+		TweetComponent,
+  LikesComponent,
+  RepliesComponent,
+  RetweetsComponent
 	],
   imports: [
 		CommonModule,
