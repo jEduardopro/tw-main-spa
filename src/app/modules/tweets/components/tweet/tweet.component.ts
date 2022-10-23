@@ -6,6 +6,7 @@ import { Store } from '@ngrx/store';
 import { AppState } from '@app/store/app.reducers';
 import { Subscription } from 'rxjs';
 import { selectAuthUserId } from '../../../auth/store/selectors/auth.selectors';
+import { CustomizeViewService } from '@app/modules/customize-view/services/customize-view.service';
 
 @Component({
   selector: 'app-tweet',
@@ -22,6 +23,7 @@ export class TweetComponent implements OnInit, OnDestroy{
 
 	constructor(
 		intl: TimeagoIntl,
+		public customizeView: CustomizeViewService,
 		private store: Store<AppState>
 	) {
     intl.strings = englishStrings;

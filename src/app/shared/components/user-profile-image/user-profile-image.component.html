@@ -7,10 +7,6 @@
 	<img
 		*ngIf="image"
 		class="rounded-full w-full h-full box-border object-cover" 
-		[src]="image | imageUrl:'small'"
+		[src]="image | imageUrl:size"
 	>
-	<!-- <img
-		class="rounded-full w-full h-full box-border" 
-		src="https://pbs.twimg.com/profile_images/1568873841371521024/ntNPuZDC_400x400.jpg"
-	> -->
 </div>

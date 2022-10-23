@@ -77,6 +77,7 @@ import { AuthModule } from '@app/modules/auth/auth.module';
 		UserProfileImageComponent,
 		VerificationCodeFieldComponent,
 		StickyTopSectionComponent,
+		ImageUrlPipe
 	]
 })
 export class SharedModule { }

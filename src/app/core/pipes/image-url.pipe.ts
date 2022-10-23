@@ -6,7 +6,7 @@ import { Image } from '@app/modules/auth/interfaces/user.interface';
 })
 export class ImageUrlPipe implements PipeTransform {
 
-	transform(image: Image, size: string = 'small'): string {
+	transform(image: Image, size: 'small'|'large'|'thumb'|'medium'): string {
 		let url = image.url;
 		if (Object.keys(image.conversions).length > 0) {
 			switch (size) {

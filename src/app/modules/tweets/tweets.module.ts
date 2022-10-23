@@ -10,6 +10,9 @@ import { TimeagoClock, TimeagoCustomFormatter, TimeagoFormatter, TimeagoIntl, Ti
 import { LikesComponent } from './components/tweet/base/likes/likes.component';
 import { RepliesComponent } from './components/tweet/base/replies/replies.component';
 import { RetweetsComponent } from './components/tweet/base/retweets/retweets.component';
+import { RouterModule } from '@angular/router';
+import { MediaComponent } from './components/tweet/base/media/media.component';
+import { FormatTweetContentPipe } from './pipes/format-tweet-content.pipe';
 
 
 
@@ -19,13 +22,16 @@ import { RetweetsComponent } from './components/tweet/base/retweets/retweets.com
 		TextBoxComponent,
 		ButtonActionsComponent,
 		TweetComponent,
-  LikesComponent,
-  RepliesComponent,
-  RetweetsComponent
+		LikesComponent,
+		RepliesComponent,
+		RetweetsComponent,
+		MediaComponent,
+		FormatTweetContentPipe
 	],
   imports: [
 		CommonModule,
 		MentionModule,
+		RouterModule,
 		TimeagoModule.forChild({
 			formatter: {provide: TimeagoFormatter, useClass: TimeagoCustomFormatter}
 		}),

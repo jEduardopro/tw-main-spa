@@ -1,0 +1,39 @@
+<div class="w-full h-full">
+	<div class="flex flex-row items-center h-[48px] border-b border-twitter-white-200 dark:border-twitter-gray-200">
+		<div 
+			class="w-1/2 flex flex-col h-full justify-center items-center hover:bg-[#EAEAEA] hover:dark:bg-[#181819]"
+			role="button"
+			(click)="setTab('tweets')"
+		>
+			<div class="flex flex-col flex-grow justify-center relative">
+				<span 
+					class="text-sm font-medium" 
+					[ngClass]="[currentTab == 'tweets' ? 'text-black dark:text-white' : 'text-twitter-gray-100 dark:text-twitter-gray-50']"
+				>
+					Tweets
+				</span>
+				<span *ngIf="currentTab == 'tweets'" 
+					class="absolute left-0 bottom-0 w-full min-h-[4px]" [ngClass]="[customizeView.themeColor.bg]"></span>
+			</div>
+		</div>
+		<div 
+			class="w-1/2 flex flex-col h-full justify-center items-center hover:bg-[#EAEAEA] hover:dark:bg-[#181819]"
+			role="button"
+			(click)="setTab('tweets_replies')"
+		>
+			<div class="flex flex-col flex-grow justify-center relative">
+				<span 
+					class="text-sm font-medium" 
+					[ngClass]="[currentTab == 'tweets_replies' ? 'text-black dark:text-white' : 'text-twitter-gray-100 dark:text-twitter-gray-50']">
+					Tweets & replies
+				</span>
+				<span *ngIf="currentTab == 'tweets_replies'" 
+					class="absolute left-0 bottom-0 w-full min-h-[4px]" [ngClass]="[customizeView.themeColor.bg]"></span>
+			</div>
+		</div>
+	</div>
+	<div class="w-full h-full flex flex-col">
+		<app-tweets-timeline *ngIf="currentTab == 'tweets'"></app-tweets-timeline>
+		<app-tweets-replies-timeline *ngIf="currentTab == 'tweets_replies'"></app-tweets-replies-timeline>
+	</div>
+</div>

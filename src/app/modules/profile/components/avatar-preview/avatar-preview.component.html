@@ -1,0 +1,35 @@
+<div class="absolute -bottom-[71px] left-5">
+	<div 
+		class="w-[142px] h-[142px] rounded-full flex flex-col justify-center items-stretch text-center
+			bg-twitter-white-50 dark:bg-[#16181C] box-border border-4 border-white dark:border-twitter-black-100"
+	>
+		<div
+			*ngIf="image"
+			class="w-full h-full rounded-full"
+			(click)="openPreview()"
+			role="button"
+		>
+			<app-user-profile-image [image]="image" [size]="'thumb'"></app-user-profile-image>
+		</div>
+		<i *ngIf="!image" class="fa fa-user text-6xl text-twitter-gray-100"></i>
+	</div>
+</div>
+
+<div 
+	*ngIf="showPreview"
+	class="fixed w-full h-full top-0 left-0 z-10"
+>
+	<div class="absolute left-5 top-3 z-30">
+		<button type="button" aria-label="Close" title="Close"
+			(click)="closePreview()"
+		>
+			<i class="fas fa-times text-2xl text-white"></i>
+		</button>
+	</div>
+	<div class="w-full h-full relative flex bg-[#0a2b3ee6]" (click)="closePreview()"></div>
+	<div class="flex flex-col justify-center mx-auto items-center absolute z-30 left-1/2 -ml-[186px] top-1/2 -mt-[186px]">
+		<div class="w-[372px] h-[372px]">
+			<app-user-profile-image [image]="image" [size]="'medium'"></app-user-profile-image>
+		</div>
+	</div>
+</div>

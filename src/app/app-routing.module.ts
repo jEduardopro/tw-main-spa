@@ -28,6 +28,11 @@ const routes: Routes = [
 		loadChildren: () => import("./modules/home/home.module").then(m => m.HomeModule)
 	},
 	{
+		path: ':username',
+		canActivate: [AuthGuard],
+		loadChildren: () => import("./modules/profile/profile.module").then(m => m.ProfileModule)
+	},
+	{
 		path: '**',
 		redirectTo: ''
 	}

@@ -1,5 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
+import { selectAuthUsername } from '@app/modules/auth/store/selectors/auth.selectors';
+import { Store } from '@ngrx/store';
 import { CustomizeViewService } from '../../../modules/customize-view/services/customize-view.service';
+import { AppState } from '../../../store/app.reducers';
+import { Subscription } from 'rxjs';
 
 export interface Menu {
 	text: string,
@@ -21,7 +25,7 @@ export interface Menu {
 		`
   ]
 })
-export class SidebarMenuComponent implements OnInit {
+export class SidebarMenuComponent implements OnInit, OnDestroy{
 
 	menu: Menu[] = [
 		{
@@ -68,11 +72,22 @@ export class SidebarMenuComponent implements OnInit {
 
 	showCustomizeViewModal = false
 
+	storeSubscription: Subscription = new Subscription;
+
 	constructor(
-		public customizeViewService: CustomizeViewService
+		public customizeViewService: CustomizeViewService,
+		private store: Store<AppState>
 	) { }
 
-  ngOnInit(): void {
+	ngOnInit(): void {
+		const username$ = this.store.select(selectAuthUsername).subscribe(username => {
+			this.menu[2].link = `/${username}`
+		})
+		this.storeSubscription.add(username$)
+	}
+
+	ngOnDestroy(): void {
+		this.storeSubscription.unsubscribe()
 	}
 	
 	onMouseEnter(event: MouseEvent) {

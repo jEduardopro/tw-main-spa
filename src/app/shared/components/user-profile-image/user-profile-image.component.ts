@@ -10,6 +10,7 @@ import { Image } from '@app/modules/auth/interfaces/user.interface';
 export class UserProfileImageComponent implements OnInit {
 
 	@Input() image: Image | null | undefined;
+	@Input() size: 'small'|'large'|'thumb'|'medium' = 'small'
 
   constructor() { }
 
