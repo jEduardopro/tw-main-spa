@@ -45,10 +45,6 @@ export class SettingsComponent implements OnInit, OnDestroy {
 		}
 		return this.profile.banner.conversions.medium
 	}
-
-	get focusBorderClass() {
-		return `focus:${this.customizeView.themeColor.border}`
-	}
 	
 	toggleProfileSettings() {
 		this.profileSettings = !this.profileSettings
@@ -61,7 +57,8 @@ export class SettingsComponent implements OnInit, OnDestroy {
 
 	setFormData() {
 		this.profileForm = new FormGroup({
-			name: new FormControl(this.profile.name, [Validators.required])
+			name: new FormControl(this.profile.name, [Validators.required]),
+			description: new FormControl(this.profile.description, [Validators.maxLength(160)])
 		})
 	}
 

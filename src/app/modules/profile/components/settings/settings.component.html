@@ -86,7 +86,7 @@
 							</div>
 						</div>
 						<div
-							class="w-[104px] h-[104px] -mt-10 ml-4 rounded-full box-border border-4 border-white relative"
+							class="w-[104px] h-[104px] -mt-10 ml-4 rounded-full box-border border-4 border-white dark:border-twitter-black-100 relative"
 						>
 							<div class="w-full h-full rounded-full bg-[#B2B2B2]">
 								<app-user-profile-image [image]="profile.image" [size]="'thumb'"></app-user-profile-image>
@@ -116,15 +116,26 @@
 					</div>
 					<div class="px-3 mt-3 flex flex-col h-full w-full">
 						<form [formGroup]="profileForm">
-							<input 
-								class="p-2 h-12 rounded-md focus:outline-none border-2 
-								border-gray-700 bg-transparent
-								text-black w-full block box-border"
-								[ngClass]="[focusBorderClass]"
-								type="text" 
-								formControlName="name"
-							/>
-							{{focusBorderClass}}
+							<div class="flex flex-col w-full mb-4">
+								<label for="name" class="text-twitter-gray-100">Name</label>
+								<input 
+									id="name"
+									class="p-2 h-12 rounded-md focus:outline-none border bg-transparent
+									text-black dark:text-white w-full block box-border focus:border-2"
+									[ngClass]="[customizeView.themeColor.border]"
+									type="text" 
+									formControlName="name"
+									placeholder="Name"
+								/>
+							</div>
+							<div class="flex flex-col w-full">
+								<label for="bio" class="text-twitter-gray-100">Bio</label>
+								<textarea formControlName="description" placeholder="Bio" id="bio" cols="30" rows="10"
+								class="p-2 h-20 rounded-md focus:outline-none border bg-transparent
+								text-black dark:text-white w-full block box-border focus:border-2"
+								[ngClass]="[customizeView.themeColor.border]"
+								></textarea>
+							</div>
 						</form>
 					</div>
 				</div>
