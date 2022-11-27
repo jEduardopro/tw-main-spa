@@ -12,6 +12,8 @@ import { TweetsTimelineComponent } from './components/tweets-timeline/tweets-tim
 import { InfiniteScrollModule } from 'ngx-infinite-scroll';
 import { TweetsModule } from '../tweets/tweets.module';
 import { TweetsRepliesTimelineComponent } from './components/tweets-replies-timeline/tweets-replies-timeline.component';
+import { SettingsComponent } from './components/settings/settings.component';
+import { ReactiveFormsModule } from '@angular/forms';
 
 
 
@@ -23,6 +25,7 @@ import { TweetsRepliesTimelineComponent } from './components/tweets-replies-time
 		TweetTabsComponent,
 		TweetsTimelineComponent,
 		TweetsRepliesTimelineComponent,
+		SettingsComponent
   ],
   imports: [
 		CommonModule,
@@ -31,6 +34,7 @@ import { TweetsRepliesTimelineComponent } from './components/tweets-replies-time
 		TweetsModule,
 		ProfileRoutingModule,
 		InfiniteScrollModule,
+		ReactiveFormsModule
   ]
 })
 export class ProfileModule { }
