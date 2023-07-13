@@ -6,6 +6,7 @@ import { Profile } from '../../interfaces/profile.interface';
 import { selectProfileInfo } from '../../store/selectors/profile.selectors';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { CustomizeViewService } from '@app/modules/customize-view/services/customize-view.service';
+import { ProfileService } from '../../services/profile.service';
 
 @Component({
   selector: 'app-settings',
@@ -23,6 +24,7 @@ export class SettingsComponent implements OnInit, OnDestroy {
 
 	constructor(
 		private store: Store<AppState>,
+		private profileService: ProfileService,
 		public customizeView: CustomizeViewService
 	) { }
 
@@ -55,11 +57,26 @@ export class SettingsComponent implements OnInit, OnDestroy {
 		inputBannerFile?.click()
 	}
 
+	openImageFileChooser() {
+		const inputImageFile = document.getElementById('imageFile')
+		inputImageFile?.click()
+	}
+
 	setFormData() {
 		this.profileForm = new FormGroup({
 			name: new FormControl(this.profile.name, [Validators.required]),
-			description: new FormControl(this.profile.description, [Validators.maxLength(160)])
+			description: new FormControl(this.profile.description, [Validators.maxLength(160)]),
+			date_birth: new FormControl(this.profile.date_birth, [Validators.required]),
 		})
+	}
+
+	saveProfile() {
+		console.log(this.profileForm.value);
+		try {
+			
+		} catch (error) {
+			
+		}
 	}
 
 }

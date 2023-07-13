@@ -1,9 +1,9 @@
-
 export interface User {
 	id:                   string;
 	name:                 string;
 	username:             string;
 	description:          null | string;
+	date_birth:					  null | string;
 	image:                Image | null;
 	readable_joined_date: string;
 }

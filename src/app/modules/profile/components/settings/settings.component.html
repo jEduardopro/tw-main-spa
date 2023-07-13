@@ -45,6 +45,7 @@
 							hover:dark:bg-[#D7DBDC]
 						"
 						type="button"
+						(click)="saveProfile()"
 					>
 						<span class="text-xs font-bold text-white dark:text-black">Save</span>
 					</button>
@@ -100,11 +101,11 @@
 									"
 									aria-label="Add photo"
 									title="Add photo"
-									(click)="openBannerFileChooser()"
+									(click)="openImageFileChooser()"
 								>
 									<input 
 										type="file" 
-										id="bannerFile" 
+										id="imageFile" 
 										accept="image/*" 
 										class="opacity-0 w-0 h-0" 
 										style="visibility: hidden;"
@@ -120,21 +121,27 @@
 								<label for="name" class="text-twitter-gray-100">Name</label>
 								<input 
 									id="name"
-									class="p-2 h-12 rounded-md focus:outline-none border bg-transparent
+									class="tw_input_sky p-2 h-12 rounded-md focus:outline-none border bg-transparent
 									text-black dark:text-white w-full block box-border focus:border-2"
-									[ngClass]="[customizeView.themeColor.border]"
 									type="text" 
 									formControlName="name"
 									placeholder="Name"
 								/>
 							</div>
-							<div class="flex flex-col w-full">
+							<div class="flex flex-col w-full mb-4">
 								<label for="bio" class="text-twitter-gray-100">Bio</label>
 								<textarea formControlName="description" placeholder="Bio" id="bio" cols="30" rows="10"
-								class="p-2 h-20 rounded-md focus:outline-none border bg-transparent
+								class="tw_input_sky p-2 h-20 rounded-md focus:outline-none border bg-transparent
 								text-black dark:text-white w-full block box-border focus:border-2"
-								[ngClass]="[customizeView.themeColor.border]"
 								></textarea>
+							</div>
+							<div class="flex flex-col w-full mb-4">
+								<label class="text-twitter-gray-100">Birth Date</label>
+								<app-date-birth-select
+									[value]="profileForm.get('date_birth')?.value" 
+									(valueChange)="profileForm.patchValue({date_birth: $event})"
+								>									
+								</app-date-birth-select>
 							</div>
 						</form>
 					</div>

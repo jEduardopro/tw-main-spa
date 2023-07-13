@@ -9,9 +9,7 @@ import { Profile } from '../interfaces/profile.interface';
 export class ProfileService extends HttpRequestService {
 
   
-	getProfile(username: string): Observable<Profile> {
-		console.log('hsjdghjdghjd get profile');
-		
+	getProfile(username: string): Observable<Profile> {		
 		return this.get(`/profile/${username}`);
 	}
 
@@ -21,6 +19,18 @@ export class ProfileService extends HttpRequestService {
 	
 	getUserTweetsAndRepliesTimeline(id: string, page: number) {
 		return this.get(`/users/${id}/tweets-replies-timeline?page=${page}`)
+	}
+
+	update() {
+
+	}
+
+	updateImage() {
+
+	}
+
+	updateBanner() {
+		
 	}
 
 }

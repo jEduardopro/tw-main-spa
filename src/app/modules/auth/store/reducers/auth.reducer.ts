@@ -14,6 +14,7 @@ const initialState: AuthState = {
 		name: '',
 		username: '',
 		description: '',
+		date_birth: '',
 		image: null,
 		readable_joined_date: ''
 	}
