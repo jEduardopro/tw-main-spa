@@ -23,7 +23,7 @@
     "angular-mentions": "^1.5.0",
     "laravel-echo": "^1.14.0",
     "ngx-infinite-scroll": "^16.0.0",
-    "ngx-timeago": "^2.0.0",
+    "ngx-timeago": "^3.0.0",
     "pusher-js": "^7.4.0",
     "rxjs": "~7.5.0",
     "tslib": "^2.3.0",
