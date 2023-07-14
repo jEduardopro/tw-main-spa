@@ -26,3 +26,8 @@ export const setCurrentRepliesPage = createAction(
 	'[PROFILE] Set Current Page of tweets and replies loaded',
 	props<{page: number}>()
 );
+
+export const toggleLoading = createAction(
+	'[PROFILE] Toggle Loading',
+	props<{status: boolean}>()
+)

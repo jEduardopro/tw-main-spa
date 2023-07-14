@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { firstValueFrom } from 'rxjs';
+import { Subscription, firstValueFrom } from 'rxjs';
 import { ProfileService } from '../../services/profile.service';
 import { Store } from '@ngrx/store';
 import { AppState } from '../../../../store/app.reducers';
@@ -29,6 +29,7 @@ export class ProfileComponent implements OnInit {
 	profile: Profile|null = null
 	loading = false
 	username = ''
+	storeSubscription: Subscription = new Subscription;
 
 	constructor(
 		public customizeView: CustomizeViewService,
@@ -39,10 +40,23 @@ export class ProfileComponent implements OnInit {
 	) { }
 
 	ngOnInit(): void {
+		const profileInfo$ = this.store.select(selectProfileInfo).subscribe(profile => {
+			if (!profile) {
+				return
+			}
+			this.profile = profile
+		})
+
+		this.storeSubscription.add(profileInfo$)
+
 		this.route.params.subscribe(params => {			
 			this.username = params['username']
 			this.getProfileInfo()
 		})
+	}
+
+	ngOnDestroy(): void {
+		this.storeSubscription.unsubscribe()
 	}
 
 	get profileFound(): Boolean {
@@ -58,7 +72,7 @@ export class ProfileComponent implements OnInit {
 		
 		this.loading = true;
 		try {
-			const response: any = await firstValueFrom(this.profileService.getProfile(this.username))
+			const response = await firstValueFrom(this.profileService.getProfile(this.username))
 			this.profile = response;
 			this.store.dispatch(setProfile({ profile: this.profile }))
 		} catch (error) {

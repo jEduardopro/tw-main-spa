@@ -1,12 +1,13 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { AppState } from '@app/store/app.reducers';
 import { Store } from '@ngrx/store';
-import { Subscription } from 'rxjs';
+import { Subscription, firstValueFrom } from 'rxjs';
 import { Profile } from '../../interfaces/profile.interface';
 import { selectProfileInfo } from '../../store/selectors/profile.selectors';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { CustomizeViewService } from '@app/modules/customize-view/services/customize-view.service';
 import { ProfileService } from '../../services/profile.service';
+import { setProfile, toggleLoading } from '../../store/actions/profile.actions';
 
 @Component({
   selector: 'app-settings',
@@ -70,13 +71,16 @@ export class SettingsComponent implements OnInit, OnDestroy {
 		})
 	}
 
-	saveProfile() {
-		console.log(this.profileForm.value);
+	async saveProfile() {
+		this.store.dispatch(toggleLoading({status: true}))
 		try {
-			
+			const response = await firstValueFrom(this.profileService.update(this.profileForm.value))
+			this.store.dispatch(setProfile({ profile: response }))
+			this.profileSettings = false
 		} catch (error) {
-			
+			console.log(error);
 		}
+		this.store.dispatch(toggleLoading({status: false}))
 	}
 
 }

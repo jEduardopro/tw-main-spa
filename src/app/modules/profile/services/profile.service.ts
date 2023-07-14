@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpRequestService } from '@app/core/services/http-request.service';
 import { Observable } from 'rxjs';
 import { Profile } from '../interfaces/profile.interface';
+import { ProfileBasicPayload } from '../interfaces/profile-basic-payload.interface';
 
 @Injectable({
   providedIn: 'root'
@@ -21,8 +22,8 @@ export class ProfileService extends HttpRequestService {
 		return this.get(`/users/${id}/tweets-replies-timeline?page=${page}`)
 	}
 
-	update() {
-
+	update(basicInfo: ProfileBasicPayload): Observable<Profile> {
+		return this.put('/profile', basicInfo)
 	}
 
 	updateImage() {
