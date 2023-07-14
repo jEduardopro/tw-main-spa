@@ -7,24 +7,26 @@ import { Image } from '@app/modules/auth/interfaces/user.interface';
 export class ImageUrlPipe implements PipeTransform {
 
 	transform(image: Image, size: 'small'|'large'|'thumb'|'medium'): string {
-		let url = image.url;
+		let url = null;
 		if (Object.keys(image.conversions).length > 0) {
 			switch (size) {
 				case 'large':
-					url = image.conversions.large
+					url = image.conversions.large || null
 					break;
 				case 'small':
-					url = image.conversions.small
+					url = image.conversions.small || null
 					
 					break;
 				case 'thumb':
-					url = image.conversions.thumb
+					url = image.conversions.thumb || null
 					break;
 				case 'medium':
-					url = image.conversions.medium
+					url = image.conversions.medium || null
 					break;
 			}
-			return url;
+		}
+		if (!url) {
+			url = image.url
 		}
 		return url;
   }

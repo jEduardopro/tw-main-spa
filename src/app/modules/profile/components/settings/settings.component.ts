@@ -8,6 +8,7 @@ import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { CustomizeViewService } from '@app/modules/customize-view/services/customize-view.service';
 import { ProfileService } from '../../services/profile.service';
 import { setProfile, toggleLoading } from '../../store/actions/profile.actions';
+import { MediaService } from '@app/modules/media/services/media.service';
 
 @Component({
   selector: 'app-settings',
@@ -22,10 +23,13 @@ export class SettingsComponent implements OnInit, OnDestroy {
 	profile!: Profile
 
 	profileForm!: FormGroup
+	bannerMediaFile: File | null = null;
+	bannerImagePreview: string | null = null;
 
 	constructor(
 		private store: Store<AppState>,
 		private profileService: ProfileService,
+		private mediaService: MediaService,
 		public customizeView: CustomizeViewService
 	) { }
 
@@ -58,6 +62,19 @@ export class SettingsComponent implements OnInit, OnDestroy {
 		inputBannerFile?.click()
 	}
 
+	onBannerFileChange(event: Event) {
+		const target = event.target as HTMLInputElement
+		console.log(target.files);
+		const file = target.files![0];
+		if (!file) {
+			this.bannerImagePreview = null
+			this.bannerMediaFile = null
+			return
+		}
+		this.bannerMediaFile = file
+		this.bannerImagePreview = URL.createObjectURL(file)
+	}
+
 	openImageFileChooser() {
 		const inputImageFile = document.getElementById('imageFile')
 		inputImageFile?.click()
@@ -73,6 +90,12 @@ export class SettingsComponent implements OnInit, OnDestroy {
 
 	async saveProfile() {
 		this.store.dispatch(toggleLoading({status: true}))
+		this.saveBanner()
+		this.saveBasicInfo()
+		this.store.dispatch(toggleLoading({status: false}))
+	}
+
+	async saveBasicInfo() {
 		try {
 			const response = await firstValueFrom(this.profileService.update(this.profileForm.value))
 			this.store.dispatch(setProfile({ profile: response }))
@@ -80,7 +103,36 @@ export class SettingsComponent implements OnInit, OnDestroy {
 		} catch (error) {
 			console.log(error);
 		}
-		this.store.dispatch(toggleLoading({status: false}))
+	}
+
+	async saveBanner() {
+		if (!this.bannerMediaFile) {
+			return
+		}
+
+		try {
+			const mediaForm = new FormData()
+			mediaForm.append('media', this.bannerMediaFile)
+			mediaForm.append('media_category', 'banner_image')
+			const { media_id } = await firstValueFrom(this.mediaService.upload(mediaForm))
+			const {profile_banner_url} = await firstValueFrom(this.profileService.updateBanner(media_id))
+			// console.log({ response });
+			const bannerImage = {
+				id: "",
+				url: profile_banner_url,
+				conversions: {
+					large: "",
+					small: "",
+					thumb: "",
+					medium: "",
+				},
+				created_at: ""
+			}
+			this.store.dispatch(setProfile({ profile: {...this.profile, banner: bannerImage} }))
+			
+		} catch (error) {
+			console.log(error);
+		}
 	}
 
 }

@@ -58,10 +58,16 @@
 						<div class="relative">
 							<div class="h-52 w-full relative bg-[#B2B2B2]">
 								<div 
-									*ngIf="profile.banner"
+									*ngIf="profile.banner && !bannerImagePreview"
 									class="w-full h-full"
 								>
 									<img class="w-full h-full object-cover" [src]="profile.banner | imageUrl:'medium'" alt="Banner">
+								</div>
+								<div 
+									*ngIf="bannerImagePreview"
+									class="w-full h-full"
+								>
+									<img class="w-full h-full object-cover" [src]="bannerImagePreview" alt="Banner">
 								</div>
 								<div class="absolute top-0 left-0 w-full h-full z-20 flex flex-col justify-center items-center text-center">
 									<div 
@@ -77,9 +83,10 @@
 										<input 
 											type="file" 
 											id="bannerFile" 
-											accept="image/*" 
+											accept="image/png, image/gif, image/jpeg, image/jpg, image/svg" 
 											class="opacity-0 w-0 h-0" 
 											style="visibility: hidden;"
+											(change)="onBannerFileChange($event)"
 										/>
 										<i class="fas fa-camera text-white"></i>
 									</div>
@@ -106,7 +113,7 @@
 									<input 
 										type="file" 
 										id="imageFile" 
-										accept="image/*" 
+										accept="image/png, image/gif, image/jpeg, image/jpg, image/svg" 
 										class="opacity-0 w-0 h-0" 
 										style="visibility: hidden;"
 									/>

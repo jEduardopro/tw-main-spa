@@ -26,11 +26,11 @@ export class ProfileService extends HttpRequestService {
 		return this.put('/profile', basicInfo)
 	}
 
-	updateImage() {
-
+	updateBanner(mediaId: string): Observable<{profile_banner_url: string}> {
+		return this.post('/profile/update-banner', {media_id: mediaId})
 	}
 
-	updateBanner() {
+	updateImage() {
 		
 	}
 
