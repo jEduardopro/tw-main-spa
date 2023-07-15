@@ -135,7 +135,7 @@
 								<label for="name" class="text-twitter-gray-100">Name</label>
 								<input 
 									id="name"
-									class="tw_input_sky p-2 h-12 rounded-md focus:outline-none border bg-transparent
+									class="p-2 h-12 rounded-md focus:outline-none border border-gray-700 bg-transparent focus:border-twitter-sky-100
 									text-black dark:text-white w-full block box-border focus:border-2"
 									type="text" 
 									formControlName="name"
@@ -145,7 +145,7 @@
 							<div class="flex flex-col w-full mb-4">
 								<label for="bio" class="text-twitter-gray-100">Bio</label>
 								<textarea formControlName="description" placeholder="Bio" id="bio" cols="30" rows="10"
-								class="tw_input_sky p-2 h-20 rounded-md focus:outline-none border bg-transparent
+								class="p-2 h-20 rounded-md focus:outline-none border border-gray-700 bg-transparent focus:border-twitter-sky-100
 								text-black dark:text-white w-full block box-border focus:border-2"
 								></textarea>
 							</div>
@@ -154,6 +154,7 @@
 								<app-date-birth-select
 									[value]="profileForm.get('date_birth')?.value" 
 									(valueChange)="profileForm.patchValue({date_birth: $event})"
+									[dark]="false"
 								>									
 								</app-date-birth-select>
 							</div>

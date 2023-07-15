@@ -28,6 +28,7 @@ export class DateBirthSelectComponent implements OnInit {
 
 
 	@Input() value!: string;
+	@Input() dark: boolean = true;
 	@Output() valueChange = new EventEmitter<string>();
 
 	@Input() error: any;

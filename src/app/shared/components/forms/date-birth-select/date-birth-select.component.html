@@ -1,10 +1,16 @@
 <form [formGroup]="form" class="flex justify-between">
 	<div style="flex:0.5">
-		<label for="month" class="text-white font-bold text-sm mb-1 block">Month</label>
+		<label for="month" 
+			class="font-bold text-sm mb-1 block"
+			[ngClass]="[dark ? 'text-white' : 'text-twitter-gray-100']"
+		>
+			Month
+		</label>
 		<select 
 			id="month"
 			class="tw_input_sky"
 			[ngClass]="{'error': form.get('month')?.invalid && (form.get('month')?.dirty || form.get('month')?.touched)}"
+			[ngStyle]="{'color': dark ? 'white' : 'black'}"
 			formControlName="month"			
 		>
 			<option *ngFor="let m of months; let i = index" [value]="i+1">
@@ -13,11 +19,17 @@
 		</select>
 	</div>
 	<div style="flex:0.2">
-		<label for="day" class="text-white font-bold text-sm mb-1 block">Day</label>
+		<label for="day" 
+			class="font-bold text-sm mb-1 block"
+			[ngClass]="[dark ? 'text-white' : 'text-twitter-gray-100']"
+		>
+			Day
+		</label>
 		<select 
 			id="day"
 			class="tw_input_sky"
 			[ngClass]="{'error': form.get('day')?.invalid && (form.get('day')?.dirty || form.get('day')?.touched)}"
+			[ngStyle]="{'color': dark ? 'white' : 'black'}"
 			formControlName="day"			
 		>
 			<option *ngFor="let d of days" [value]="d">
@@ -26,11 +38,17 @@
 		</select>
 	</div>
 	<div style="flex:0.25">
-		<label for="year" class="text-white font-bold text-sm mb-1 block">Year</label>
+		<label for="year" 
+			class="font-bold text-sm mb-1 block"
+			[ngClass]="[dark ? 'text-white' : 'text-twitter-gray-100']"
+		>
+			Year
+		</label>
 		<select 
 			id="year"
 			class="tw_input_sky"
 			[ngClass]="{'error': form.get('year')?.invalid && (form.get('year')?.dirty || form.get('year')?.touched)}"
+			[ngStyle]="{'color': dark ? 'white' : 'black'}"
 			formControlName="year"			
 		>
 			<option *ngFor="let y of years" [value]="y">
