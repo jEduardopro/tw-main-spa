@@ -1,0 +1,32 @@
+<app-banner></app-banner>
+<div class="w-full flex flex-col p-3">
+	<div class="flex flex-row justify-end items-center">
+		<app-settings></app-settings>
+	</div>
+	<div class="flex flex-col w-full mt-10 mb-3 box-border">
+		<span class="text-black dark:text-white font-bold text-md">{{profile?.name | titlecase}}</span>
+		<span class="text-sm text-twitter-gray-100 dark:text-twitter-gray-50">@{{profile?.username}}</span>
+		<span class="text-sm text-black dark:text-white my-2" *ngIf="profile?.description">{{profile?.description}}</span>
+		<span class="text-twitter-gray-100 dark:text-twitter-gray-50 my-2">
+			<i class="far fa-calendar-alt"></i>
+			<span class="text-sm ml-2">Joined {{profile?.readable_joined_date}}</span>
+		</span>
+		<div class="flex flex-row items-center">
+			<a 
+				class="text-xs text-black dark:text-white hover:underline mr-2" 
+				routerLink="following"
+			>
+				<span>{{profile?.following_count}}</span>
+				<span class="text-twitter-gray-100 dark:text-twitter-gray-50"> Following</span>
+			</a>
+			<a 
+				class="text-xs text-black dark:text-white hover:underline" 
+				routerLink="followers"
+			>
+				<span>{{profile?.followers_count}}</span>
+				<span class="text-twitter-gray-100 dark:text-twitter-gray-50"> Followers</span>
+			</a>
+		</div>
+	</div>
+</div>
+<app-tweet-tabs></app-tweet-tabs>

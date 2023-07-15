@@ -10,6 +10,8 @@ import { ProfileService } from '../../services/profile.service';
 import { setProfile } from '../../store/actions/profile.actions';
 import { MediaService } from '@app/modules/media/services/media.service';
 import * as httpErrorSelectors from '@app/shared/store/selectors/http-error.selectors';
+import { selectAuthUser } from '@app/modules/auth/store/selectors/auth.selectors';
+import { User } from '@app/modules/auth/interfaces/user.interface';
 
 @Component({
   selector: 'app-settings',
@@ -22,6 +24,7 @@ export class SettingsComponent implements OnInit, OnDestroy {
 	profileSettings = false;
 	storeSubscription: Subscription = new Subscription;
 	profile!: Profile
+	authUser: User|null = null
 	errors: any = {};
 
 	profileForm!: FormGroup
@@ -29,6 +32,7 @@ export class SettingsComponent implements OnInit, OnDestroy {
 	bannerImagePreview: string | null = null;
 	imageMediaFile: File | null = null;
 	imagePreview: string | null = null;
+	followText = 'Following'
 
 	constructor(
 		private store: Store<AppState>,
@@ -44,6 +48,10 @@ export class SettingsComponent implements OnInit, OnDestroy {
 			this.profile = JSON.parse(JSON.stringify(profile!))
 		})
 
+		const userAuth$ = this.store.select(selectAuthUser).subscribe(user => {
+			this.authUser = user
+		})
+
 		const errors$ = this.store.select(httpErrorSelectors.selectFieldErrors).subscribe(fieldErrors => {
 			if (fieldErrors) {
 				this.errors = fieldErrors
@@ -53,12 +61,20 @@ export class SettingsComponent implements OnInit, OnDestroy {
 		})
 
 		this.storeSubscription.add(profileInfo$)
+		this.storeSubscription.add(userAuth$)
 		this.storeSubscription.add(errors$)
 		this.setFormData()
 	}
 	
 	ngOnDestroy(): void {
 		this.storeSubscription.unsubscribe()
+	}
+
+	get canEditProfile() {
+		if (!this.authUser) {
+			return false
+		}
+		return this.authUser.id === this.profile.id
 	}
 	
 	toggleProfileSettings() {

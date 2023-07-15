@@ -3,6 +3,9 @@ import { Routes, RouterModule } from '@angular/router';
 import { LayoutComponent } from '../../shared/components/layout/layout.component';
 import { ProfileComponent } from './components/profile/profile.component';
 import { CommonModule } from '@angular/common';
+import { HomeComponent } from "./components/home/home.component";
+import { FollowingComponent } from "./components/following/following.component";
+import { FollowersComponent } from "./components/followers/followers.component";
 
 const routes: Routes = [
 	{
@@ -11,7 +14,21 @@ const routes: Routes = [
 		children: [
 			{
 				path: '',
-				component: ProfileComponent
+				component: ProfileComponent,
+				children: [
+					{
+						path: '',
+						component: HomeComponent
+					},
+					{
+						path: 'following',
+						component: FollowingComponent
+					},
+					{
+						path: 'followers',
+						component: FollowersComponent
+					}
+				]
 			}
 		]
 	}

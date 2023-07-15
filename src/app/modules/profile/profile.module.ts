@@ -14,12 +14,12 @@ import { TweetsModule } from '../tweets/tweets.module';
 import { TweetsRepliesTimelineComponent } from './components/tweets-replies-timeline/tweets-replies-timeline.component';
 import { SettingsComponent } from './components/settings/settings.component';
 import { ReactiveFormsModule } from '@angular/forms';
-
-
+import { HomeComponent } from './components/home/home.component';
 
 @NgModule({
   declarations: [
-    ProfileComponent,
+		ProfileComponent,
+		HomeComponent,
     BannerComponent,
 		AvatarPreviewComponent,
 		TweetTabsComponent,
