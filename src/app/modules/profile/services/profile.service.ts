@@ -30,8 +30,8 @@ export class ProfileService extends HttpRequestService {
 		return this.post('/profile/update-banner', {media_id: mediaId})
 	}
 
-	updateImage() {
-		
+	updateImage(mediaId: string): Observable<{profile_image_url: string}> {
+		return this.post('/profile/update-image', {media_id: mediaId})
 	}
 
 }

@@ -25,6 +25,8 @@ export class SettingsComponent implements OnInit, OnDestroy {
 	profileForm!: FormGroup
 	bannerMediaFile: File | null = null;
 	bannerImagePreview: string | null = null;
+	imageMediaFile: File | null = null;
+	imagePreview: string | null = null;
 
 	constructor(
 		private store: Store<AppState>,
@@ -34,8 +36,10 @@ export class SettingsComponent implements OnInit, OnDestroy {
 	) { }
 
 	ngOnInit(): void {
+		console.log('ngOnInit SettingsComponent');
+		
 		const profileInfo$ = this.store.select(selectProfileInfo).subscribe(profile => {
-			this.profile = profile!
+			this.profile = JSON.parse(JSON.stringify(profile!))
 		})
 
 		this.storeSubscription.add(profileInfo$)
@@ -44,13 +48,6 @@ export class SettingsComponent implements OnInit, OnDestroy {
 	
 	ngOnDestroy(): void {
 		this.storeSubscription.unsubscribe()
-	}
-
-	get profileBannerImage() {
-		if (!this.profile.banner) {
-			return ''
-		}
-		return this.profile.banner.conversions.medium
 	}
 	
 	toggleProfileSettings() {
@@ -64,7 +61,6 @@ export class SettingsComponent implements OnInit, OnDestroy {
 
 	onBannerFileChange(event: Event) {
 		const target = event.target as HTMLInputElement
-		console.log(target.files);
 		const file = target.files![0];
 		if (!file) {
 			this.bannerImagePreview = null
@@ -80,6 +76,18 @@ export class SettingsComponent implements OnInit, OnDestroy {
 		inputImageFile?.click()
 	}
 
+	onImageFileChange(event: Event) {
+		const target = event.target as HTMLInputElement
+		const file = target.files![0];
+		if (!file) {
+			this.imagePreview = null
+			this.imageMediaFile = null
+			return
+		}
+		this.imageMediaFile = file
+		this.imagePreview = URL.createObjectURL(file)
+	}
+
 	setFormData() {
 		this.profileForm = new FormGroup({
 			name: new FormControl(this.profile.name, [Validators.required]),
@@ -91,6 +99,7 @@ export class SettingsComponent implements OnInit, OnDestroy {
 	async saveProfile() {
 		this.store.dispatch(toggleLoading({status: true}))
 		this.saveBanner()
+		this.saveImage()
 		this.saveBasicInfo()
 		this.store.dispatch(toggleLoading({status: false}))
 	}
@@ -98,7 +107,7 @@ export class SettingsComponent implements OnInit, OnDestroy {
 	async saveBasicInfo() {
 		try {
 			const response = await firstValueFrom(this.profileService.update(this.profileForm.value))
-			this.store.dispatch(setProfile({ profile: response }))
+			this.store.dispatch(setProfile({ profile: {...this.profile, ...response} }))
 			this.profileSettings = false
 		} catch (error) {
 			console.log(error);
@@ -115,8 +124,10 @@ export class SettingsComponent implements OnInit, OnDestroy {
 			mediaForm.append('media', this.bannerMediaFile)
 			mediaForm.append('media_category', 'banner_image')
 			const { media_id } = await firstValueFrom(this.mediaService.upload(mediaForm))
-			const {profile_banner_url} = await firstValueFrom(this.profileService.updateBanner(media_id))
-			// console.log({ response });
+			const { profile_banner_url } = await firstValueFrom(this.profileService.updateBanner(media_id))
+			this.bannerMediaFile = null
+			this.bannerImagePreview = null
+
 			const bannerImage = {
 				id: "",
 				url: profile_banner_url,
@@ -129,6 +140,37 @@ export class SettingsComponent implements OnInit, OnDestroy {
 				created_at: ""
 			}
 			this.store.dispatch(setProfile({ profile: {...this.profile, banner: bannerImage} }))
+			
+		} catch (error) {
+			console.log(error);
+		}
+	}
+
+	async saveImage() {
+		if (!this.imageMediaFile) {
+			return
+		}
+
+		try {
+			const mediaForm = new FormData()
+			mediaForm.append('media', this.imageMediaFile)
+			mediaForm.append('media_category', 'profile_image')
+			const { media_id } = await firstValueFrom(this.mediaService.upload(mediaForm))
+			const { profile_image_url } = await firstValueFrom(this.profileService.updateImage(media_id))
+			this.imageMediaFile = null
+			this.imagePreview = null
+			const profileImage = {
+				id: "",
+				url: profile_image_url,
+				conversions: {
+					large: "",
+					small: "",
+					thumb: "",
+					medium: "",
+				},
+				created_at: ""
+			}
+			this.store.dispatch(setProfile({ profile: {...this.profile, image: profileImage} }))
 			
 		} catch (error) {
 			console.log(error);

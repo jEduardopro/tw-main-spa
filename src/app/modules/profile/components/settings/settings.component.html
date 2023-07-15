@@ -89,16 +89,22 @@
 											(change)="onBannerFileChange($event)"
 										/>
 										<i class="fas fa-camera text-white"></i>
-									</div>
+									</div>										
 								</div>
 							</div>
 						</div>
 						<div
-							class="w-[104px] h-[104px] -mt-10 ml-4 rounded-full box-border border-4 border-white dark:border-twitter-black-100 relative"
+							class="w-[104px] h-[104px] -mt-10 ml-4 rounded-full box-border border-4 border-white dark:border-twitter-black-100 relative bg-[#B2B2B2]"
 						>
-							<div class="w-full h-full rounded-full bg-[#B2B2B2]">
+							<div *ngIf="profile.image && !imagePreview" class="w-full h-full rounded-full">
 								<app-user-profile-image [image]="profile.image" [size]="'thumb'"></app-user-profile-image>
 							</div>
+							<div 
+									*ngIf="imagePreview"
+									class="w-full h-full rounded-full"
+								>
+									<img class="rounded-full w-full h-full box-border object-cover" [src]="imagePreview" alt="Avatar">
+								</div>
 							<div class="absolute top-0 left-0 w-full h-full z-20 flex flex-col justify-center items-center text-center">
 								<div 
 									role="button"
@@ -116,9 +122,10 @@
 										accept="image/png, image/gif, image/jpeg, image/jpg, image/svg" 
 										class="opacity-0 w-0 h-0" 
 										style="visibility: hidden;"
+										(change)="onImageFileChange($event)"
 									/>
 									<i class="fas fa-camera text-white"></i>
-								</div>
+								</div>								
 							</div>
 						</div>
 					</div>
