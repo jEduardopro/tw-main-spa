@@ -7,8 +7,9 @@ import { selectProfileInfo } from '../../store/selectors/profile.selectors';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { CustomizeViewService } from '@app/modules/customize-view/services/customize-view.service';
 import { ProfileService } from '../../services/profile.service';
-import { setProfile, toggleLoading } from '../../store/actions/profile.actions';
+import { setProfile } from '../../store/actions/profile.actions';
 import { MediaService } from '@app/modules/media/services/media.service';
+import * as httpErrorSelectors from '@app/shared/store/selectors/http-error.selectors';
 
 @Component({
   selector: 'app-settings',
@@ -21,6 +22,7 @@ export class SettingsComponent implements OnInit, OnDestroy {
 	profileSettings = false;
 	storeSubscription: Subscription = new Subscription;
 	profile!: Profile
+	errors: any = {};
 
 	profileForm!: FormGroup
 	bannerMediaFile: File | null = null;
@@ -42,7 +44,16 @@ export class SettingsComponent implements OnInit, OnDestroy {
 			this.profile = JSON.parse(JSON.stringify(profile!))
 		})
 
+		const errors$ = this.store.select(httpErrorSelectors.selectFieldErrors).subscribe(fieldErrors => {
+			if (fieldErrors) {
+				this.errors = fieldErrors
+				return;
+			}
+			this.errors = {}
+		})
+
 		this.storeSubscription.add(profileInfo$)
+		this.storeSubscription.add(errors$)
 		this.setFormData()
 	}
 	
@@ -97,11 +108,9 @@ export class SettingsComponent implements OnInit, OnDestroy {
 	}
 
 	async saveProfile() {
-		this.store.dispatch(toggleLoading({status: true}))
 		this.saveBanner()
 		this.saveImage()
 		this.saveBasicInfo()
-		this.store.dispatch(toggleLoading({status: false}))
 	}
 
 	async saveBasicInfo() {

@@ -141,6 +141,12 @@
 									formControlName="name"
 									placeholder="Name"
 								/>
+								<span 
+									*ngIf="errors.name"
+									class="block text-red-500 text-sm"
+								>
+									{{errors.name[0]}}
+								</span>
 							</div>
 							<div class="flex flex-col w-full mb-4">
 								<label for="bio" class="text-twitter-gray-100">Bio</label>
@@ -148,13 +154,20 @@
 								class="p-2 h-20 rounded-md focus:outline-none border border-gray-700 bg-transparent focus:border-twitter-sky-100
 								text-black dark:text-white w-full block box-border focus:border-2"
 								></textarea>
+								<span 
+									*ngIf="errors.description"
+									class="block text-red-500 text-sm"
+								>
+									{{errors.description[0]}}
+								</span>
 							</div>
 							<div class="flex flex-col w-full mb-4">
 								<label class="text-twitter-gray-100">Birth Date</label>
 								<app-date-birth-select
 									[value]="profileForm.get('date_birth')?.value" 
 									(valueChange)="profileForm.patchValue({date_birth: $event})"
-									[dark]="false"
+									[error]="errors.date_birth ? errors.date_birth[0] : null"
+									[dark]="customizeView.viewSettings.themeBackground.name === 'lights out'"
 								>									
 								</app-date-birth-select>
 							</div>
