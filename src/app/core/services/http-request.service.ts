@@ -30,8 +30,8 @@ export class HttpRequestService {
 		return this.http.put(`${this.apiUrl}${url}`, payload, {headers: this.headers})
 	}
 
-	protected delete(url: string): Observable<any> {
-		return this.http.delete(`${this.apiUrl}${url}`, {headers: this.headers})
+	protected delete(url: string, payload = {}): Observable<any> {
+		return this.http.delete(`${this.apiUrl}${url}`, {headers: this.headers, body: payload})
 	}
 
 	protected setHeaders(headers: HttpHeaders | null = null) {

@@ -9,19 +9,13 @@
 	<span class="text-sm font-semibold text-black dark:text-white">Edit profile</span>
 </button>
 
-<button
-	class="
-		flex flex-col justify-center text-center px-3 w-[100px] min-h-[32px]
-		rounded-full bg-white dark:bg-black border border-[#D1D9DC] dark:border-[#526371]
-		text-black dark:text-white
-		hover:dark:border-red-500 hover:dark:text-red-500
-		items-center
-	"
-	(mouseover)="followText = 'Unfollow'"
-	(mouseleave)="followText = 'Following'"
+<app-follow-button
+	*ngIf="!canEditProfile"
+	[following]="profile.following"
+	[user_id]="profile.id"
+	(follow)="setFollow($event)"
 >
-	<span class="text-sm font-semibold">{{followText}}</span>
-</button>
+</app-follow-button>
 
 <div *ngIf="profileSettings" class="fixed z-10 top-0 left-0 w-full h-full">
 	<div 

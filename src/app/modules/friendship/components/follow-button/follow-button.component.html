@@ -1,0 +1,16 @@
+<button
+	class="
+		flex flex-col justify-center text-center px-3 w-[100px] min-h-[32px] items-center
+		rounded-full 
+	"
+	[ngClass]="followClasses"
+	(mouseover)="followHover = true"
+	(mouseleave)="followHover = false"
+	(click)="toggleFollow()"
+>
+	<span class="text-sm font-semibold">{{followText}}</span>
+</button>
+
+<!-- bg-white dark:bg-black border border-[#D1D9DC] dark:border-[#526371]
+		text-black dark:text-white
+		hover:dark:border-red-500 hover:dark:text-red-500 -->

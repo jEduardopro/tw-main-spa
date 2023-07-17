@@ -32,7 +32,7 @@ export class SettingsComponent implements OnInit, OnDestroy {
 	bannerImagePreview: string | null = null;
 	imageMediaFile: File | null = null;
 	imagePreview: string | null = null;
-	followText = 'Following'
+	followHover = false
 
 	constructor(
 		private store: Store<AppState>,
@@ -41,9 +41,7 @@ export class SettingsComponent implements OnInit, OnDestroy {
 		public customizeView: CustomizeViewService
 	) { }
 
-	ngOnInit(): void {
-		console.log('ngOnInit SettingsComponent');
-		
+	ngOnInit(): void {		
 		const profileInfo$ = this.store.select(selectProfileInfo).subscribe(profile => {
 			this.profile = JSON.parse(JSON.stringify(profile!))
 		})
@@ -202,4 +200,7 @@ export class SettingsComponent implements OnInit, OnDestroy {
 		}
 	}
 
+	setFollow(value: boolean) {
+		this.profile.following = value
+	}
 }

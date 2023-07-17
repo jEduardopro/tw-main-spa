@@ -15,6 +15,7 @@ import { TweetsRepliesTimelineComponent } from './components/tweets-replies-time
 import { SettingsComponent } from './components/settings/settings.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import { HomeComponent } from './components/home/home.component';
+import { FriendshipModule } from '../friendship/friendship.module';
 
 @NgModule({
   declarations: [
@@ -32,6 +33,7 @@ import { HomeComponent } from './components/home/home.component';
 		SharedModule,
 		StoreModule.forFeature(profileFeatureKey, profileReducer),
 		TweetsModule,
+		FriendshipModule,
 		ProfileRoutingModule,
 		InfiniteScrollModule,
 		ReactiveFormsModule
