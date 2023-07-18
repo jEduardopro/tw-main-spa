@@ -1,4 +1,9 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
+import { ProfileService } from '../../services/profile.service';
+import { Subscription, firstValueFrom } from 'rxjs';
+import { Store } from '@ngrx/store';
+import { AppState } from '@app/store/app.reducers';
+import { selectProfileId } from '../../store/selectors/profile.selectors';
 
 @Component({
   selector: 'app-followers',
@@ -6,6 +11,46 @@ import { Component } from '@angular/core';
   styles: [
   ]
 })
-export class FollowersComponent {
+export class FollowersComponent implements OnInit {
+
+	storeSubscription: Subscription = new Subscription;
+	page = 1;
+	userId: string|null = null
+	loading = false
+	loadingMoreTweets = false
+	noMoreTweetsToLoad = false
+
+	constructor(
+		private profileService: ProfileService,
+		private store: Store<AppState>,
+	) { }
+
+	ngOnInit(): void {
+		const profileId$ = this.store.select(selectProfileId).subscribe(profileId => {
+			this.userId = profileId || null
+		})
+
+		this.storeSubscription.add(profileId$)
+
+		this.getFollowers()
+	}
+
+	ngOnDestroy(): void {
+		this.storeSubscription.unsubscribe()
+	}
+
+	async getFollowers() {
+		if (!this.userId) return
+
+		this.loading = true
+		try {
+			const response = await firstValueFrom(this.profileService.followers(this.userId, this.page))
+			console.log(response);
+			
+		} catch (error) {
+			
+		}
+		this.loading = false
+	}
 
 }

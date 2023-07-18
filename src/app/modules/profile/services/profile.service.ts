@@ -34,4 +34,8 @@ export class ProfileService extends HttpRequestService {
 		return this.post('/profile/update-image', {media_id: mediaId})
 	}
 
+	followers(id: string, page: number): Observable<Profile[]> {
+		return this.get(`/users/${id}/followers?page=${page}`)
+	}
+
 }
