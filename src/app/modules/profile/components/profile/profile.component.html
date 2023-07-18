@@ -27,7 +27,5 @@
 	<div *ngIf="loading" class="flex flex-row justify-center items-center p-5 text-center">
 		<i class="fas fa-circle-notch fa-spin text-lg" [ngClass]="customizeView.themeColor.color"></i>
 	</div>
-	<div *ngIf="!loading && profileFound" class="w-full h-full flex flex-col">
-		<router-outlet></router-outlet>
-	</div>
+	<router-outlet></router-outlet>
 </div>
