@@ -3,6 +3,7 @@ import { HttpRequestService } from '@app/core/services/http-request.service';
 import { Observable } from 'rxjs';
 import { Profile } from '../interfaces/profile.interface';
 import { ProfileBasicPayload } from '../interfaces/profile-basic-payload.interface';
+import { Response } from '@app/core/interfaces/response.interface';
 
 @Injectable({
   providedIn: 'root'
@@ -34,7 +35,7 @@ export class ProfileService extends HttpRequestService {
 		return this.post('/profile/update-image', {media_id: mediaId})
 	}
 
-	followers(id: string, page: number): Observable<Profile[]> {
+	followers(id: string, page: number): Observable<Response<Profile[]>> {
 		return this.get(`/users/${id}/followers?page=${page}`)
 	}
 

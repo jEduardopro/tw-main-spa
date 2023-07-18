@@ -4,6 +4,7 @@ import { Subscription, firstValueFrom } from 'rxjs';
 import { Store } from '@ngrx/store';
 import { AppState } from '@app/store/app.reducers';
 import { selectProfileId } from '../../store/selectors/profile.selectors';
+import { setFollowersLoaded } from '../../store/actions/profile.actions';
 
 @Component({
   selector: 'app-followers',
@@ -27,12 +28,14 @@ export class FollowersComponent implements OnInit {
 
 	ngOnInit(): void {
 		const profileId$ = this.store.select(selectProfileId).subscribe(profileId => {
+			console.log('subscriber profile id', profileId);
+			
 			this.userId = profileId || null
+			this.getFollowers()
 		})
 
 		this.storeSubscription.add(profileId$)
 
-		this.getFollowers()
 	}
 
 	ngOnDestroy(): void {
@@ -44,11 +47,12 @@ export class FollowersComponent implements OnInit {
 
 		this.loading = true
 		try {
-			const response = await firstValueFrom(this.profileService.followers(this.userId, this.page))
-			console.log(response);
+			const {data} = await firstValueFrom(this.profileService.followers(this.userId, this.page))
+			console.log(data);
+			this.store.dispatch(setFollowersLoaded({ followers: data }))
 			
 		} catch (error) {
-			
+			console.log(error);
 		}
 		this.loading = false
 	}

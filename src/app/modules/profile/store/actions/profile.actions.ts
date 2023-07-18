@@ -26,3 +26,13 @@ export const setCurrentRepliesPage = createAction(
 	'[PROFILE] Set Current Page of tweets and replies loaded',
 	props<{page: number}>()
 );
+
+export const setFollowersLoaded = createAction(
+	'[PROFILE] Set Followers Loaded',
+	props<{followers: Profile[]}>()
+);
+
+export const setCurrentFollowersPage = createAction(
+	'[PROFILE] Set Current Page of followers loaded',
+	props<{page: number}>()
+);
