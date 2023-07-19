@@ -1,5 +1,5 @@
 import { Component, EventEmitter, OnDestroy, OnInit, Output } from '@angular/core';
-import { selectAuthUserImage } from '@app/modules/auth/store/selectors/auth.selectors';
+import { selectAuthUserImage, selectAuthUsername } from '@app/modules/auth/store/selectors/auth.selectors';
 import { CustomizeViewService } from '@app/modules/customize-view/services/customize-view.service';
 import { AppState } from '@app/store/app.reducers';
 import { Store } from '@ngrx/store';
@@ -25,6 +25,7 @@ export class NewTweetComponent implements OnInit, OnDestroy {
 	waitingResponse = false;
 
 	authUserImage: Image | null = null;
+	authUsername: string | null = null;
 	storeSubscription: Subscription = new Subscription;
 	
 	@Output() tweetCreated = new EventEmitter<Tweet>()
@@ -39,7 +40,12 @@ export class NewTweetComponent implements OnInit, OnDestroy {
 		const authUserImage$ = this.store.select(selectAuthUserImage).subscribe(image => {
 			this.authUserImage = image
 		})
+		const username$ = this.store.select(selectAuthUsername).subscribe(username => {
+			this.authUsername = username
+		})
+
 		this.storeSubscription.add(authUserImage$)
+		this.storeSubscription.add(username$)
 	}
 
 	ngOnDestroy(): void {

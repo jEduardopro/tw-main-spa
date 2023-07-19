@@ -12,6 +12,7 @@ import { MediaService } from '@app/modules/media/services/media.service';
 import * as httpErrorSelectors from '@app/shared/store/selectors/http-error.selectors';
 import { selectAuthUser } from '@app/modules/auth/store/selectors/auth.selectors';
 import { User } from '@app/modules/auth/interfaces/user.interface';
+import { AuthService } from '@app/modules/auth/services/auth.service';
 
 @Component({
   selector: 'app-settings',
@@ -37,6 +38,7 @@ export class SettingsComponent implements OnInit, OnDestroy {
 	constructor(
 		private store: Store<AppState>,
 		private profileService: ProfileService,
+		private authService: AuthService,
 		private mediaService: MediaService,
 		public customizeView: CustomizeViewService
 	) { }
@@ -121,7 +123,7 @@ export class SettingsComponent implements OnInit, OnDestroy {
 		})
 	}
 
-	async saveProfile() {
+	saveProfile() {
 		this.saveBanner()
 		this.saveImage()
 		this.saveBasicInfo()
@@ -130,7 +132,8 @@ export class SettingsComponent implements OnInit, OnDestroy {
 	async saveBasicInfo() {
 		try {
 			const response = await firstValueFrom(this.profileService.update(this.profileForm.value))
-			this.store.dispatch(setProfile({ profile: {...this.profile, ...response} }))
+			this.store.dispatch(setProfile({ profile: { ...this.profile, ...response } }))
+			this.updateAuthUser()
 			this.profileSettings = false
 		} catch (error) {
 			console.log(error);
@@ -193,11 +196,17 @@ export class SettingsComponent implements OnInit, OnDestroy {
 				},
 				created_at: ""
 			}
-			this.store.dispatch(setProfile({ profile: {...this.profile, image: profileImage} }))
+			this.store.dispatch(setProfile({ profile: { ...this.profile, image: profileImage } }))
+			this.updateAuthUser()
 			
 		} catch (error) {
 			console.log(error);
 		}
+	}
+
+	updateAuthUser() {
+		const {name, image} = this.profile
+		this.authService.saveAuthenticatedUser({...this.authUser!, name, image})
 	}
 
 	setFollow(value: boolean) {
