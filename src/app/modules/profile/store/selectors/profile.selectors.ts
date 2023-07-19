@@ -42,7 +42,13 @@ export const selectCurrentRepliesPage = createSelector(
 	profileFeatureState,
 	(state) => state.repliesPage
 );
+
 export const selectTweetsAndRepliesLoaded = createSelector(
 	profileFeatureState,
 	(state) => state.tweetsReplies
+);
+
+export const selectFollowers = createSelector(
+	profileFeatureState,
+	(state) => state.followers
 );
