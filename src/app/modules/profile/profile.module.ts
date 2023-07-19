@@ -5,7 +5,6 @@ import { BannerComponent } from './components/banner/banner.component';
 import { AvatarPreviewComponent } from './components/avatar-preview/avatar-preview.component';
 import { TweetTabsComponent } from './components/tweet-tabs/tweet-tabs.component';
 import { ProfileRoutingModule } from './profile.routing.module';
-import { SharedModule } from '../../shared/shared.module';
 import { StoreModule } from '@ngrx/store';
 import { profileFeatureKey, profileReducer } from './store/reducers/profile.reducer';
 import { TweetsTimelineComponent } from './components/tweets-timeline/tweets-timeline.component';
@@ -16,6 +15,8 @@ import { SettingsComponent } from './components/settings/settings.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import { HomeComponent } from './components/home/home.component';
 import { FriendshipModule } from '../friendship/friendship.module';
+import { SharedModule } from '@app/shared';
+import { FollowersComponent } from './components/followers/followers.component';
 
 @NgModule({
   declarations: [
@@ -26,17 +27,18 @@ import { FriendshipModule } from '../friendship/friendship.module';
 		TweetTabsComponent,
 		TweetsTimelineComponent,
 		TweetsRepliesTimelineComponent,
-		SettingsComponent
+		SettingsComponent,
+		FollowersComponent
   ],
   imports: [
 		CommonModule,
-		SharedModule,
 		StoreModule.forFeature(profileFeatureKey, profileReducer),
 		TweetsModule,
 		FriendshipModule,
 		ProfileRoutingModule,
 		InfiniteScrollModule,
-		ReactiveFormsModule
+		ReactiveFormsModule,
+		SharedModule
   ]
 })
 export class ProfileModule { }

@@ -27,9 +27,7 @@ export class FollowersComponent implements OnInit {
 	) { }
 
 	ngOnInit(): void {
-		const profileId$ = this.store.select(selectProfileId).subscribe(profileId => {
-			console.log('subscriber profile id', profileId);
-			
+		const profileId$ = this.store.select(selectProfileId).subscribe(profileId => {			
 			this.userId = profileId || null
 			this.getFollowers()
 		})

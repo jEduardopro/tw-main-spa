@@ -8,7 +8,7 @@
 	<div class="flex flex-row flex-grow box-border relative">
 		<div class="flex flex-col items-center flex-grow-0 relative box-border mr-3">
 			<div class="flex flex-col items-stretch">
-				<a href="#" role="link" class="flex flex-col items-center w-12 h-12 rounded-full relative outline-none">
+				<a [routerLink]="['/'+ tweet.reply_to.owner.username]" role="link" class="flex flex-col items-center w-12 h-12 rounded-full relative outline-none">
 					<div class="w-full h-full rounded-full">
 						<app-user-profile-image [image]="tweet.reply_to.owner.image"></app-user-profile-image>
 					</div>
@@ -103,7 +103,7 @@
 		<div class="flex flex-row flex-grow box-border relative">
 			<div class="flex flex-col justify-start relative box-border mr-3">
 				<div class="flex flex-col items-stretch">
-					<a href="#" role="link" class="flex flex-col items-center w-12 h-12 rounded-full relative outline-none">
+					<a [routerLink]="['/'+ tweet.owner.username]" role="link" class="flex flex-col items-center w-12 h-12 rounded-full relative outline-none">
 						<div class="w-full h-full rounded-full">
 							<app-user-profile-image [image]="tweet.owner.image"></app-user-profile-image>
 						</div>
