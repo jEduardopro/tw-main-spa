@@ -52,3 +52,8 @@ export const selectFollowers = createSelector(
 	profileFeatureState,
 	(state) => state.followers
 );
+
+export const selectCurrentFollowersPage = createSelector(
+	profileFeatureState,
+	(state) => state.followersPage
+);
