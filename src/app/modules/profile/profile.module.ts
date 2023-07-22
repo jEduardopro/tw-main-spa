@@ -18,6 +18,8 @@ import { FriendshipModule } from '../friendship/friendship.module';
 import { SharedModule } from '@app/shared';
 import { FollowersComponent } from './components/followers/followers.component';
 import { ProfileItemComponent } from './components/profile-item/profile-item.component';
+import { FollowingComponent } from './components/following/following.component';
+import { FollowTabsComponent } from './components/follow-tabs/follow-tabs.component';
 
 @NgModule({
   declarations: [
@@ -30,7 +32,9 @@ import { ProfileItemComponent } from './components/profile-item/profile-item.com
 		TweetsRepliesTimelineComponent,
 		SettingsComponent,
 		FollowersComponent,
-		ProfileItemComponent
+		FollowingComponent,
+		ProfileItemComponent,
+		FollowTabsComponent
   ],
   imports: [
 		CommonModule,

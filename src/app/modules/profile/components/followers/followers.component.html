@@ -1,3 +1,33 @@
+<app-sticky-top-section 
+	*ngIf="userId"
+	class="flex flex-col items-stretch sticky top-0 left-0 z-10" style="backface-visibility: hidden;"
+>
+	<div class="stickyContent flex flex-col flex-grow items-stretch box-border min-h-[53px]">
+		<div class="flex flex-grow h-full items-center">
+			<div class="flex flex-col h-full justify-center items-center ml-2 mr-5">
+				<button 
+					class="w-7 h-7 flex flex-col justify-center 
+						items-center text-center rounded-full box-border hover:bg-twitter-gray-btn-hover hover:dark:bg-twitter-black-btn-hover"
+					type="button" 
+					role="link"
+					aria-label="Back"
+					title="Back"
+					(click)="goToBack()"
+				>
+					<i class="fas fa-arrow-left text-black dark:text-twitter-white-100"></i>
+				</button>
+			</div>
+			<div class="flex flex-col h-full justify-center box-border py-1 w-full">
+				<h2 class="text-[18px] leading-[22px] font-bold text-black dark:text-twitter-white-100" aria-level="2" role="heading">
+					<span>{{profileName | titlecase}}</span>
+				</h2>
+				<span class="text-sm text-twitter-gray-100 dark:text-twitter-gray-50">@{{profileUsername}}</span>				
+			</div>
+		</div>
+		<app-follow-tabs [currentTab]="'followers'"></app-follow-tabs>
+	</div>
+</app-sticky-top-section>
+
 <div 
 	class="relative border-t border-twitter-white-200 dark:border-twitter-gray-200 pb-40"
 	infiniteScroll
@@ -8,10 +38,16 @@
 	(scrolled)="onScroll()"
 	[scrollWindow]="false"
 >
+	<div *ngIf="loading" class="flex flex-row justify-center items-center">
+		<app-spinner></app-spinner>
+	</div>
 	<app-profile-item
 		*ngFor="let user of followers"
 		[profile]="user"
 		(follow)="setFollow($event.id, $event.value)"
 	>
 	</app-profile-item>
+	<div *ngIf="loadingMoreFollowers" class="flex flex-row justify-center items-center mt-2">
+		<app-spinner></app-spinner>
+	</div>
 </div>

@@ -14,6 +14,11 @@ export const selectProfileId = createSelector(
 	(state) => state.profile?.id
 );
 
+export const selectProfileName = createSelector(
+	profileFeatureState,
+	(state) => state.profile?.name
+);
+
 export const selectProfileUsername = createSelector(
 	profileFeatureState,
 	(state) => state.profile?.username
@@ -56,4 +61,14 @@ export const selectFollowers = createSelector(
 export const selectCurrentFollowersPage = createSelector(
 	profileFeatureState,
 	(state) => state.followersPage
+);
+
+export const selectFollowing = createSelector(
+	profileFeatureState,
+	(state) => state.following
+);
+
+export const selectCurrentFollowingPage = createSelector(
+	profileFeatureState,
+	(state) => state.followingPage
 );

@@ -39,4 +39,8 @@ export class ProfileService extends HttpRequestService {
 		return this.get(`/users/${id}/followers?page=${page}`)
 	}
 
+	following(id: string, page: number): Observable<Response<Profile[]>> {
+		return this.get(`/users/${id}/followings?page=${page}`)
+	}
+
 }

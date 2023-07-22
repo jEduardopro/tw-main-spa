@@ -3,9 +3,10 @@ import { ProfileService } from '../../services/profile.service';
 import { Subscription, firstValueFrom } from 'rxjs';
 import { Store } from '@ngrx/store';
 import { AppState } from '@app/store/app.reducers';
-import { selectCurrentFollowersPage, selectFollowers, selectProfileId } from '../../store/selectors/profile.selectors';
+import { selectCurrentFollowersPage, selectFollowers, selectProfileId, selectProfileName, selectProfileUsername } from '../../store/selectors/profile.selectors';
 import { decrementFollowingCount, incrementFollowingCount, setCurrentFollowersPage, setFollowersLoaded } from '../../store/actions/profile.actions';
 import { Profile } from '../../interfaces/profile.interface';
+import { NavigationService } from '@app/core/services/navigation.service';
 
 @Component({
   selector: 'app-followers',
@@ -18,12 +19,16 @@ export class FollowersComponent implements OnInit {
 	followers: Profile[] = [];
 	storeSubscription: Subscription = new Subscription;
 	page = 1;
-	userId: string|null = null
+	userId: string | null = null
+	profileName: string | null = ''
+	profileUsername: string | null = ''
 	loading = false
 	loadingMoreFollowers = false
 	noMoreFollowersToLoad = false
+	currentTab: 'followers' | 'following' = 'followers'
 
 	constructor(
+		private navigationService: NavigationService,
 		private profileService: ProfileService,
 		private store: Store<AppState>,
 	) { }
@@ -42,9 +47,19 @@ export class FollowersComponent implements OnInit {
 			this.getFollowers()
 		})
 
+		const profileName$ = this.store.select(selectProfileName).subscribe(name => {
+			this.profileName = name || ''
+		})
+
+		const profileUsername$ = this.store.select(selectProfileUsername).subscribe(username => {
+			this.profileUsername = username || ''
+		})
+
 		this.storeSubscription.add(followers$)
 		this.storeSubscription.add(currentFollowersPage$)
 		this.storeSubscription.add(profileId$)
+		this.storeSubscription.add(profileName$)
+		this.storeSubscription.add(profileUsername$)
 	}
 
 	ngOnDestroy(): void {
@@ -100,6 +115,10 @@ export class FollowersComponent implements OnInit {
 		} else {
 			this.store.dispatch(decrementFollowingCount())
 		}
+	}
+
+	goToBack() {
+		this.navigationService.back()
 	}
 
 }

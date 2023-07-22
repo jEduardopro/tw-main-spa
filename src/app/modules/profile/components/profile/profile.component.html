@@ -1,31 +1,6 @@
-<app-sticky-top-section class="flex flex-col items-stretch sticky top-0 left-0 z-10" style="backface-visibility: hidden;">
-	<div class="stickyContent flex flex-col flex-grow items-stretch box-border h-[48px]">
-		<div class="flex flex-grow h-full items-center">
-			<div class="flex flex-col h-full justify-center items-center ml-2 mr-5">
-				<button 
-					class="w-7 h-7 flex flex-col justify-center 
-						items-center text-center rounded-full box-border hover:bg-twitter-gray-btn-hover hover:dark:bg-twitter-black-btn-hover"
-					type="button" 
-					role="link"
-					aria-label="Back"
-					title="Back"
-					(click)="goToBack()"
-				>
-					<i class="fas fa-arrow-left text-black dark:text-twitter-white-100"></i>
-				</button>
-			</div>
-			<div class="flex flex-col h-full justify-center w-full">
-				<h2 class="text-[18px] leading-[22px] font-bold text-black dark:text-twitter-white-100" aria-level="2" role="heading">
-					<span>{{profile?.name | titlecase}}</span>
-				</h2>
-			</div>
-		</div>
-	</div>
-</app-sticky-top-section>
-
 <div class="w-full h-full flex flex-col relative box-border">
 	<div *ngIf="loading" class="flex flex-row justify-center items-center p-5 text-center">
-		<i class="fas fa-circle-notch fa-spin text-lg" [ngClass]="customizeView.themeColor.color"></i>
+		<app-spinner></app-spinner>
 	</div>
-	<router-outlet></router-outlet>
+	<router-outlet *ngIf="!loading"></router-outlet>
 </div>

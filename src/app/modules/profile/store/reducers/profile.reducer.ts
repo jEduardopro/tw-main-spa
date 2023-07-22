@@ -3,7 +3,7 @@ import { createReducer, on } from '@ngrx/store';
 import { Profile } from '../../interfaces/profile.interface';
 import {
 	setProfile, setCurrentPage, setTweetsLoaded, setTweetsAndRepliesLoaded,
-	setCurrentRepliesPage, setFollowersLoaded, setCurrentFollowersPage, incrementFollowingCount, decrementFollowingCount
+	setCurrentRepliesPage, setFollowersLoaded, setCurrentFollowersPage, incrementFollowingCount, decrementFollowingCount, setCurrentFollowingPage, setFollowingLoaded
 } from '../actions/profile.actions';
 
 export const profileFeatureKey = 'profile'
@@ -15,7 +15,9 @@ export interface ProfileState {
 	tweetsReplies: Tweet[],
 	repliesPage: number
 	followers: Profile[],
-	followersPage: number
+	followersPage: number,
+	following: Profile[],
+	followingPage: number
 };
 
 const initialState: ProfileState = {
@@ -25,7 +27,9 @@ const initialState: ProfileState = {
 	tweetsReplies: [],
 	repliesPage: 1,
 	followers: [],
-	followersPage: 1
+	followersPage: 1,
+	following: [],
+	followingPage: 1
 };
 
 export const profileReducer = createReducer(
@@ -40,6 +44,8 @@ export const profileReducer = createReducer(
 	on(setCurrentRepliesPage, (state, { page }) => ({ ...state, repliesPage: page })),
 	on(setFollowersLoaded, (state, { followers }) => ({ ...state, followers })),
 	on(setCurrentFollowersPage, (state, { page }) => ({ ...state, followersPage: page })),
+	on(setFollowingLoaded, (state, { following }) => ({ ...state, following })),
+	on(setCurrentFollowingPage, (state, { page }) => ({ ...state, followingPage: page })),
 	on(incrementFollowingCount, (state) => ({ ...state, profile: { ...state.profile!, following_count: state.profile!.following_count + 1 } })),
 	on(decrementFollowingCount, (state) => ({ ...state, profile: { ...state.profile!, following_count: state.profile!.following_count - 1 } }))
 );

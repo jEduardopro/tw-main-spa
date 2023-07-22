@@ -4,6 +4,7 @@ import { Store } from '@ngrx/store';
 import { Subscription } from 'rxjs';
 import { Profile } from '../../interfaces/profile.interface';
 import { selectProfileInfo } from '../../store/selectors/profile.selectors';
+import { NavigationService } from '@app/core/services/navigation.service';
 
 @Component({
   selector: 'app-home',
@@ -18,6 +19,7 @@ export class HomeComponent implements OnInit {
 
 	constructor(
 		private store: Store<AppState>,
+		private navigationService: NavigationService
 	) { }
 
 	ngOnInit(): void {
@@ -37,5 +39,9 @@ export class HomeComponent implements OnInit {
 
 	get profileFound() {
 		return this.profile != null
+	}
+
+	goToBack() {
+		this.navigationService.back()
 	}
 }

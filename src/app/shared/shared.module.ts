@@ -29,6 +29,7 @@ import { UserProfileImageComponent } from './components/user-profile-image/user-
 import { StickyTopSectionComponent } from './components/sticky-top-section/sticky-top-section.component';
 import { ImageUrlPipe } from '@app/core/pipes/image-url.pipe';
 import { AuthModule } from '@app/modules/auth/auth.module';
+import { SpinnerComponent } from './components/spinner/spinner.component';
 
 
 @NgModule({
@@ -51,7 +52,8 @@ import { AuthModule } from '@app/modules/auth/auth.module';
     UserProfileImageComponent,
     VerificationCodeFieldComponent,
 		StickyTopSectionComponent,
-		ImageUrlPipe
+		ImageUrlPipe,
+		SpinnerComponent
   ],
   imports: [
 		CommonModule,
@@ -77,7 +79,8 @@ import { AuthModule } from '@app/modules/auth/auth.module';
 		UserProfileImageComponent,
 		VerificationCodeFieldComponent,
 		StickyTopSectionComponent,
-		ImageUrlPipe
+		ImageUrlPipe,
+		SpinnerComponent
 	]
 })
 export class SharedModule { }

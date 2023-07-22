@@ -1,0 +1,33 @@
+<div class="flex flex-row items-center h-[48px] mt-2 border-b border-twitter-white-200 dark:border-twitter-gray-200">
+	<div 
+		class="w-1/2 flex flex-col h-full justify-center items-center hover:bg-[#EAEAEA] hover:dark:bg-[#181819]"
+		role="button"
+		[routerLink]="['/', profileUsername, 'followers']"						
+	>
+		<div class="flex flex-col flex-grow justify-center relative">
+			<span 
+				class="text-sm font-medium" 
+				[ngClass]="[currentTab == 'followers' ? 'text-black dark:text-white' : 'text-twitter-gray-100 dark:text-twitter-gray-50']"
+			>
+				Followers
+			</span>
+			<span *ngIf="currentTab == 'followers'" 
+				class="absolute left-0 bottom-0 w-full min-h-[4px]" [ngClass]="[customizeView.themeColor.bg]"></span>
+		</div>
+	</div>
+	<div 
+		class="w-1/2 flex flex-col h-full justify-center items-center hover:bg-[#EAEAEA] hover:dark:bg-[#181819]"
+		role="button"
+		[routerLink]="['/', profileUsername, 'following']"
+	>
+		<div class="flex flex-col flex-grow justify-center relative">
+			<span 
+				class="text-sm font-medium" 
+				[ngClass]="[currentTab == 'following' ? 'text-black dark:text-white' : 'text-twitter-gray-100 dark:text-twitter-gray-50']">
+				Following
+			</span>
+			<span *ngIf="currentTab == 'following'" 
+				class="absolute left-0 bottom-0 w-full min-h-[4px]" [ngClass]="[customizeView.themeColor.bg]"></span>
+		</div>
+	</div>
+</div>
