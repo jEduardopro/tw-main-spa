@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, NavigationEnd, Router } from '@angular/router';
 import { Subscription, firstValueFrom } from 'rxjs';
 import { ProfileService } from '../../services/profile.service';
 import { Store } from '@ngrx/store';
@@ -28,11 +28,13 @@ export class ProfileComponent implements OnInit {
 
 	profile: Profile|null = null
 	loading = false
+	titles: Record<string, string> = {}
 	username = ''
 	storeSubscription: Subscription = new Subscription;
 
 	constructor(
 		public customizeView: CustomizeViewService,
+		private router: Router,
 		private route: ActivatedRoute,
 		private profileService: ProfileService,
 		private store: Store<AppState>,
@@ -45,6 +47,17 @@ export class ProfileComponent implements OnInit {
 				return
 			}
 			this.profile = profile
+			this.setTitles()
+		})
+
+
+		this.router.events.subscribe((event) => {
+
+			if (event instanceof NavigationEnd) {
+				// Hide loading indicator
+				const urlPath = this.router.url
+				this.setTitleDocument(urlPath)
+			}
 		})
 
 		this.storeSubscription.add(profileInfo$)
@@ -76,13 +89,28 @@ export class ProfileComponent implements OnInit {
 			this.profile = response;
 			this.store.dispatch(setProfile({ profile: this.profile }))
 		} catch (error) {
-			
+			console.log(error);
 		}
 		this.loading = false
 	}
 
 	goToBack() {
 		this.navigationService.back()
+	}
+
+	setTitleDocument(urlPathKey: string) {		
+		const title = this.titles[urlPathKey]
+		if (!title) {			
+			return;
+		}
+		document.title = title
+	}
+
+	setTitles() {
+		this.titles = {
+			[`/${this.profile?.username}/followers`]: `People following ${this.profile?.name} (@${this.profile?.username}) / Twitter`,
+			[`/${this.profile?.username}/following`]: `People followed by ${this.profile?.name} (@${this.profile?.username}) / Twitter`,
+		}
 	}
 
 }
