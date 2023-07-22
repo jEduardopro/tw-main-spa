@@ -49,9 +49,9 @@ export class FollowButtonComponent {
 		}
 		this.changingStatus = true
 		try {
+			this.follow.emit(!this.following)				
 			this.following ? await firstValueFrom(this.friendshipService.unfollow(this.user_id))
 											: await firstValueFrom(this.friendshipService.follow(this.user_id))
-			this.follow.emit(!this.following)				
 		} catch (error) {
 			console.log(error);
 		}

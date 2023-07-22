@@ -4,7 +4,7 @@ import { Subscription, firstValueFrom } from 'rxjs';
 import { Store } from '@ngrx/store';
 import { AppState } from '@app/store/app.reducers';
 import { selectCurrentFollowersPage, selectFollowers, selectProfileId } from '../../store/selectors/profile.selectors';
-import { setCurrentFollowersPage, setFollowersLoaded } from '../../store/actions/profile.actions';
+import { decrementFollowingCount, incrementFollowingCount, setCurrentFollowersPage, setFollowersLoaded } from '../../store/actions/profile.actions';
 import { Profile } from '../../interfaces/profile.interface';
 
 @Component({
@@ -30,7 +30,7 @@ export class FollowersComponent implements OnInit {
 
 	ngOnInit(): void {
 		const followers$ = this.store.select(selectFollowers).subscribe(followers => {
-			this.followers = followers
+			this.followers = JSON.parse(JSON.stringify(followers))
 		})
 
 		const currentFollowersPage$ = this.store.select(selectCurrentFollowersPage).subscribe(page => {
@@ -70,14 +70,17 @@ export class FollowersComponent implements OnInit {
 
 		this.loadingMoreFollowers = true;
 		try {
-			const { data } = await firstValueFrom(this.profileService.followers(this.userId, ++this.page))
+			const page = ++this.page;
+			const { data } = await firstValueFrom(this.profileService.followers(this.userId, page))
 			if (data.length == 0) {
 				this.noMoreFollowersToLoad = true;
-				this.loadingMoreFollowers = false;
+				this.loadingMoreFollowers = false;				
+				return
 			}
 			this.followers.push(...data)
+			
 			this.store.dispatch(setFollowersLoaded({ followers: this.followers }))
-			this.store.dispatch(setCurrentFollowersPage({ page: this.page }))
+			this.store.dispatch(setCurrentFollowersPage({ page }))
 			
 		} catch (error) {
 			console.log(error);
@@ -85,8 +88,18 @@ export class FollowersComponent implements OnInit {
 		this.loadingMoreFollowers = false;
 	}
 
-	setFollow(value: boolean) {
-		// this.profile.following = value
+	setFollow(id: string, value: boolean) {
+		const followerFound = this.followers.find(follower => follower.id === id)
+		if (!followerFound) {
+			return
+		}
+		followerFound.following = value
+		this.store.dispatch(setFollowersLoaded({ followers: this.followers }))
+		if (value) {
+			this.store.dispatch(incrementFollowingCount())
+		} else {
+			this.store.dispatch(decrementFollowingCount())
+		}
 	}
 
 }

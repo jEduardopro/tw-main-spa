@@ -17,6 +17,7 @@ import { HomeComponent } from './components/home/home.component';
 import { FriendshipModule } from '../friendship/friendship.module';
 import { SharedModule } from '@app/shared';
 import { FollowersComponent } from './components/followers/followers.component';
+import { ProfileItemComponent } from './components/profile-item/profile-item.component';
 
 @NgModule({
   declarations: [
@@ -28,7 +29,8 @@ import { FollowersComponent } from './components/followers/followers.component';
 		TweetsTimelineComponent,
 		TweetsRepliesTimelineComponent,
 		SettingsComponent,
-		FollowersComponent
+		FollowersComponent,
+		ProfileItemComponent
   ],
   imports: [
 		CommonModule,

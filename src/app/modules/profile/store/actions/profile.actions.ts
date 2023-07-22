@@ -36,3 +36,11 @@ export const setCurrentFollowersPage = createAction(
 	'[PROFILE] Set Current Page of followers loaded',
 	props<{page: number}>()
 );
+
+export const incrementFollowingCount = createAction(
+	'[PROFILE] Increment following count'
+)
+
+export const decrementFollowingCount = createAction(
+	'[PROFILE] Decrement following count'
+)
