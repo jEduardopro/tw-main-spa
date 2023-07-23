@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { ReactiveFormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 
 import { StoreModule } from '@ngrx/store';
@@ -62,6 +62,7 @@ import { SpinnerComponent } from './components/spinner/spinner.component';
 		AuthModule,
 		RouterModule,
 		HttpClientModule,
+		FormsModule,
 		StoreModule.forFeature(httpErrorFeatureKey, httpErrorReducer)
 	],
 	exports: [
