@@ -28,6 +28,11 @@ const routes: Routes = [
 		loadChildren: () => import("./modules/home/home.module").then(m => m.HomeModule)
 	},
 	{
+		path: 'search',
+		canActivate: [AuthGuard],
+		loadChildren: () => import("./modules/explore/explore.module").then(m => m.ExploreModule)
+	},
+	{
 		path: ':username',
 		canActivate: [AuthGuard],
 		loadChildren: () => import("./modules/profile/profile.module").then(m => m.ProfileModule)

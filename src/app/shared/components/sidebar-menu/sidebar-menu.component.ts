@@ -89,7 +89,7 @@ export class SidebarMenuComponent implements OnInit, OnDestroy{
 
 	ngOnInit(): void {
 		const username$ = this.store.select(selectAuthUsername).subscribe(username => {
-			this.menu[2].link = `/${username}`
+			this.menu[3].link = `/${username}`
 		})
 		this.storeSubscription.add(username$)
 	}
