@@ -37,6 +37,14 @@ export class SidebarMenuComponent implements OnInit, OnDestroy{
 			popup: null
 		},
 		{
+			text: 'Explore',
+			ariaLabel: 'Search and explore',
+			icon: 'fa fa-search',
+			actionType: 'link',
+			link: '/search',
+			popup: null
+		},
+		{
 			text: 'Notifications',
 			ariaLabel: 'Notifications',
 			icon: 'far fa-bell',
