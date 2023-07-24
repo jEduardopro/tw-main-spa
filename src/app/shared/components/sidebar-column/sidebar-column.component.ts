@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { CustomizeViewService } from '@app/modules/customize-view/services/customize-view.service';
+import { Profile } from '@app/modules/profile/interfaces/profile.interface';
 import { SearcherService } from '@app/modules/searcher/services/searcher.service';
 import { Subject, debounceTime, firstValueFrom } from 'rxjs';
 
@@ -12,8 +13,10 @@ import { Subject, debounceTime, firstValueFrom } from 'rxjs';
 export class SidebarColumnComponent implements OnInit {
 
 	searchOnFocus = false
+	listBox = false
 	q: string = ''
 	subjectTerms: Subject<string> = new Subject<string>()
+	suggestions: Profile[] = []
 
 	constructor(
 		public customizeView: CustomizeViewService,
@@ -28,6 +31,17 @@ export class SidebarColumnComponent implements OnInit {
 				this.getSuggestions()
 		})
 	}
+
+	onFocus() {
+		this.searchOnFocus = true
+		this.listBox = true
+	}
+	
+	onBlur() {
+		this.searchOnFocus = false
+		this.listBox = false
+	}
+
 	
 	onSearch(event: Event) {
 		const value = (event.target as HTMLInputElement).value
@@ -37,11 +51,16 @@ export class SidebarColumnComponent implements OnInit {
 	async getSuggestions() {
 		try {
 			const {data} = await firstValueFrom(this.searchService.searchPeople(this.q))
-			console.log({data});
+			console.log({ data });
+			this.suggestions = data
 			
 		} catch (error) {
 			
 		}
+	}
+
+	closeListbox() {
+		this.listBox = false
 	}
 
 }
