@@ -45,12 +45,12 @@
 																/>
 															</div>
 														</div>
-														<div *ngIf="q.length && searchOnFocus" class="flex flex-col justify-center items-stretch relative box-border">
+														<div *ngIf="q.length" class="flex flex-col justify-center items-stretch relative box-border">
 															<div 
 																class="flex flex-col justify-center w-5 h-5 rounded-full text-white text-sm ml-5 mr-3 text-center"
 																[ngClass]="customizeView.themeColor.bg"
 																role="button"
-																(click)="q = ''"
+																(click)="clear()"
 															>
 																<i class="fas fa-times"></i>
 															</div>
@@ -67,13 +67,17 @@
 											"
 											role="listbox"
 										>
-											<div *ngIf="!suggestions.length" class="flex flex-col items-stretch pt-5 p-3 box-border">
+											<div *ngIf="!suggestions.length && !q.length" class="flex flex-col items-stretch pt-5 p-3 box-border">
 												<div class="text-center text-[15px] dark:text-twitter-gray-50">
 													<span>Try searching for people, topics, or keywords</span>
 												</div>
 											</div>
 
-											<div *ngFor="let profile of suggestions" class="flex flex-col items-stretch box-border hover:bg-twitter-white-50 hover:dark:bg-[#16181C]" role="option">
+											<div *ngFor="let profile of suggestions" 
+												class="flex flex-col items-stretch box-border hover:bg-twitter-white-50 hover:dark:bg-[#16181C]" 
+												role="option"
+												[routerLink]="['/'+ profile.username]"
+											>
 												<div class="flex flex-col items-stretch box-border cursor-pointer" role="button">
 													<div class="py-3 px-4 flex flex-col items-stretch box-border cursor-pointer" role="button">
 														<div class="flex items-stretch box-border">

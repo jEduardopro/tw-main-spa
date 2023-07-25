@@ -48,10 +48,14 @@ export class SidebarColumnComponent implements OnInit {
 		this.subjectTerms.next(value)
 	}
 
+	clear() {
+		this.q = ''
+		this.suggestions = []
+	}
+
 	async getSuggestions() {
 		try {
 			const {data} = await firstValueFrom(this.searchService.searchPeople(this.q))
-			console.log({ data });
 			this.suggestions = data
 			
 		} catch (error) {
