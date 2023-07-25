@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { CustomizeViewService } from '@app/modules/customize-view/services/customize-view.service';
 import { Profile } from '@app/modules/profile/interfaces/profile.interface';
 import { SearcherService } from '@app/modules/searcher/services/searcher.service';
@@ -21,7 +22,8 @@ export class SearchBoxComponent implements OnInit {
 
 	constructor(
 		public customizeView: CustomizeViewService,
-		private searchService: SearcherService
+		private searchService: SearcherService,
+		private router: Router
 	) { }
 
 	ngOnInit(): void {
@@ -40,7 +42,7 @@ export class SearchBoxComponent implements OnInit {
 	
 	onBlur() {
 		this.searchOnFocus = false
-		this.listBox = false
+		// this.listBox = false
 	}
 
 	onSearch(event: Event) {
@@ -67,5 +69,11 @@ export class SearchBoxComponent implements OnInit {
 
 	closeListbox() {
 		this.listBox = false
+	}
+
+	goToProfile(username: string) {
+		this.clear()
+		this.closeListbox()
+		this.router.navigate(['/', username])
 	}
 }

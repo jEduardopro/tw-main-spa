@@ -74,7 +74,7 @@
 						<div *ngFor="let profile of suggestions" 
 							class="flex flex-col items-stretch box-border hover:bg-twitter-white-50 hover:dark:bg-[#16181C]" 
 							role="option"
-							[routerLink]="['/'+ profile.username]"
+							(click)="goToProfile(profile.username)"
 						>
 							<div class="flex flex-col items-stretch box-border cursor-pointer" role="button">
 								<div class="py-3 px-4 flex flex-col items-stretch box-border cursor-pointer" role="button">
@@ -94,17 +94,13 @@
 												<div class="flex items-stretch flex-grow">
 													<div class="flex flex-grow">
 														<div class="flex flex-col">
-															<div class="flex flex-col box-border relative mr-1">
-																<a [routerLink]="['/'+ profile.username]" class="outline-none flex flex-col">
-																	<span class="font-bold text-sm text-twitter-black-100 dark:text-twitter-white-100">
-																		{{profile.name}}
-																	</span>
-																</a>
+															<div class="flex flex-col box-border relative mr-1">																
+																<span class="font-bold text-sm text-twitter-black-100 dark:text-twitter-white-100">
+																	{{profile.name}}
+																</span>
 															</div>
 															<div class="flex flex-col box-border relative mr-1">
-																<a [routerLink]="['/'+ profile.username]" class="outline-none flex flex-col">
-																	<span class="text-sm text-twitter-gray-100 dark:text-twitter-gray-50">@{{profile.username}}</span>
-																</a>
+																<span class="text-sm text-twitter-gray-100 dark:text-twitter-gray-50">@{{profile.username}}</span>
 															</div>
 														</div>
 													</div>
