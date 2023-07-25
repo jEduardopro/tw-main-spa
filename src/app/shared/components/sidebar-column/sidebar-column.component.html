@@ -73,6 +73,10 @@
 												</div>
 											</div>
 
+											<div *ngIf="searching && !suggestions.length" class="flex items-center justify-center pt-5 p-3">
+												<app-spinner></app-spinner>
+											</div>
+
 											<div *ngFor="let profile of suggestions" 
 												class="flex flex-col items-stretch box-border hover:bg-twitter-white-50 hover:dark:bg-[#16181C]" 
 												role="option"

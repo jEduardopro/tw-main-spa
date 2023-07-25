@@ -17,6 +17,7 @@ export class SidebarColumnComponent implements OnInit {
 	q: string = ''
 	subjectTerms: Subject<string> = new Subject<string>()
 	suggestions: Profile[] = []
+	searching = false
 
 	constructor(
 		public customizeView: CustomizeViewService,
@@ -54,6 +55,7 @@ export class SidebarColumnComponent implements OnInit {
 	}
 
 	async getSuggestions() {
+		this.searching = true
 		try {
 			const {data} = await firstValueFrom(this.searchService.searchPeople(this.q))
 			this.suggestions = data
@@ -61,6 +63,7 @@ export class SidebarColumnComponent implements OnInit {
 		} catch (error) {
 			
 		}
+		this.searching = false
 	}
 
 	closeListbox() {
