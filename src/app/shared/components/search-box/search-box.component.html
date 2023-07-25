@@ -4,7 +4,10 @@
 >
 	<div class="flex flex-col flex-1 z-20 relative box-border items-stretch">
 		<div class="min-h-0 box-border basis-auto items-stretch flex flex-col flex-shrink w-full min-w-0 relative">
-			<form class="min-h-0 box-border items-stretch flex flex-col min-w-0 relative" aria-label="Search Twitter" role="search">
+			<form 
+				class="min-h-0 box-border items-stretch flex flex-col min-w-0 relative" aria-label="Search Twitter" role="search"
+				(submit)="onSubmit($event)"
+			>
 				<div class="flex-shrink flex flex-col box-border items-stretch relative">
 					<div 
 						class="flex-shrink bg-twitter-white-200 dark:bg-[#202327]

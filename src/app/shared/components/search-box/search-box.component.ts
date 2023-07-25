@@ -30,7 +30,6 @@ export class SearchBoxComponent implements OnInit {
 		this.subjectTerms
 			.pipe((debounceTime(500)))
 			.subscribe((value) => {
-				console.log(value);
 				this.getSuggestions()
 		})
 	}
@@ -42,12 +41,18 @@ export class SearchBoxComponent implements OnInit {
 	
 	onBlur() {
 		this.searchOnFocus = false
-		// this.listBox = false
 	}
 
 	onSearch(event: Event) {
 		const value = (event.target as HTMLInputElement).value
 		this.subjectTerms.next(value)
+	}
+
+	onSubmit(event: Event) {
+		event.preventDefault()
+		this.router.navigate(['/search'], {queryParams: {q: this.q}})
+		this.clear()
+		this.closeListbox()
 	}
 
 	clear() {
