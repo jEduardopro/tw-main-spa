@@ -30,6 +30,7 @@ import { StickyTopSectionComponent } from './components/sticky-top-section/stick
 import { ImageUrlPipe } from '@app/core/pipes/image-url.pipe';
 import { AuthModule } from '@app/modules/auth/auth.module';
 import { SpinnerComponent } from './components/spinner/spinner.component';
+import { SearchBoxComponent } from './components/search-box/search-box.component';
 
 
 @NgModule({
@@ -53,7 +54,8 @@ import { SpinnerComponent } from './components/spinner/spinner.component';
     VerificationCodeFieldComponent,
 		StickyTopSectionComponent,
 		ImageUrlPipe,
-		SpinnerComponent
+		SpinnerComponent,
+		SearchBoxComponent
   ],
   imports: [
 		CommonModule,
@@ -81,7 +83,8 @@ import { SpinnerComponent } from './components/spinner/spinner.component';
 		VerificationCodeFieldComponent,
 		StickyTopSectionComponent,
 		ImageUrlPipe,
-		SpinnerComponent
+		SpinnerComponent,
+		SearchBoxComponent
 	]
 })
 export class SharedModule { }

@@ -1,0 +1,124 @@
+<div 
+	class="flex flex-row flex-grow items-stretch"
+	clickOutside (clickOutside)="closeListbox()"
+>
+	<div class="flex flex-col flex-1 z-20 relative box-border items-stretch">
+		<div class="min-h-0 box-border basis-auto items-stretch flex flex-col flex-shrink w-full min-w-0 relative">
+			<form class="min-h-0 box-border items-stretch flex flex-col min-w-0 relative" aria-label="Search Twitter" role="search">
+				<div class="flex-shrink flex flex-col box-border items-stretch relative">
+					<div 
+						class="flex-shrink bg-twitter-white-200 dark:bg-[#202327]
+							flex flex-col justify-center flex-grow box-border
+							border rounded-full relative
+						"
+						[ngClass]="[searchOnFocus ? customizeView.themeColor.border : 'border-transparent']"
+					>
+						<div class="flex flex-col items-stretch box-border relative">
+							<div class="flex items-center box-border relative">
+								<label class="flex cursor-text flex-1 items-stretch box-border relative">
+									<div class="flex flex-col justify-center items-stretch relative box-border">
+										<i 
+											class="fas fa-search pl-5 pr-3"
+											[ngClass]="[searchOnFocus ? customizeView.themeColor.color : 'text-twitter-gray-100 dark:text-twitter-gray-50']"
+										>
+										</i>
+									</div>
+									<div class="flex-shrink flex-grow flex flex-col items-stretch box-border relative">
+										<div class="text-[15px] text-twitter-black-100 dark:text-white flex">
+											<input 
+												class="w-full placeholder:text-twitter-black-100 dark:placeholder:text-twitter-gray-50 bg-transparent focus:outline-none outline-none appearance-none p-3"
+												type="text"
+												aria-label="Search query"
+												placeholder="Search Twitter"
+												role="combobox"
+												(focus)="onFocus()"
+												(blur)="onBlur()"
+												(input)="onSearch($event)"
+												[(ngModel)]="q"
+												[ngModelOptions]="{standalone: true}"
+											/>
+										</div>
+									</div>
+									<div *ngIf="q.length" class="flex flex-col justify-center items-stretch relative box-border">
+										<div 
+											class="flex flex-col justify-center w-5 h-5 rounded-full text-white text-sm ml-5 mr-3 text-center"
+											[ngClass]="customizeView.themeColor.bg"
+											role="button"
+											(click)="clear()"
+										>
+											<i class="fas fa-times"></i>
+										</div>
+									</div>
+								</label>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div *ngIf="listBox" class="relative flex flex-col flex-1">
+					<div 
+						class="w-[374px] min-h-[100px] max-h-[80vh] overflow-y-auto top-0 left-0 right-0 absolute rounded-lg overscroll-contain
+							flex flex-col items-stretch box-border shadow shadow-slate-500/50 dark:shadow-slate-100/50
+						"
+						role="listbox"
+					>
+						<div *ngIf="!suggestions.length && !q.length" class="flex flex-col items-stretch pt-5 p-3 box-border">
+							<div class="text-center text-[15px] dark:text-twitter-gray-50">
+								<span>Try searching for people, topics, or keywords</span>
+							</div>
+						</div>
+
+						<div *ngIf="searching && !suggestions.length" class="flex items-center justify-center pt-5 p-3">
+							<app-spinner></app-spinner>
+						</div>
+
+						<div *ngFor="let profile of suggestions" 
+							class="flex flex-col items-stretch box-border hover:bg-twitter-white-50 hover:dark:bg-[#16181C]" 
+							role="option"
+							[routerLink]="['/'+ profile.username]"
+						>
+							<div class="flex flex-col items-stretch box-border cursor-pointer" role="button">
+								<div class="py-3 px-4 flex flex-col items-stretch box-border cursor-pointer" role="button">
+									<div class="flex items-stretch box-border">
+										<div class="basis-14 justify-start mr-3 flex-grow-0 flex flex-col items-stretch box-border">
+											<div class="flex flex-col items-stretch">
+												<div class="flex flex-col items-center w-12 h-12 rounded-full relative outline-none">
+													<div class="w-full h-full rounded-full">
+														<app-user-profile-image [image]="profile.image" [size]="'thumb'"></app-user-profile-image>
+													</div>
+												</div>
+											</div>
+										</div>
+
+										<div class="flex items-stretch flex-grow">
+											<div class="flex flex-col flex-grow">
+												<div class="flex items-stretch flex-grow">
+													<div class="flex flex-grow">
+														<div class="flex flex-col">
+															<div class="flex flex-col box-border relative mr-1">
+																<a [routerLink]="['/'+ profile.username]" class="outline-none flex flex-col">
+																	<span class="font-bold text-sm text-twitter-black-100 dark:text-twitter-white-100">
+																		{{profile.name}}
+																	</span>
+																</a>
+															</div>
+															<div class="flex flex-col box-border relative mr-1">
+																<a [routerLink]="['/'+ profile.username]" class="outline-none flex flex-col">
+																	<span class="text-sm text-twitter-gray-100 dark:text-twitter-gray-50">@{{profile.username}}</span>
+																</a>
+															</div>
+														</div>
+													</div>
+												</div>
+											</div>
+										</div>
+
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</form>
+		</div>
+	</div>
+</div>
