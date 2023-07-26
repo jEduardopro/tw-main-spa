@@ -1,4 +1,4 @@
-import { Component} from '@angular/core';
+import { Component, OnInit} from '@angular/core';
 
 @Component({
   selector: 'app-sidebar-column',
@@ -6,5 +6,13 @@ import { Component} from '@angular/core';
   styles: [
   ]
 })
-export class SidebarColumnComponent{
+export class SidebarColumnComponent implements OnInit {
+
+	currentRoute = ''
+
+	ngOnInit(): void {
+		this.currentRoute = window.location.pathname;
+	}
+
+	get showSearchBox() { return this.currentRoute !== '/search' }
 }

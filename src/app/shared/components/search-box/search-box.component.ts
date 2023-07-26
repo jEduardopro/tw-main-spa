@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { Router } from '@angular/router';
 import { CustomizeViewService } from '@app/modules/customize-view/services/customize-view.service';
 import { Profile } from '@app/modules/profile/interfaces/profile.interface';
@@ -19,6 +19,9 @@ export class SearchBoxComponent implements OnInit {
 	subjectTerms: Subject<string> = new Subject<string>()
 	suggestions: Profile[] = []
 	searching = false
+	currentRoute = ''
+
+	@Output() submit = new EventEmitter<string>()
 
 	constructor(
 		public customizeView: CustomizeViewService,
@@ -27,6 +30,8 @@ export class SearchBoxComponent implements OnInit {
 	) { }
 
 	ngOnInit(): void {
+		this.currentRoute = window.location.pathname		
+
 		this.subjectTerms
 			.pipe((debounceTime(500)))
 			.subscribe((value) => {
@@ -51,8 +56,14 @@ export class SearchBoxComponent implements OnInit {
 	onSubmit(event: Event) {
 		event.preventDefault()
 		this.router.navigate(['/search'], {queryParams: {q: this.q}})
-		this.clear()
 		this.closeListbox()
+		if (this.currentRoute === '/search') {
+			const input = document.getElementById('search_box') as HTMLInputElement
+			input.blur()
+			this.submit.emit(this.q)
+			return
+		}
+		this.clear()
 	}
 
 	clear() {

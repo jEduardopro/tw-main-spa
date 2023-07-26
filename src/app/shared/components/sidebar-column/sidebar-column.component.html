@@ -6,7 +6,7 @@
 					class="mb-3 w-[350px] min-h-[32px] h-[53px] z-10 top-1 flex box-border fixed" 
 					style="backface-visibility: hidden;"					
 				>
-					<app-search-box class="flex flex-row flex-grow items-stretch"></app-search-box>
+					<app-search-box *ngIf="showSearchBox" class="flex flex-row flex-grow items-stretch"></app-search-box>
 				</div>
 			</div>
 		</div>
