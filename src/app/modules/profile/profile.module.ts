@@ -17,7 +17,6 @@ import { HomeComponent } from './components/home/home.component';
 import { FriendshipModule } from '../friendship/friendship.module';
 import { SharedModule } from '@app/shared';
 import { FollowersComponent } from './components/followers/followers.component';
-import { ProfileItemComponent } from './components/profile-item/profile-item.component';
 import { FollowingComponent } from './components/following/following.component';
 import { FollowTabsComponent } from './components/follow-tabs/follow-tabs.component';
 
@@ -33,7 +32,6 @@ import { FollowTabsComponent } from './components/follow-tabs/follow-tabs.compon
 		SettingsComponent,
 		FollowersComponent,
 		FollowingComponent,
-		ProfileItemComponent,
 		FollowTabsComponent
   ],
   imports: [
@@ -45,6 +43,6 @@ import { FollowTabsComponent } from './components/follow-tabs/follow-tabs.compon
 		InfiniteScrollModule,
 		ReactiveFormsModule,
 		SharedModule
-  ]
+	]
 })
 export class ProfileModule { }

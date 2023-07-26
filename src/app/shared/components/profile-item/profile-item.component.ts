@@ -1,5 +1,5 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
-import { Profile } from '../../interfaces/profile.interface';
+import { Profile } from '@app/modules/profile/interfaces/profile.interface';
 
 @Component({
   selector: 'app-profile-item',

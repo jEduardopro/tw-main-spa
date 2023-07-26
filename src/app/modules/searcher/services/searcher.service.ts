@@ -9,9 +9,10 @@ import { Observable } from 'rxjs';
 })
 export class SearcherService extends HttpRequestService {
 
-	searchPeople(query: string): Observable<Response<Profile[]>> {
+	searchPeople(query: string, page: number = 1): Observable<Response<Profile[]>> {
 		return this.get('/search', {
-			q: query
+			q: query,
+			page
 		})
 	}
 

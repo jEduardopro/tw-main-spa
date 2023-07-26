@@ -55,3 +55,27 @@
 
 	</div>
 </app-sticky-top-section>
+
+<div 
+	class="relative border-t border-twitter-white-200 dark:border-twitter-gray-200 pb-40"
+	infiniteScroll
+	[infiniteScrollDistance]="2"
+	[infiniteScrollThrottle]="50"
+	[infiniteScrollContainer]="'#contentLayoutApp'"
+	[fromRoot]="true"
+	(scrolled)="onScroll()"
+	[scrollWindow]="false"
+>
+	<div *ngIf="loading" class="flex flex-row justify-center items-center">
+		<app-spinner></app-spinner>
+	</div>
+	<app-profile-item
+		*ngFor="let user of users"
+		[profile]="user"
+		(follow)="setFollow($event.id, $event.value)"
+	>
+	</app-profile-item>
+	<div *ngIf="loadingMoreUsers" class="flex flex-row justify-center items-center mt-2">
+		<app-spinner></app-spinner>
+	</div>
+</div>

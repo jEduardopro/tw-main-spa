@@ -31,6 +31,8 @@ import { ImageUrlPipe } from '@app/core/pipes/image-url.pipe';
 import { AuthModule } from '@app/modules/auth/auth.module';
 import { SpinnerComponent } from './components/spinner/spinner.component';
 import { SearchBoxComponent } from './components/search-box/search-box.component';
+import { ProfileItemComponent } from './components/profile-item/profile-item.component';
+import { FriendshipModule } from '@app/modules/friendship/friendship.module';
 
 
 @NgModule({
@@ -55,7 +57,8 @@ import { SearchBoxComponent } from './components/search-box/search-box.component
 		StickyTopSectionComponent,
 		ImageUrlPipe,
 		SpinnerComponent,
-		SearchBoxComponent
+		SearchBoxComponent,
+		ProfileItemComponent
   ],
   imports: [
 		CommonModule,
@@ -65,6 +68,7 @@ import { SearchBoxComponent } from './components/search-box/search-box.component
 		RouterModule,
 		HttpClientModule,
 		FormsModule,
+		FriendshipModule,
 		StoreModule.forFeature(httpErrorFeatureKey, httpErrorReducer)
 	],
 	exports: [
@@ -84,7 +88,8 @@ import { SearchBoxComponent } from './components/search-box/search-box.component
 		StickyTopSectionComponent,
 		ImageUrlPipe,
 		SpinnerComponent,
-		SearchBoxComponent
+		SearchBoxComponent,
+		ProfileItemComponent
 	]
 })
 export class SharedModule { }
