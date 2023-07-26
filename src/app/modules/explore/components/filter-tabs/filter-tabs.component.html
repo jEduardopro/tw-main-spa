@@ -1,1 +1,24 @@
-<p>filter-tabs works!</p>
+<app-sticky-top-section 
+	class="flex flex-col items-stretch sticky top-0 left-0 z-10" style="backface-visibility: hidden;"
+>
+	<div class="stickyContent flex flex-col flex-grow items-stretch box-border min-h-[53px]">
+		<div class="flex flex-grow h-full items-center">
+			<div class="flex flex-col h-full justify-center items-center ml-2 mr-8">
+				<button 
+					class="w-7 h-7 flex flex-col justify-center 
+						items-center text-center rounded-full box-border hover:bg-twitter-gray-btn-hover hover:dark:bg-twitter-black-btn-hover"
+					type="button" 
+					role="link"
+					aria-label="Back"
+					title="Back"
+					
+				>
+					<i class="fas fa-arrow-left text-black dark:text-twitter-white-100"></i>
+				</button>
+			</div>
+			<div class="flex flex-col h-full justify-center box-border py-1 w-full pr-10">
+				<app-search-box></app-search-box>		
+			</div>
+		</div>
+	</div>
+</app-sticky-top-section>
