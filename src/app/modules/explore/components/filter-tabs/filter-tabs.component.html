@@ -17,8 +17,41 @@
 				</button>
 			</div>
 			<div class="flex flex-col h-full justify-center box-border py-1 w-full pr-10">
-				<app-search-box></app-search-box>		
+				<app-search-box (submitSearch)="search($event)"></app-search-box>		
 			</div>
 		</div>
+
+		<div class="flex flex-row items-center h-[48px] mt-2 border-b border-twitter-white-200 dark:border-twitter-gray-200">
+			<div 
+				class="w-1/2 flex flex-col h-full justify-center items-center hover:bg-[#EAEAEA] hover:dark:bg-[#181819]"
+				role="button"								
+			>
+				<div class="flex flex-col flex-grow justify-center relative">
+					<span 
+						class="text-sm font-medium" 
+						[ngClass]="[currentTab == 'people' ? 'text-black dark:text-white' : 'text-twitter-gray-100 dark:text-twitter-gray-50']"
+					>
+						People
+					</span>
+					<span *ngIf="currentTab == 'people'" 
+						class="absolute left-0 bottom-0 w-full min-h-[4px]" [ngClass]="[customizeView.themeColor.bg]"></span>
+				</div>
+			</div>
+			<div 
+				class="w-1/2 flex flex-col h-full justify-center items-center hover:bg-[#EAEAEA] hover:dark:bg-[#181819]"
+				role="button"				
+			>
+				<div class="flex flex-col flex-grow justify-center relative">
+					<span 
+						class="text-sm font-medium" 
+						[ngClass]="[currentTab == 'photos' ? 'text-black dark:text-white' : 'text-twitter-gray-100 dark:text-twitter-gray-50']">
+						Photos
+					</span>
+					<span *ngIf="currentTab == 'photos'" 
+						class="absolute left-0 bottom-0 w-full min-h-[4px]" [ngClass]="[customizeView.themeColor.bg]"></span>
+				</div>
+			</div>
+		</div>
+
 	</div>
 </app-sticky-top-section>

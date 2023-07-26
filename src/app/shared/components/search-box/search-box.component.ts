@@ -21,7 +21,7 @@ export class SearchBoxComponent implements OnInit {
 	searching = false
 	currentRoute = ''
 
-	@Output() submit = new EventEmitter<string>()
+	@Output() submitSearch = new EventEmitter<string>()
 
 	constructor(
 		public customizeView: CustomizeViewService,
@@ -60,7 +60,7 @@ export class SearchBoxComponent implements OnInit {
 		if (this.currentRoute === '/search') {
 			const input = document.getElementById('search_box') as HTMLInputElement
 			input.blur()
-			this.submit.emit(this.q)
+			this.submitSearch.emit(this.q)
 			return
 		}
 		this.clear()
