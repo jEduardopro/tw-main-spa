@@ -6,7 +6,7 @@
 	[ngClass]="followClasses"
 	(mouseover)="followHover = true"
 	(mouseleave)="followHover = false"
-	(click)="toggleFollow()"
+	(click)="toggleFollow($event)"
 >
 	<span class="text-sm font-semibold">{{followText}}</span>
 </button>

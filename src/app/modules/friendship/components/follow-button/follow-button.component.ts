@@ -43,7 +43,8 @@ export class FollowButtonComponent {
 		`
 	}
 
-	async toggleFollow() {
+	async toggleFollow(event: Event) {
+		event.stopPropagation()
 		if (this.changingStatus) {
 			return
 		}

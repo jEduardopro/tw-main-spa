@@ -1,7 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { CustomizeViewService } from '@app/modules/customize-view/services/customize-view.service';
 import { Profile } from '@app/modules/profile/interfaces/profile.interface';
+import { decrementFollowingCount, incrementFollowingCount } from '@app/modules/profile/store/actions/profile.actions';
 import { SearcherService } from '@app/modules/searcher/services/searcher.service';
+import { AppState } from '@app/store/app.reducers';
+import { Store } from '@ngrx/store';
 import { firstValueFrom } from 'rxjs';
 
 @Component({
@@ -22,7 +25,8 @@ export class FilterTabsComponent implements OnInit {
 
 	constructor(
 		public customizeView: CustomizeViewService,
-		private searchService: SearcherService
+		private searchService: SearcherService,
+		private store: Store<AppState>
 	) { }
 	
 	ngOnInit(): void { }
@@ -62,7 +66,16 @@ export class FilterTabsComponent implements OnInit {
 	}
 
 	setFollow(id: string, value: boolean) {
-		
+		const userFound = this.users.find(user => user.id === id)
+		if (!userFound) {
+			return
+		}
+		userFound.following = value
+		if (value) {
+			this.store.dispatch(incrementFollowingCount())
+		} else {
+			this.store.dispatch(decrementFollowingCount())
+		}
 	}
 
 }
