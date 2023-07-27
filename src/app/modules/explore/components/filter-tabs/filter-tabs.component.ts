@@ -29,14 +29,19 @@ export class FilterTabsComponent implements OnInit {
 		private store: Store<AppState>
 	) { }
 	
-	ngOnInit(): void { }
+	ngOnInit(): void {
+		const url = new URL(window.location.href)
+		const queryParams = new URLSearchParams(url.search)
+		if (queryParams.has('q')) {
+			this.search(queryParams.get('q')!)
+		}
+	}
 
 	async search(q: string) {		
 		this.loading = true
 		try {
 			this.q = q
 			const {data} = await firstValueFrom(this.searchService.searchPeople(q))
-			console.log(data);
 			this.users = data
 			
 		} catch (error) {
