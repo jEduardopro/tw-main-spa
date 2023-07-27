@@ -3,6 +3,7 @@ import { CustomizeViewService } from '@app/modules/customize-view/services/custo
 import { Profile } from '@app/modules/profile/interfaces/profile.interface';
 import { decrementFollowingCount, incrementFollowingCount } from '@app/modules/profile/store/actions/profile.actions';
 import { SearcherService } from '@app/modules/searcher/services/searcher.service';
+import { Tweet } from '@app/modules/tweets/interfaces/tweet.interface';
 import { AppState } from '@app/store/app.reducers';
 import { Store } from '@ngrx/store';
 import { firstValueFrom } from 'rxjs';
@@ -18,10 +19,14 @@ export class FilterTabsComponent implements OnInit {
 	currentTab = 'people'
 	loading = false
 	users: Profile[] = []
+	tweets: Tweet[] = []
 	loadingMoreUsers = false
 	noMoreUsersToLoad = false
+	loadingMoreTweets = false
+	noMoreTweetsToLoad = false
 	q = ''
 	page = 1
+	tweetsPage = 1
 
 	constructor(
 		public customizeView: CustomizeViewService,
@@ -37,12 +42,23 @@ export class FilterTabsComponent implements OnInit {
 		}
 	}
 
-	async search(q: string) {		
+	changeTab(tab: 'people'|'photos') {
+		this.currentTab = tab
+		if (this.q.trim() === '') return
+		this.search(this.q)
+	}
+
+	async search(q: string) {	
 		this.loading = true
 		try {
 			this.q = q
-			const {data} = await firstValueFrom(this.searchService.searchPeople(q))
-			this.users = data
+			if (this.currentTab === 'people') {
+				const {data} = await firstValueFrom(this.searchService.searchPeople(q))
+				this.users = data
+			} else {
+				const {data} = await firstValueFrom(this.searchService.searchPhotos(q))
+				this.tweets = data
+			}
 			
 		} catch (error) {
 			console.log(error);
@@ -68,6 +84,26 @@ export class FilterTabsComponent implements OnInit {
 			console.log(error);
 		}
 		this.loadingMoreUsers = false;
+	}
+
+	async onPhotosScroll() {
+		if (this.noMoreTweetsToLoad) return
+
+		this.loadingMoreTweets = true;
+		try {
+			const page = ++this.tweetsPage;
+			const { data } = await firstValueFrom(this.searchService.searchPhotos(this.q, page))
+			if (data.length == 0) {
+				this.noMoreTweetsToLoad = true;
+				this.loadingMoreTweets = false;				
+				return
+			}
+			this.tweets.push(...data)
+			
+		} catch (error) {
+			console.log(error);
+		}
+		this.loadingMoreTweets = false;
 	}
 
 	setFollow(id: string, value: boolean) {
