@@ -19,6 +19,7 @@ import { SharedModule } from '@app/shared';
 import { FollowersComponent } from './components/followers/followers.component';
 import { FollowingComponent } from './components/following/following.component';
 import { FollowTabsComponent } from './components/follow-tabs/follow-tabs.component';
+import { FormatTweetContentPipe } from '../tweets/pipes/format-tweet-content.pipe';
 
 @NgModule({
   declarations: [
@@ -32,7 +33,7 @@ import { FollowTabsComponent } from './components/follow-tabs/follow-tabs.compon
 		SettingsComponent,
 		FollowersComponent,
 		FollowingComponent,
-		FollowTabsComponent
+		FollowTabsComponent,
   ],
   imports: [
 		CommonModule,

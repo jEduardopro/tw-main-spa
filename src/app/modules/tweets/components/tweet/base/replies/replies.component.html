@@ -3,6 +3,7 @@
 	aria-label="Reply"
 	title="Reply"
 	role="button"
+	(click)="openReplyModal.emit(tweet.id)"
 >
 	<div class="flex flex-row transition-colors items-center relative box-border group-hover:text-twitter-sky-100 text-twitter-gray-100 dark:text-twitter-gray-50">
 		<div class="group-hover:bg-[#E4EEF7] dark:group-hover:bg-[#0D1720] w-8 h-8 mr-1 rounded-full flex flex-col relative box-border justify-center text-center items-center">

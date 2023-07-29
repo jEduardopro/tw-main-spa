@@ -1,0 +1,23 @@
+<div class="flex flex-col flex-grow relative box-border">
+	<div *ngIf="tweet.reply_to && !dontShowReply" class="flex flex-row items-center my-1">
+		<span class="text-sm text-twitter-gray-100 dark:text-twitter-gray-50 mr-1">Replying to</span>
+		<a 
+			[routerLink]="['/'+ tweet.reply_to.owner.username]" 
+			class="outline-none flex flex-col hover:underline"
+			[ngClass]="customizeView.themeColor.color"
+		>
+			<span class="text-sm">@{{tweet.reply_to.owner.username}}</span>
+		</a>
+	</div>
+	<div class="flex flex-col basis-auto items-stretch relative">
+		<div 
+			dir="auto" 
+			class="text-sm text-twitter-black-100 dark:text-twitter-white-100 whitespace-normal" 
+			style="word-wrap: break-word;" 
+			[innerHTML]="tweet.body | formatTweetContent:tweet.mentions:customizeView.themeColor"
+		>
+			<!-- tweet body here <span class="text-twitter-accent-purple">bdj @jkdjdk</span> -->
+		</div>
+	</div>
+	<app-media *ngIf="tweet.images.length > 0 && !dontShowMedia" [media]="tweet.images"></app-media>
+</div>

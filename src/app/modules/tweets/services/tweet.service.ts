@@ -33,6 +33,10 @@ export class TweetService extends HttpRequestService {
 		return this.delete(`/tweets/${tweetId}/likes`)
 	}
 
+	reply(tweetId: string, replyTweetId: string): Observable<{message: string}> {
+		return this.post(`/replies`, {tweet_id: tweetId, reply_tweet_id: replyTweetId})
+	}
+
 	retweet(tweetId: string): Observable<any> {
 		const headers = this.httpHeaders.set('X-Socket-ID', window.Echo.socketId())
 		this.setHeaders(headers)

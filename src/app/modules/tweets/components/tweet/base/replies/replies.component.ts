@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { Tweet } from '@app/modules/tweets/interfaces/tweet.interface';
 
 @Component({
@@ -10,6 +10,7 @@ import { Tweet } from '@app/modules/tweets/interfaces/tweet.interface';
 export class RepliesComponent implements OnInit {
 
 	@Input() tweet!: Tweet
+	@Output() openReplyModal = new EventEmitter<string>()
 
   constructor() { }
 

@@ -29,6 +29,7 @@ export class NewTweetComponent implements OnInit, OnDestroy {
 	storeSubscription: Subscription = new Subscription;
 	
 	@Output() tweetCreated = new EventEmitter<Tweet>()
+	@Output() creating = new EventEmitter<boolean>()
 
 	constructor(
 		public customizeViewService: CustomizeViewService,
@@ -65,6 +66,7 @@ export class NewTweetComponent implements OnInit, OnDestroy {
 
 	async saveTweet() {
 		this.waitingResponse = true
+		this.creating.emit(true)
 		try {
 			let newTweet: TweetPayload = this.buildTweetPayload()
 			const tweetResponse = await firstValueFrom(this.tweetService.postTweet(newTweet))
@@ -75,6 +77,7 @@ export class NewTweetComponent implements OnInit, OnDestroy {
 			
 		}
 		this.waitingResponse = false
+		this.creating.emit(false)
 	}
 
 	private buildTweetPayload(): TweetPayload {

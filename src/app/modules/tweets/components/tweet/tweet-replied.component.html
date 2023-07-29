@@ -1,0 +1,57 @@
+<article 
+	class="flex flex-row overflow-hidden pr-[14px] pl-[14px] pt-2 basis-auto flex-shrink-0 box-border relative items-stretch transition-colors cursor-pointer hover:bg-twitter-white-300 hover:dark:bg-twitter-black-300"
+	role="article"
+>
+<div class="flex flex-row flex-grow relative items-stretch box-border">
+	<div class="flex flex-row flex-grow box-border relative">
+		<div class="flex flex-col items-center flex-grow-0 relative box-border mr-3">
+			<div class="flex flex-col items-stretch">
+				<a [routerLink]="['/'+ tweet.owner.username]" role="link" class="flex flex-col items-center w-12 h-12 rounded-full relative outline-none">
+					<div class="w-full h-full rounded-full">
+						<app-user-profile-image [image]="tweet.owner.image"></app-user-profile-image>
+					</div>
+				</a>
+			</div>
+			<div class="w-[2px] bg-[#cfd9de] dark:bg-[#333639] mt-1 flex flex-col flex-grow mx-auto"></div>
+		</div>
+		<div class="flex flex-row flex-grow">
+			<div class="flex flex-col box-border flex-grow relative">
+				<div class="flex flex-row items-center flex-grow box-border">
+					<div class="flex flex-row flex-grow items-center box-border">
+						<div class="flex flex-row items-center">
+							<div class="flex flex-col box-border relative mr-1">
+								<a [routerLink]="['/'+ tweet.owner.username]" class="outline-none flex flex-col">
+									<span class="font-bold text-sm text-twitter-black-100 dark:text-twitter-white-100 hover:underline">
+										{{tweet.owner.name}}
+									</span>
+								</a>
+							</div>
+							<div class="flex flex-col box-border relative mr-1">
+								<a [routerLink]="['/'+ tweet.owner.username]" class="outline-none flex flex-col">
+									<span class="text-sm text-twitter-gray-100 dark:text-twitter-gray-50">@{{tweet.owner.username}}</span>
+								</a>
+							</div>
+							<div class="flex flex-col box-border relative">
+								<a href="#" class="outline-none flex flex-col">
+									<span class="text-sm text-twitter-gray-100 dark:text-twitter-gray-50 hover:underline">
+										{{tweet.created_at | timeago:'live'}}
+									</span>
+								</a>
+							</div>
+						</div>
+					</div>
+					<app-menu-actions></app-menu-actions>
+				</div>
+				<!-- tweet body -->
+				<app-body [tweet]="tweet" [dontShowReply]="true"></app-body>
+				<!-- tweet counters -->
+				<div class="flex flex-row w-2/3 items-center justify-between">
+					<app-replies [tweet]="tweet"></app-replies>
+					<app-retweets [tweet]="tweet"></app-retweets>
+					<app-likes [tweet]="tweet"></app-likes>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+</article>

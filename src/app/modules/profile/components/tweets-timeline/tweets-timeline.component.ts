@@ -8,6 +8,8 @@ import { CustomizeViewService } from '../../../customize-view/services/customize
 import { Tweet } from '@app/modules/tweets/interfaces/tweet.interface';
 import { setTweetsLoaded, setCurrentPage } from '../../store/actions/profile.actions';
 import { User } from '@app/modules/auth/interfaces/user.interface';
+import { TweetService } from '@app/modules/tweets/services/tweet.service';
+import { ToastService } from '@app/shared/services/toast.service';
 
 @Component({
   selector: 'app-tweets-timeline',
@@ -23,11 +25,15 @@ export class TweetsTimelineComponent implements OnInit {
 	loading = false
 	loadingMoreTweets = false
 	noMoreTweetsToLoad = false
+	replyModal = false
+	tweetToAddReply: Tweet | null = null
 	
 	constructor(
 		public customizeView: CustomizeViewService,
 		private store: Store<AppState>,
-		private profileService: ProfileService
+		private profileService: ProfileService,
+		private tweetService: TweetService,
+		private toastService: ToastService
 	) { }
 
 	ngOnInit(): void {
@@ -93,6 +99,35 @@ export class TweetsTimelineComponent implements OnInit {
 		
 		const title = `${nameCapitalized} (@${user.username}) / Twitter`
 		document.title = title
+	}
+
+	openReplyModal(tweetId: string) {
+		console.log('open reply modal: ', tweetId);
+		
+		const tweetFound = this.tweets.find(tweet => tweet.id == tweetId)
+		if (!tweetFound) return;
+		this.tweetToAddReply = tweetFound
+		this.replyModal = true;
+	}
+
+	closeReplyModal() {
+		this.replyModal = false
+		this.tweetToAddReply = null
+	}
+
+	async createReply(tweet: Tweet) {
+		try {
+			this.tweetToAddReply!.replies_count++
+			this.store.dispatch(setTweetsLoaded({ tweets: JSON.parse(JSON.stringify(this.tweets)) }))
+			this.replyModal = false
+			const { message } = await firstValueFrom(this.tweetService.reply(this.tweetToAddReply!.id, tweet.id))
+			this.tweetToAddReply = null
+			this.toastService.toastSuccess({
+				title: message
+			})
+		} catch (error) {
+			
+		}
 	}
 
 	removeRetweet(tweetId: string) {

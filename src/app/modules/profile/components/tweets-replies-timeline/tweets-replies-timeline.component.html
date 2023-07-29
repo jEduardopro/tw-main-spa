@@ -11,8 +11,21 @@
 	<div *ngIf="loading" class="flex flex-row justify-center items-center">
 		<i class="fas fa-circle-notch fa-spin text-lg" [ngClass]="customizeView.themeColor.color"></i>
 	</div>
-	<app-tweet *ngFor="let tweetItem of tweets" [tweet]="tweetItem"></app-tweet>
+	<app-tweet 
+		*ngFor="let tweetItem of tweets" [tweet]="tweetItem" 
+		(openReplyModal)="openReplyModal($event)"
+		(removeRetweet)="removeRetweet($event)"
+	>
+	</app-tweet>
 	<div *ngIf="loadingMoreTweets" class="flex flex-row justify-center items-center mt-2">
 		<i class="fas fa-circle-notch fa-spin text-lg" [ngClass]="customizeView.themeColor.color"></i>
 	</div>
 </div>
+
+<app-new-reply 
+	*ngIf="replyModal && tweetToAddReply" 
+	[tweet]="tweetToAddReply" 
+	(close)="closeReplyModal()"
+	(tweetCreated)="createReply($event)"
+>
+</app-new-reply>

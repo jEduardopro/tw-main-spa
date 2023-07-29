@@ -13,6 +13,10 @@ import { RetweetsComponent } from './components/tweet/base/retweets/retweets.com
 import { RouterModule } from '@angular/router';
 import { MediaComponent } from './components/tweet/base/media/media.component';
 import { FormatTweetContentPipe } from './pipes/format-tweet-content.pipe';
+import { TweetRepliedComponent } from './components/tweet/tweet-replied.component';
+import { BodyComponent } from './components/tweet/base/body/body.component';
+import { MenuActionsComponent } from './components/tweet/base/menu-actions/menu-actions.component';
+import { NewReplyComponent } from './components/new-reply/new-reply.component';
 
 
 
@@ -22,11 +26,15 @@ import { FormatTweetContentPipe } from './pipes/format-tweet-content.pipe';
 		TextBoxComponent,
 		ButtonActionsComponent,
 		TweetComponent,
+		TweetRepliedComponent,
 		LikesComponent,
 		RepliesComponent,
 		RetweetsComponent,
 		MediaComponent,
-		FormatTweetContentPipe
+		FormatTweetContentPipe,
+		BodyComponent,
+		MenuActionsComponent,
+		NewReplyComponent
 	],
   imports: [
 		CommonModule,
@@ -39,7 +47,8 @@ import { FormatTweetContentPipe } from './pipes/format-tweet-content.pipe';
 	],
 	exports: [
 		NewTweetComponent,
-		TweetComponent
+		TweetComponent,
+		NewReplyComponent
 	],
 	providers: [TimeagoIntl],
 })
