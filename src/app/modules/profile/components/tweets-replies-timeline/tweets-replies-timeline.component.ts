@@ -103,9 +103,20 @@ export class TweetsRepliesTimelineComponent implements OnInit {
 	openReplyModal(tweetId: string) {
 		console.log('open reply modal: ', tweetId);
 		
-		const tweetFound = this.tweets.find(tweet => tweet.id == tweetId)
+		let tweetFound = this.tweets.find(tweet => tweet.id == tweetId)
+
+		if (tweetFound) {
+			this.tweetToAddReply = tweetFound
+			this.replyModal = true;
+			return;
+		}
+
+		tweetFound = this.tweets.filter(tweet => tweet.reply_to).find(tweet => tweet.reply_to!.id == tweetId)
+		
+		console.log('tweet found: ', tweetFound);
+		
 		if (!tweetFound) return;
-		this.tweetToAddReply = tweetFound
+		this.tweetToAddReply = tweetFound.reply_to!
 		this.replyModal = true;
 	}
 
@@ -131,6 +142,8 @@ export class TweetsRepliesTimelineComponent implements OnInit {
 	}
 
 	removeRetweet(tweetId: string) {
+		console.log('remove retweet: ', tweetId);
+		
 		if (this.tweets.filter(tweet => tweet.id == tweetId).length === 1) {
 			return;
 		}
@@ -141,6 +154,8 @@ export class TweetsRepliesTimelineComponent implements OnInit {
 		}
 		this.tweets.splice(tweetIndex, 1)
 		const tweetFound = this.tweets.find(tweet => tweet.id == tweetId)
+		console.log('remove retweet found: ', tweetFound);
+		
 		if (tweetFound) {
 			tweetFound.retweeted = false;
 			tweetFound.retweets_count--;

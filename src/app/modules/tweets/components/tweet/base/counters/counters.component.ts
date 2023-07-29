@@ -1,13 +1,13 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
-import { Tweet } from '../../interfaces/tweet.interface';
+import { Tweet } from '@app/modules/tweets/interfaces/tweet.interface';
 
 @Component({
-  selector: 'app-tweet-replied',
-  templateUrl: './tweet-replied.component.html',
+  selector: 'app-counters',
+  templateUrl: './counters.component.html',
   styles: [
   ]
 })
-export class TweetRepliedComponent {
+export class CountersComponent {
 
 	@Input() tweet!: Tweet;
 	@Output() removeRetweet = new EventEmitter<string>()

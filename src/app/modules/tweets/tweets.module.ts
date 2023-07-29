@@ -17,6 +17,7 @@ import { TweetRepliedComponent } from './components/tweet/tweet-replied.componen
 import { BodyComponent } from './components/tweet/base/body/body.component';
 import { MenuActionsComponent } from './components/tweet/base/menu-actions/menu-actions.component';
 import { NewReplyComponent } from './components/new-reply/new-reply.component';
+import { CountersComponent } from './components/tweet/base/counters/counters.component';
 
 
 
@@ -34,7 +35,8 @@ import { NewReplyComponent } from './components/new-reply/new-reply.component';
 		FormatTweetContentPipe,
 		BodyComponent,
 		MenuActionsComponent,
-		NewReplyComponent
+		NewReplyComponent,
+  CountersComponent
 	],
   imports: [
 		CommonModule,

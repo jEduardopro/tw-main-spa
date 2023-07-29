@@ -1,5 +1,11 @@
 
-<app-tweet-replied *ngIf="tweet.reply_to" [tweet]="tweet.reply_to"></app-tweet-replied>
+<app-tweet-replied 
+	*ngIf="tweet.reply_to" 
+	[tweet]="tweet.reply_to"
+	(openReplyModal)="openReplyModal.emit($event)"
+	(removeRetweet)="removeRetweet.emit($event)"
+>
+</app-tweet-replied>
 <article 
 	class="flex flex-row overflow-hidden pr-[14px] pl-[14px] 
 		basis-auto flex-shrink-0 box-border relative items-stretch transition-colors cursor-pointer 
@@ -63,11 +69,12 @@
 					<!-- tweet body -->
 					<app-body [tweet]="tweet"></app-body>
 					<!-- tweet counters -->
-					<div class="flex flex-row w-2/3 items-center justify-between mt-1">
-						<app-replies [tweet]="tweet" (openReplyModal)="openReplyModal.emit($event)"></app-replies>
-						<app-retweets [tweet]="tweet" (removeRetweet)="removeRetweet.emit($event)"></app-retweets>
-						<app-likes [tweet]="tweet"></app-likes>
-					</div>
+					<app-counters
+						[tweet]="tweet"
+						(openReplyModal)="openReplyModal.emit($event)"
+						(removeRetweet)="removeRetweet.emit($event)"
+					>
+					</app-counters>
 				</div>
 			</div>
 		</div>

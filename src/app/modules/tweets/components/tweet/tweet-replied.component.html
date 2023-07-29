@@ -45,11 +45,12 @@
 				<!-- tweet body -->
 				<app-body [tweet]="tweet" [dontShowReply]="true"></app-body>
 				<!-- tweet counters -->
-				<div class="flex flex-row w-2/3 items-center justify-between">
-					<app-replies [tweet]="tweet"></app-replies>
-					<app-retweets [tweet]="tweet"></app-retweets>
-					<app-likes [tweet]="tweet"></app-likes>
-				</div>
+				<app-counters
+					[tweet]="tweet"
+					(openReplyModal)="openReplyModal.emit($event)"
+					(removeRetweet)="removeRetweet.emit($event)"
+				>
+				</app-counters>
 			</div>
 		</div>
 	</div>

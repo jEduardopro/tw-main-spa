@@ -1,0 +1,5 @@
+<div class="flex flex-row w-2/3 items-center justify-between mt-1">
+	<app-replies [tweet]="tweet" (openReplyModal)="openReplyModal.emit($event)"></app-replies>
+	<app-retweets [tweet]="tweet" (removeRetweet)="removeRetweet.emit($event)"></app-retweets>
+	<app-likes [tweet]="tweet"></app-likes>
+</div>
