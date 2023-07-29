@@ -5,6 +5,7 @@ export interface Tweet {
 	body:                   string;
 	images:                 Image[];
 	retweets_count:         number;
+	retweeted:              boolean;
 	replies_count:          number;
 	likes_count:            number;
 	liked:                  boolean;

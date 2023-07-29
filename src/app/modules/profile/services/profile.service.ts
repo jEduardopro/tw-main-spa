@@ -4,6 +4,7 @@ import { Observable } from 'rxjs';
 import { Profile } from '../interfaces/profile.interface';
 import { ProfileBasicPayload } from '../interfaces/profile-basic-payload.interface';
 import { Response } from '@app/core/interfaces/response.interface';
+import { Tweet } from '@app/modules/tweets/interfaces/tweet.interface';
 
 @Injectable({
   providedIn: 'root'
@@ -15,7 +16,7 @@ export class ProfileService extends HttpRequestService {
 		return this.get(`/profile/${username}`);
 	}
 
-	getUserTweetsTimeline(id: string, page: number) {
+	getUserTweetsTimeline(id: string, page: number): Observable<Response<Tweet[]>> {
 		return this.get(`/users/${id}/timeline?page=${page}`)
 	}
 	

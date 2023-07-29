@@ -39,7 +39,7 @@ export class TweetsTimelineComponent implements OnInit {
 		const tweetsLoaded: Tweet[] = await firstValueFrom(this.store.select(selectTweetsLoaded))
 		const currentPage: number = await firstValueFrom(this.store.select(selectCurrentPage))
 		if (tweetsLoaded.length > 0 && tweetsLoaded[0].owner.id == userId) {
-			this.tweets = tweetsLoaded
+			this.tweets = JSON.parse(JSON.stringify(tweetsLoaded))
 			this.page = currentPage
 			this.userId = userId
 			this.setTitleDocument(tweetsLoaded[0].owner)
@@ -50,9 +50,9 @@ export class TweetsTimelineComponent implements OnInit {
 		this.loading = true;
 		
 		try {
-			const response: any = await firstValueFrom(this.profileService.getUserTweetsTimeline(userId!, this.page))
-			this.tweets = response.data
-			this.store.dispatch(setTweetsLoaded({ tweets: this.tweets }))
+			const {data} = await firstValueFrom(this.profileService.getUserTweetsTimeline(userId!, this.page))
+			this.tweets = data
+			this.store.dispatch(setTweetsLoaded({ tweets: JSON.parse(JSON.stringify(data)) }))
 			this.setTitleDocument(this.tweets[0].owner)
 		} catch (error) {
 			this.tweets = []
@@ -76,7 +76,7 @@ export class TweetsTimelineComponent implements OnInit {
 			}			
 			this.tweets = this.tweets.concat(data)
 			
-			this.store.dispatch(setTweetsLoaded({tweets: this.tweets}))
+			this.store.dispatch(setTweetsLoaded({tweets: JSON.parse(JSON.stringify(this.tweets))}))
 			this.store.dispatch(setCurrentPage({page}))
 			
 		} catch (error) {
