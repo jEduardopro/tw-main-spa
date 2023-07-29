@@ -59,6 +59,7 @@
 </app-sticky-top-section>
 
 <div 
+	*ngIf="currentTab == 'people'"
 	class="relative border-t border-twitter-white-200 dark:border-twitter-gray-200 pb-40"
 	infiniteScroll
 	[infiniteScrollDistance]="2"
@@ -78,6 +79,26 @@
 	>
 	</app-profile-item>
 	<div *ngIf="loadingMoreUsers" class="flex flex-row justify-center items-center mt-2">
+		<app-spinner></app-spinner>
+	</div>
+</div>
+
+<div
+	*ngIf="currentTab == 'photos'"
+	class="relative border-t border-twitter-white-200 dark:border-twitter-gray-200 pb-40"
+	infiniteScroll
+	[infiniteScrollDistance]="2"
+	[infiniteScrollThrottle]="50"
+	[infiniteScrollContainer]="'#contentLayoutApp'"
+	[fromRoot]="true"
+	(scrolled)="onPhotosScroll()"
+	[scrollWindow]="false"
+>
+	<div *ngIf="loading" class="flex flex-row justify-center items-center">
+		<app-spinner></app-spinner>
+	</div>
+	<app-tweet *ngFor="let tweetItem of tweets" [tweet]="tweetItem"></app-tweet>
+	<div *ngIf="loadingMoreTweets" class="flex flex-row justify-center items-center mt-2">
 		<app-spinner></app-spinner>
 	</div>
 </div>

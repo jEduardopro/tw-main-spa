@@ -4,6 +4,7 @@ import { ExploreRoutingModule } from './explore-routing.module';
 import { FilterTabsComponent } from './components/filter-tabs/filter-tabs.component';
 import { SharedModule } from '@app/shared';
 import { InfiniteScrollModule } from 'ngx-infinite-scroll';
+import { TweetsModule } from '../tweets/tweets.module';
 
 @NgModule({
 	declarations: [
@@ -12,6 +13,7 @@ import { InfiniteScrollModule } from 'ngx-infinite-scroll';
   imports: [
 		CommonModule,
 		SharedModule,
+		TweetsModule,
 		InfiniteScrollModule,
 		ExploreRoutingModule
 	],
