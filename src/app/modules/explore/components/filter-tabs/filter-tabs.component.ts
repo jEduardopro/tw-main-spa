@@ -45,6 +45,13 @@ export class FilterTabsComponent implements OnInit {
 	changeTab(tab: 'people'|'photos') {
 		this.currentTab = tab
 		if (this.q.trim() === '') return
+		if (this.currentTab === 'people' && (this.page > 1 || this.users.length > 0)) {
+			return
+		}
+		if (this.currentTab === 'photos' && (this.tweetsPage > 1 || this.tweets.length > 0)) {
+			return
+		}
+			
 		this.search(this.q)
 	}
 
