@@ -19,18 +19,32 @@ export class TweetService extends HttpRequestService {
 		return this.post('/tweets', tweet)
 	}
 
-	like(tweetId: string, socketId: string): Observable<any> {
-		const headers = this.httpHeaders.set('X-Socket-ID', socketId)
+	like(tweetId: string): Observable<any> {
+		const headers = this.httpHeaders.set('X-Socket-ID', window.Echo.socketId())
 		this.setHeaders(headers)
 
 		return this.post(`/tweets/${tweetId}/likes`)
 	}
 
-	unlike(tweetId: string, socketId: string): Observable<any> {
-		const headers = this.httpHeaders.set('X-Socket-ID', socketId)
+	unlike(tweetId: string): Observable<any> {
+		const headers = this.httpHeaders.set('X-Socket-ID', window.Echo.socketId())
 		this.setHeaders(headers)
 
 		return this.delete(`/tweets/${tweetId}/likes`)
+	}
+
+	retweet(tweetId: string): Observable<any> {
+		const headers = this.httpHeaders.set('X-Socket-ID', window.Echo.socketId())
+		this.setHeaders(headers)
+
+		return this.post(`/retweets`, { tweet_id: tweetId })
+	}
+
+	undoRetweet(tweetId: string): Observable<any> {
+		const headers = this.httpHeaders.set('X-Socket-ID', window.Echo.socketId())
+		this.setHeaders(headers)
+
+		return this.delete(`/retweets/${tweetId}`)
 	}
 
 }

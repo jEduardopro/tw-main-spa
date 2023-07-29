@@ -95,4 +95,22 @@ export class TweetsTimelineComponent implements OnInit {
 		document.title = title
 	}
 
+	removeRetweet(tweetId: string) {
+		if (this.tweets.filter(tweet => tweet.id == tweetId).length === 1) {
+			return;
+		}
+			
+		const tweetIndex = this.tweets.findIndex(tweet => tweet.id == tweetId)
+		if (tweetIndex == -1) {
+			return;
+		}
+		this.tweets.splice(tweetIndex, 1)
+		const tweetFound = this.tweets.find(tweet => tweet.id == tweetId)
+		if (tweetFound) {
+			tweetFound.retweeted = false;
+			tweetFound.retweets_count--;
+		}
+		this.store.dispatch(setTweetsLoaded({tweets: JSON.parse(JSON.stringify(this.tweets))}))
+	}
+
 }

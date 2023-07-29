@@ -1,4 +1,4 @@
-import { Component, Input, OnDestroy, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, OnDestroy, OnInit, Output } from '@angular/core';
 import { Tweet } from '../../interfaces/tweet.interface';
 import { TimeagoIntl } from 'ngx-timeago';
 import { strings as englishStrings } from 'ngx-timeago/language-strings/en';
@@ -17,6 +17,7 @@ import { CustomizeViewService } from '@app/modules/customize-view/services/custo
 export class TweetComponent implements OnInit, OnDestroy{
 
 	@Input() tweet!: Tweet
+	@Output() removeRetweet = new EventEmitter<string>()
 
 	userId: string = ''
 	storeSubscription: Subscription = new Subscription

@@ -177,7 +177,7 @@
 					<!-- tweet counters -->
 					<div class="flex flex-row w-2/3 items-center justify-between mt-1">
 						<app-replies [tweet]="tweet"></app-replies>
-						<app-retweets [tweet]="tweet"></app-retweets>
+						<app-retweets [tweet]="tweet" (removeRetweet)="removeRetweet.emit($event)"></app-retweets>
 						<app-likes [tweet]="tweet"></app-likes>
 					</div>
 				</div>

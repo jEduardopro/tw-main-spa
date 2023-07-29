@@ -32,7 +32,7 @@ export class LikesComponent implements OnInit {
 		try {
 			++this.tweet.likes_count
 			this.tweet.liked = true;
-			const response = await firstValueFrom( this.tweetService.like( this.tweet.id, window.Echo.socketId() ) )
+			const response = await firstValueFrom( this.tweetService.like( this.tweet.id ) )
 			console.log('Like response', response);
 			
 		} catch (error) {
@@ -44,7 +44,7 @@ export class LikesComponent implements OnInit {
 		try {
 			--this.tweet.likes_count
 			this.tweet.liked = false
-			const response = await firstValueFrom( this.tweetService.unlike( this.tweet.id, window.Echo.socketId() ) )
+			const response = await firstValueFrom( this.tweetService.unlike( this.tweet.id ) )
 		} catch (error) {
 			
 		}
