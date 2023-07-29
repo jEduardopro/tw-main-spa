@@ -1,10 +1,17 @@
 <div 
 	class="flex flex-col box-border relative group"
 	aria-label="Retweet"
-	title="Retweet"
+	[title]="tweet.retweeted ? 'Undo retweet' : 'Retweet'"
 	role="button"
+	(click)="tweet.retweeted ? undoRetweet() : retweet()"
 >
-	<div class="flex flex-row transition-colors items-center relative box-border group-hover:text-[#00BA7C] text-twitter-gray-100 dark:text-twitter-gray-50">
+	<div 
+		class="flex flex-row transition-colors items-center relative box-border"
+		[ngClass]="[
+			tweet.retweeted ? 'text-[#00BA7C]'
+				: 'group-hover:text-[#00BA7C] text-twitter-gray-100 dark:text-twitter-gray-50'
+		]"
+	>
 		<div class="group-hover:bg-[#E3F1EA] dark:group-hover:bg-[#0D1720] w-8 h-8 mr-1 rounded-full flex flex-col relative box-border justify-center text-center items-center">
 			<i class="fas fa-retweet text-sm"></i>
 		</div>

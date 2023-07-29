@@ -14,6 +14,14 @@ export class RetweetsComponent implements OnInit {
   constructor() { }
 
   ngOnInit(): void {
-  }
+	}
+	
+	retweet() {
+		console.log('Retweet');
+	}
+
+	undoRetweet() {
+		console.log('Undo Retweet');
+	}
 
 }
