@@ -6,6 +6,7 @@ import { CommonModule } from '@angular/common';
 import { HomeComponent } from "./components/home/home.component";
 import { FollowingComponent } from "./components/following/following.component";
 import { FollowersComponent } from "./components/followers/followers.component";
+import { StatusComponent } from "./components/status/status.component";
 
 const routes: Routes = [
 	{
@@ -27,9 +28,13 @@ const routes: Routes = [
 					{
 						path: 'followers',
 						component: FollowersComponent
+					},
+					{
+						path: 'status/:tweet',
+						component: StatusComponent
 					}
 				]
-			}
+			},
 		]
 	}
 ]

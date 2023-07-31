@@ -20,6 +20,7 @@ import { FollowersComponent } from './components/followers/followers.component';
 import { FollowingComponent } from './components/following/following.component';
 import { FollowTabsComponent } from './components/follow-tabs/follow-tabs.component';
 import { FormatTweetContentPipe } from '../tweets/pipes/format-tweet-content.pipe';
+import { StatusComponent } from './components/status/status.component';
 
 @NgModule({
   declarations: [
@@ -34,6 +35,7 @@ import { FormatTweetContentPipe } from '../tweets/pipes/format-tweet-content.pip
 		FollowersComponent,
 		FollowingComponent,
 		FollowTabsComponent,
+		StatusComponent
   ],
   imports: [
 		CommonModule,
