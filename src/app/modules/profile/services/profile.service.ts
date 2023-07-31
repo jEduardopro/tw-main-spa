@@ -20,7 +20,7 @@ export class ProfileService extends HttpRequestService {
 		return this.get(`/users/${id}/timeline?page=${page}`)
 	}
 	
-	getUserTweetsAndRepliesTimeline(id: string, page: number) {
+	getUserTweetsAndRepliesTimeline(id: string, page: number): Observable<Response<Tweet[]>> {
 		return this.get(`/users/${id}/tweets-replies-timeline?page=${page}`)
 	}
 

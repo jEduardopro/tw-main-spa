@@ -56,9 +56,10 @@ export class TweetsRepliesTimelineComponent implements OnInit {
 		this.loading = true;
 		
 		try {
-			const response: any = await firstValueFrom(this.profileService.getUserTweetsAndRepliesTimeline(userId!, this.page))
-			this.tweets = response.data
-			this.store.dispatch(setTweetsAndRepliesLoaded({ tweets: JSON.parse(JSON.stringify(this.tweets)) }))
+			const { data } = await firstValueFrom(this.profileService.getUserTweetsAndRepliesTimeline(userId!, this.page))
+			const tweetsAndRepliesGrouped = this.getTweetsAndRepliesGrouped(data)
+			this.tweets = tweetsAndRepliesGrouped
+			this.store.dispatch(setTweetsAndRepliesLoaded({ tweets: JSON.parse(JSON.stringify(tweetsAndRepliesGrouped)) }))
 			this.setTitleDocument(this.tweets[0].owner)
 		} catch (error) {
 			this.tweets = []
@@ -80,7 +81,8 @@ export class TweetsRepliesTimelineComponent implements OnInit {
 				this.loadingMoreTweets = false
 				return;
 			}
-			this.tweets = this.tweets.concat(data)
+			const tweetsAndRepliesGrouped = this.getTweetsAndRepliesGrouped(data)
+			this.tweets = this.tweets.concat(tweetsAndRepliesGrouped)
 			this.store.dispatch(setTweetsAndRepliesLoaded({tweets: JSON.parse(JSON.stringify(this.tweets))}))
 			this.store.dispatch(setCurrentRepliesPage({page}))
 			
@@ -88,6 +90,22 @@ export class TweetsRepliesTimelineComponent implements OnInit {
 			console.log(error);
 		}
 		this.loadingMoreTweets = false;
+	}
+
+	getTweetsAndRepliesGrouped(twees: Tweet[]) {
+		const replies: string[] = []
+		const intialState: Tweet[] = []
+		return twees.reduce((acc, tweet) => {
+			
+			if (tweet.reply_to && replies.includes(tweet.reply_to.id)) {
+				return acc;
+			}
+			if (tweet.reply_to && !replies.includes(tweet.reply_to.id)) {
+				replies.push(tweet.reply_to.id)
+			}
+			acc.push(tweet)
+			return acc
+		}, intialState)
 	}
 
 	setTitleDocument(user: User) {
