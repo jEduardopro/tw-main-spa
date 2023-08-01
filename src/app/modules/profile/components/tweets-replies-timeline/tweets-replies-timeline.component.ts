@@ -118,9 +118,7 @@ export class TweetsRepliesTimelineComponent implements OnInit {
 		document.title = title
 	}
 
-	openReplyModal(tweetId: string) {
-		console.log('open reply modal: ', tweetId);
-		
+	openReplyModal(tweetId: string) {		
 		let tweetFound = this.tweets.find(tweet => tweet.id == tweetId)
 
 		if (tweetFound) {
@@ -130,9 +128,7 @@ export class TweetsRepliesTimelineComponent implements OnInit {
 		}
 
 		tweetFound = this.tweets.filter(tweet => tweet.reply_to).find(tweet => tweet.reply_to!.id == tweetId)
-		
-		console.log('tweet found: ', tweetFound);
-		
+				
 		if (!tweetFound) return;
 		this.tweetToAddReply = tweetFound.reply_to!
 		this.replyModal = true;
@@ -159,9 +155,7 @@ export class TweetsRepliesTimelineComponent implements OnInit {
 		}
 	}
 
-	removeRetweet(tweetId: string) {
-		console.log('remove retweet: ', tweetId);
-		
+	removeRetweet(tweetId: string) {		
 		if (this.tweets.filter(tweet => tweet.id == tweetId).length === 1) {
 			return;
 		}
@@ -171,13 +165,19 @@ export class TweetsRepliesTimelineComponent implements OnInit {
 			return;
 		}
 		this.tweets.splice(tweetIndex, 1)
-		const tweetFound = this.tweets.find(tweet => tweet.id == tweetId)
-		console.log('remove retweet found: ', tweetFound);
+		const tweetFound = this.tweets.find(tweet => tweet.id == tweetId)		
 		
 		if (tweetFound) {
 			tweetFound.retweeted = false;
 			tweetFound.retweets_count--;
 		}
+		this.store.dispatch(setTweetsLoaded({tweets: JSON.parse(JSON.stringify(this.tweets))}))
+	}
+
+	removeTweet(tweetId: string) {
+		const tweetIndex = this.tweets.findIndex(tweet => tweet.id == tweetId || tweet.reply_to?.id == tweetId)
+		if (tweetIndex == -1) return;
+		this.tweets.splice(tweetIndex, 1)
 		this.store.dispatch(setTweetsLoaded({tweets: JSON.parse(JSON.stringify(this.tweets))}))
 	}
 

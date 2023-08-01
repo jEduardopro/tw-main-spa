@@ -3,6 +3,7 @@ import { selectAuthUserId } from '@app/modules/auth/store/selectors/auth.selecto
 import { CustomizeViewService } from '@app/modules/customize-view/services/customize-view.service';
 import { Tweet } from '@app/modules/tweets/interfaces/tweet.interface';
 import { TweetService } from '@app/modules/tweets/services/tweet.service';
+import { ToastService } from '@app/shared/services/toast.service';
 import { AppState } from '@app/store/app.reducers';
 import { Store } from '@ngrx/store';
 import { Subscription, firstValueFrom } from 'rxjs';
@@ -25,7 +26,8 @@ export class MenuActionsComponent {
 	constructor(
 		public customizeView: CustomizeViewService,
 		private store: Store<AppState>,
-		private tweetService: TweetService
+		private tweetService: TweetService,
+		private toastService: ToastService
 	) {
   }
 
@@ -44,8 +46,8 @@ export class MenuActionsComponent {
 	async deleteTweet() {
 		try {
 			this.tweetDeleted.emit(this.tweet.id)
-			const response = await firstValueFrom(this.tweetService.deleteTweet(this.tweet.id))
-			console.log(response);
+			const {message} = await firstValueFrom(this.tweetService.deleteTweet(this.tweet.id))
+			this.toastService.toastSuccess({ title: message})
 			
 		} catch (error) {
 			console.log(error);

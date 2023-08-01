@@ -19,7 +19,11 @@
 		class="z-30 absolute top-full right-1 w-28 h-auto rounded-md shadow shadow-slate-500/50 dark:shadow-slate-100/50 bg-white dark:bg-black"
 		role="menu"
 	>
-		<li role="menuitem" class="text-red-500 text-sm font-bold flex w-full rounded-md p-2 hover:bg-[#F8F8F8] hover:dark:bg-[#040404]">
+		<li 
+			role="menuitem" 
+			class="text-red-500 text-sm font-bold flex w-full rounded-md p-2 hover:bg-[#F8F8F8] hover:dark:bg-[#040404]"
+			(click)="deleteTweet()"
+		>
 			<span><i class="fas fa-trash-alt"></i></span>
 			<span class="inline-block ml-2">Delete</span>
 		</li>

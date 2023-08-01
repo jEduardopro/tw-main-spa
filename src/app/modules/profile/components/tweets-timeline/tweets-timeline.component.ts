@@ -101,9 +101,7 @@ export class TweetsTimelineComponent implements OnInit {
 		document.title = title
 	}
 
-	openReplyModal(tweetId: string) {
-		console.log('open reply modal: ', tweetId);
-		
+	openReplyModal(tweetId: string) {		
 		const tweetFound = this.tweets.find(tweet => tweet.id == tweetId)
 		if (!tweetFound) return;
 		this.tweetToAddReply = tweetFound
@@ -145,6 +143,13 @@ export class TweetsTimelineComponent implements OnInit {
 			tweetFound.retweeted = false;
 			tweetFound.retweets_count--;
 		}
+		this.store.dispatch(setTweetsLoaded({tweets: JSON.parse(JSON.stringify(this.tweets))}))
+	}
+
+	removeTweet(tweetId: string) {
+		const tweetIndex = this.tweets.findIndex(tweet => tweet.id == tweetId)
+		if (tweetIndex == -1) return;
+		this.tweets.splice(tweetIndex, 1)
 		this.store.dispatch(setTweetsLoaded({tweets: JSON.parse(JSON.stringify(this.tweets))}))
 	}
 

@@ -6,6 +6,9 @@ import { CustomizeViewService } from '../../../customize-view/services/customize
 import { Store } from '@ngrx/store';
 import { AppState } from '@app/store/app.reducers';
 import { selectAuthUserId } from '../../../auth/store/selectors/auth.selectors';
+import { setTweetsLoaded } from '@app/modules/profile/store/actions/profile.actions';
+import { TweetService } from '@app/modules/tweets/services/tweet.service';
+import { ToastService } from '@app/shared/services/toast.service';
 
 @Component({
   selector: 'app-timeline',
@@ -27,6 +30,8 @@ export class TimelineComponent implements OnInit, OnDestroy {
 	page = 1;
 	waitingResponse = false
 	loadingMoreTweets = false
+	replyModal = false
+	tweetToAddReply: Tweet | null = null
 
 	storeSubscription: Subscription = new Subscription
 	userId: string = ''
@@ -34,7 +39,9 @@ export class TimelineComponent implements OnInit, OnDestroy {
 	constructor(
 		private timelineService: TimelineService,
 		public customizeView: CustomizeViewService,
-		private store: Store<AppState>
+		private store: Store<AppState>,
+		private tweetService: TweetService,
+		private toastService: ToastService
 	) {	}
 
 	ngOnInit(): void {
@@ -106,6 +113,48 @@ export class TimelineComponent implements OnInit, OnDestroy {
 	
 	insertNewTweetToHomeTimeline(tweet: Tweet) {
 		this.tweets.unshift(tweet)
+	}
+
+	openReplyModal(tweetId: string) {		
+		let tweetFound = this.tweets.find(tweet => tweet.id == tweetId)
+
+		if (tweetFound) {
+			this.tweetToAddReply = tweetFound
+			this.replyModal = true;
+			return;
+		}
+
+		tweetFound = this.tweets.filter(tweet => tweet.reply_to).find(tweet => tweet.reply_to!.id == tweetId)
+				
+		if (!tweetFound) return;
+		this.tweetToAddReply = tweetFound.reply_to!
+		this.replyModal = true;
+	}
+
+	closeReplyModal() {
+		this.replyModal = false
+		this.tweetToAddReply = null
+	}
+
+	async createReply(tweet: Tweet) {
+		try {
+			this.tweetToAddReply!.replies_count++
+			this.replyModal = false
+			const { message } = await firstValueFrom(this.tweetService.reply(this.tweetToAddReply!.id, tweet.id))
+			this.tweetToAddReply = null
+			this.toastService.toastSuccess({
+				title: message
+			})
+		} catch (error) {
+			console.log(error);
+			
+		}
+	}
+
+	removeTweet(tweetId: string) {
+		const tweetIndex = this.tweets.findIndex(tweet => tweet.id == tweetId || tweet.reply_to?.id == tweetId)
+		if (tweetIndex == -1) return;
+		this.tweets.splice(tweetIndex, 1)
 	}
 
 }

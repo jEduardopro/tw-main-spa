@@ -19,7 +19,7 @@ export class TweetService extends HttpRequestService {
 		return this.post('/tweets', tweet)
 	}
 
-	deleteTweet(tweetId: string): Observable<any> {
+	deleteTweet(tweetId: string): Observable<{message: string}> {
 		return this.delete(`/tweets/${tweetId}`)
 	}
 
