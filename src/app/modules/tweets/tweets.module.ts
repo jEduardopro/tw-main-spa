@@ -36,7 +36,7 @@ import { CountersComponent } from './components/tweet/base/counters/counters.com
 		BodyComponent,
 		MenuActionsComponent,
 		NewReplyComponent,
-  CountersComponent
+		CountersComponent
 	],
   imports: [
 		CommonModule,

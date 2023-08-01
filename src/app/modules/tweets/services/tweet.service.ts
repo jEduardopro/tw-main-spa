@@ -19,6 +19,10 @@ export class TweetService extends HttpRequestService {
 		return this.post('/tweets', tweet)
 	}
 
+	deleteTweet(tweetId: string): Observable<any> {
+		return this.delete(`/tweets/${tweetId}`)
+	}
+
 	like(tweetId: string): Observable<any> {
 		const headers = this.httpHeaders.set('X-Socket-ID', window.Echo.socketId())
 		this.setHeaders(headers)

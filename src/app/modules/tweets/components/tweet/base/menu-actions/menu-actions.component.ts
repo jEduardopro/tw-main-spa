@@ -1,10 +1,11 @@
-import { Component, Input } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { selectAuthUserId } from '@app/modules/auth/store/selectors/auth.selectors';
 import { CustomizeViewService } from '@app/modules/customize-view/services/customize-view.service';
 import { Tweet } from '@app/modules/tweets/interfaces/tweet.interface';
+import { TweetService } from '@app/modules/tweets/services/tweet.service';
 import { AppState } from '@app/store/app.reducers';
 import { Store } from '@ngrx/store';
-import { Subscription } from 'rxjs';
+import { Subscription, firstValueFrom } from 'rxjs';
 
 @Component({
   selector: 'app-menu-actions',
@@ -15,13 +16,16 @@ import { Subscription } from 'rxjs';
 export class MenuActionsComponent {
 
 	@Input() tweet!: Tweet;
+	@Output() tweetDeleted = new EventEmitter<string>()
 
 	userId: string = ''
+	showMenu: boolean = false;
 	storeSubscription: Subscription = new Subscription
 
 	constructor(
 		public customizeView: CustomizeViewService,
-		private store: Store<AppState>
+		private store: Store<AppState>,
+		private tweetService: TweetService
 	) {
   }
 
@@ -35,5 +39,17 @@ export class MenuActionsComponent {
 		this.storeSubscription.unsubscribe()	
 	}
 
-	get tweetMenuShouldBeVisible() {return this.userId === this.tweet.owner.id}
+	get tweetMenuShouldBeVisible() { return this.userId === this.tweet.owner.id }
+	
+	async deleteTweet() {
+		try {
+			this.tweetDeleted.emit(this.tweet.id)
+			const response = await firstValueFrom(this.tweetService.deleteTweet(this.tweet.id))
+			console.log(response);
+			
+		} catch (error) {
+			console.log(error);
+			
+		}
+	}
 }

@@ -1,4 +1,8 @@
-<div *ngIf="tweetMenuShouldBeVisible" class="flex flex-col justify-center items-center relative box-border">
+<div 
+	*ngIf="tweetMenuShouldBeVisible" 
+	class="flex flex-col justify-center items-center relative box-border"
+	(clickOutside)="showMenu = false"
+>
 	<button
 		class="w-6 h-6 flex flex-col relative box-border rounded-full text-center 
 			justify-center items-center text-twitter-gray-100 hover:bg-[#E4EEF7] hover:text-twitter-sky-100
@@ -6,7 +10,18 @@
 		"
 		role="button"
 		type="button"
+		(click)="showMenu = !showMenu"
 	>
 		<i class="fas fa-ellipsis-h text-xs"></i>
 	</button>
+	<div 
+		*ngIf="showMenu"
+		class="z-30 absolute top-full right-1 w-28 h-auto rounded-md shadow shadow-slate-500/50 dark:shadow-slate-100/50 bg-white dark:bg-black"
+		role="menu"
+	>
+		<li role="menuitem" class="text-red-500 text-sm font-bold flex w-full rounded-md p-2 hover:bg-[#F8F8F8] hover:dark:bg-[#040404]">
+			<span><i class="fas fa-trash-alt"></i></span>
+			<span class="inline-block ml-2">Delete</span>
+		</li>
+	</div>
 </div>
