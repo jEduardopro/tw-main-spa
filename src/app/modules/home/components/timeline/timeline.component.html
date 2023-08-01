@@ -30,6 +30,7 @@
 	<app-tweet 
 		*ngFor="let tweetItem of tweets" [tweet]="tweetItem"
 		(openReplyModal)="openReplyModal($event)"
+		(tweetDeleted)="removeTweet($event)"
 	>
 	</app-tweet>
 	<div *ngIf="loadingMoreTweets" class="flex flex-row justify-center items-center mt-2">
