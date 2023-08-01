@@ -66,8 +66,8 @@ export class TimelineComponent implements OnInit, OnDestroy {
 	async loadHomeTimeline() {
 		this.waitingResponse = true;
 		try {
-			const response = await firstValueFrom(this.timelineService.getHomeTimeline(this.page))
-			this.tweets = response.data
+			const {data} = await firstValueFrom(this.timelineService.getHomeTimeline(this.page))
+			this.tweets = this.getTweetsAndRepliesGrouped(data)
 			
 		} catch (error) {
 			console.log(error);
@@ -80,12 +80,28 @@ export class TimelineComponent implements OnInit, OnDestroy {
 		this.loadingMoreTweets = true;
 		try {
 			const {data} = await firstValueFrom(this.timelineService.getHomeTimeline(++this.page))
-			this.tweets.push(...data)
+			this.tweets.push(...this.getTweetsAndRepliesGrouped(data))
 			
 		} catch (error) {
 			console.log(error);
 		}
 		this.loadingMoreTweets = false;
+	}
+
+	getTweetsAndRepliesGrouped(twees: Tweet[]) {
+		const replies: string[] = []
+		const intialState: Tweet[] = []
+		return twees.reduce((acc, tweet) => {
+			
+			if (tweet.reply_to && replies.includes(tweet.reply_to.id)) {
+				return acc;
+			}
+			if (tweet.reply_to && !replies.includes(tweet.reply_to.id)) {
+				replies.push(tweet.reply_to.id)
+			}
+			acc.push(tweet)
+			return acc
+		}, intialState)
 	}
 	
 	insertNewTweetToHomeTimeline(tweet: Tweet) {
