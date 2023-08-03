@@ -12,6 +12,7 @@ import { firstValueFrom } from 'rxjs';
 export class RetweetsComponent implements OnInit {
 
 	@Input() tweet!: Tweet
+	@Input() layout: 'status'|'tweet' = 'tweet'
 	@Output() removeRetweet = new EventEmitter<string>()
 
 	constructor(
@@ -29,22 +30,24 @@ export class RetweetsComponent implements OnInit {
 		})
 	}
 	
-	async retweet() {
+	async retweet(event: Event) {
+		event.stopPropagation()
 		try {
 			++this.tweet.retweets_count
 			this.tweet.retweeted = true;
-			const data = await firstValueFrom(this.tweetService.retweet(this.tweet.id))
+			await firstValueFrom(this.tweetService.retweet(this.tweet.id))
 		} catch (error) {
 			
 		}
 	}
 
-	async undoRetweet() {
+	async undoRetweet(event: Event) {
+		event.stopPropagation()
 		try {
 			--this.tweet.retweets_count
 			this.tweet.retweeted = false;
 			this.removeRetweet.emit(this.tweet.id)
-			const data = await firstValueFrom(this.tweetService.undoRetweet(this.tweet.id))
+			await firstValueFrom(this.tweetService.undoRetweet(this.tweet.id))
 		} catch (error) {
 			
 		}

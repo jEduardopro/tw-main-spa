@@ -10,11 +10,17 @@ import { Tweet } from '@app/modules/tweets/interfaces/tweet.interface';
 export class RepliesComponent implements OnInit {
 
 	@Input() tweet!: Tweet
+	@Input() layout: 'status'|'tweet' = 'tweet'
 	@Output() openReplyModal = new EventEmitter<string>()
 
   constructor() { }
 
   ngOnInit(): void {
-  }
+	}
+	
+	emitOpenReplyModal(event: Event) {
+		event.stopPropagation()
+		this.openReplyModal.emit(this.tweet.id)
+	}
 
 }

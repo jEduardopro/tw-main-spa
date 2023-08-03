@@ -3,7 +3,7 @@
 	aria-label="Retweet"
 	[title]="tweet.retweeted ? 'Undo retweet' : 'Retweet'"
 	role="button"
-	(click)="tweet.retweeted ? undoRetweet() : retweet()"
+	(click)="tweet.retweeted ? undoRetweet($event) : retweet($event)"
 >
 	<div 
 		class="flex flex-row transition-colors items-center relative box-border"
@@ -13,8 +13,8 @@
 		]"
 	>
 		<div class="group-hover:bg-[#E3F1EA] dark:group-hover:bg-[#0D1720] w-8 h-8 mr-1 rounded-full flex flex-col relative box-border justify-center text-center items-center">
-			<i class="fas fa-retweet text-sm"></i>
+			<i class="fas fa-retweet" [ngClass]="[layout === 'tweet' ? 'text-sm' : 'text-lg']"></i>
 		</div>
-		<span *ngIf="tweet.retweets_count > 0" class="text-[12px]">{{tweet.retweets_count}}</span>
+		<span *ngIf="tweet.retweets_count > 0 && layout === 'tweet'" class="text-[12px]">{{tweet.retweets_count}}</span>
 	</div>
 </div>

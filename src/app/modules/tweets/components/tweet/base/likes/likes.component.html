@@ -3,7 +3,7 @@
 	aria-label="Like"
 	[title]="tweet.liked ? 'Unlike' : 'Like'"
 	role="button"
-	(click)="tweet.liked ? unlike() : sendLike()"
+	(click)="tweet.liked ? unlike($event) : sendLike($event)"
 >
 	<div 
 		class="flex flex-row transition-colors items-center relative box-border"
@@ -16,8 +16,8 @@
 			class="group-hover:bg-[#F8E3EB] dark:group-hover:bg-[#0D1720] 
 				w-8 h-8 mr-1 rounded-full flex flex-col relative box-border justify-center text-center items-center"
 		>
-			<i [ngClass]="[tweet.liked ? 'fas' : 'far', 'fa-heart text-sm']"></i>
+			<i [ngClass]="[tweet.liked ? 'fas' : 'far', 'fa-heart', layout === 'tweet' ? 'text-sm' : 'text-lg']"></i>
 		</div>
-		<span *ngIf="tweet.likes_count" class="text-[12px]">{{tweet.likes_count}}</span>
+		<span *ngIf="tweet.likes_count && layout === 'tweet'" class="text-[12px]">{{tweet.likes_count}}</span>
 	</div>
 </div>

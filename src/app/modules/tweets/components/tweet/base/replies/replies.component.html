@@ -3,12 +3,12 @@
 	aria-label="Reply"
 	title="Reply"
 	role="button"
-	(click)="openReplyModal.emit(tweet.id)"
+	(click)="emitOpenReplyModal($event)"
 >
 	<div class="flex flex-row transition-colors items-center relative box-border group-hover:text-twitter-sky-100 text-twitter-gray-100 dark:text-twitter-gray-50">
 		<div class="group-hover:bg-[#E4EEF7] dark:group-hover:bg-[#0D1720] w-8 h-8 mr-1 rounded-full flex flex-col relative box-border justify-center text-center items-center">
-			<i class="far fa-comment text-sm"></i>
+			<i class="far fa-comment" [ngClass]="[layout === 'tweet' ? 'text-sm' : 'text-lg']"></i>
 		</div>
-		<span *ngIf="tweet.replies_count > 0" class="text-[12px]">{{tweet.replies_count}}</span>
+		<span *ngIf="tweet.replies_count > 0 && layout === 'tweet'" class="text-[12px]">{{tweet.replies_count}}</span>
 	</div>
 </div>

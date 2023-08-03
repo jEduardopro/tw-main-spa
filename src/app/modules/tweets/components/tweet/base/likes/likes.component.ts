@@ -12,6 +12,7 @@ import { firstValueFrom } from 'rxjs';
 export class LikesComponent implements OnInit {
 
 	@Input() tweet!: Tweet
+	@Input() layout: 'status'|'tweet' = 'tweet'
 
 	constructor(
 		private tweetService: TweetService
@@ -28,23 +29,23 @@ export class LikesComponent implements OnInit {
 		})
 	}
 	
-	async sendLike() {
+	async sendLike(event: Event) {
+		event.stopPropagation()
 		try {
 			++this.tweet.likes_count
 			this.tweet.liked = true;
-			const response = await firstValueFrom( this.tweetService.like( this.tweet.id ) )
-			console.log('Like response', response);
-			
+			await firstValueFrom( this.tweetService.like( this.tweet.id ) )			
 		} catch (error) {
 			
 		}
 	}
 
-	async unlike() {
+	async unlike(event: Event) {
+		event.stopPropagation()
 		try {
 			--this.tweet.likes_count
 			this.tweet.liked = false
-			const response = await firstValueFrom( this.tweetService.unlike( this.tweet.id ) )
+			await firstValueFrom( this.tweetService.unlike( this.tweet.id ) )
 		} catch (error) {
 			
 		}

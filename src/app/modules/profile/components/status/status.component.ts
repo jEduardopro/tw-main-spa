@@ -31,10 +31,10 @@ export class StatusComponent implements OnInit {
 		try {
 			const data = await firstValueFrom(this.tweetService.getTweet(this.tweetId))
 			console.log(data);
+			this.tweet = data
 			
 		} catch (error) {
 			console.log(error);
-			
 		}
 	}
 
