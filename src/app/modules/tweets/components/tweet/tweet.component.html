@@ -14,6 +14,7 @@
 	"
 	[ngClass]="{'py-2': !tweet.reply_to}"
 	role="article"
+	[routerLink]="['/'+ tweet.owner.username +'/status/'+ tweet.id]"
 >
 	<div class="flex flex-col flex-grow relative items-stretch box-border">
 		<div

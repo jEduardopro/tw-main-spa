@@ -1,6 +1,7 @@
 <article 
 	class="flex flex-row overflow-hidden pr-[14px] pl-[14px] pt-2 basis-auto flex-shrink-0 box-border relative items-stretch transition-colors cursor-pointer hover:bg-twitter-white-300 hover:dark:bg-twitter-black-300"
 	role="article"
+	[routerLink]="['/'+ tweet.owner.username +'/status/'+ tweet.id]"
 >
 <div class="flex flex-row flex-grow relative items-stretch box-border">
 	<div class="flex flex-row flex-grow box-border relative">
