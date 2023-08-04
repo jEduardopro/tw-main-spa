@@ -30,41 +30,43 @@
 		*ngIf="tweet"
 		class="flex flex-col mt-2"
 	>
-		<!-- <div class="flex">
-			<div class="flex flex-col justify-start relative box-border mr-3">
-				<div class="flex flex-col items-stretch">
-					<a [routerLink]="['/'+ tweet.owner.username]" role="link" class="flex flex-col items-center w-12 h-12 rounded-full relative outline-none">
-						<div class="w-full h-full rounded-full">
-							<app-user-profile-image [image]="tweet.owner.image" [size]="'thumb'"></app-user-profile-image>
-						</div>
-					</a>
-				</div>
-			</div>
-			<div class="flex items-center flex-grow">
-				<div class="flex flex-col flex-grow">
-					<div class="flex items-center flex-grow">
-						<div class="flex flex-grow">
-							<div class="flex flex-col">
-								<div class="flex flex-col box-border relative mr-1">
-									<a [routerLink]="['/'+ tweet.owner.username]" class="outline-none flex flex-col">
-										<span class="font-bold text-sm text-twitter-black-100 dark:text-twitter-white-100 hover:underline">
-											{{tweet.owner.name}}
-										</span>
-									</a>
-								</div>
-								<div class="flex flex-col box-border relative mr-1">
-									<a [routerLink]="['/'+ tweet.owner.username]" class="outline-none flex flex-col">
-										<span class="text-sm text-twitter-gray-100 dark:text-twitter-gray-50">@{{tweet.owner.username}}</span>
-									</a>
-								</div>
-							</div>
-						</div>
-					</div>
-				</div>
-			</div>
-		</div> -->
-
-		<app-tweet [tweet]="tweet" [layout]="'status'"></app-tweet>
-
+		<app-tweet 
+			[tweet]="tweet" 
+			(openReplyModal)="openReplyModal($event)"
+			[layout]="'status'"
+		>
+		</app-tweet>
 	</div>
 </div>
+
+<div 
+	class="relative border-t border-twitter-white-200 dark:border-twitter-gray-200 pb-40"
+	infiniteScroll
+	[infiniteScrollDistance]="2"
+	[infiniteScrollThrottle]="50"
+	[infiniteScrollContainer]="'#contentLayoutApp'"
+	[fromRoot]="true"
+	(scrolled)="onScroll()"
+	[scrollWindow]="false"
+>
+	<div *ngIf="loadingReplies" class="flex flex-row justify-center items-center">
+		<app-spinner></app-spinner>
+	</div>
+	<app-tweet 
+		*ngFor="let tweetItem of replies" [tweet]="tweetItem"
+		(openReplyModal)="openReplyModal($event)"
+		(tweetDeleted)="removeTweet($event)"
+	>
+	</app-tweet>
+	<div *ngIf="loadingMoreReplies" class="flex flex-row justify-center items-center mt-2">
+		<app-spinner></app-spinner>
+	</div>
+</div>
+
+<app-new-reply 
+	*ngIf="replyModal && tweetToAddReply" 
+	[tweet]="tweetToAddReply" 
+	(close)="closeReplyModal()"
+	(tweetCreated)="createReply($event)"
+>
+</app-new-reply>

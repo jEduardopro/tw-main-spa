@@ -4,6 +4,7 @@ import { HttpRequestService } from '@app/core/services/http-request.service';
 import { Observable } from 'rxjs';
 import { TweetPayload } from '../interfaces/tweet-payload.interface';
 import { Tweet } from '../interfaces/tweet.interface';
+import { Response } from '@app/core/interfaces/response.interface';
 
 @Injectable({
   providedIn: 'root'
@@ -23,8 +24,8 @@ export class TweetService extends HttpRequestService {
 		return this.get(`/tweets/${tweetId}`)
 	}
 
-	getTweetReplies(tweetId: string): Observable<Tweet[]> {
-		return this.get(`/tweets/${tweetId}/replies`)
+	getTweetReplies(tweetId: string, page: number = 1): Observable<Response<Tweet[]>> {
+		return this.get(`/tweets/${tweetId}/replies`, {page})
 	}
 
 	deleteTweet(tweetId: string): Observable<{message: string}> {

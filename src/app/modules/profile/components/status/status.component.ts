@@ -17,9 +17,16 @@ export class StatusComponent implements OnInit, OnDestroy {
 
 	tweetId: string = ''
 	tweet: Tweet | null = null;
+	replies: Tweet[] = []
+	page = 1;
 	username: string| null = null
 	storeSubscription: Subscription = new Subscription
 	waitingResponse = false
+	loadingReplies = false
+	loadingMoreReplies = false
+	noMoreRepliesToLoad = false
+	replyModal = false
+	tweetToAddReply: Tweet | null = null
 
 	constructor(
 		private store: Store<AppState>,
@@ -70,14 +77,74 @@ export class StatusComponent implements OnInit, OnDestroy {
 
 	async getTweetReplies() {
 		if (!this.tweet) return;
-
+		this.loadingReplies = true
+		
 		try {
-			const data = await firstValueFrom(this.tweetService.getTweetReplies(this.tweetId))
+			const {data} = await firstValueFrom(this.tweetService.getTweetReplies(this.tweetId))
 			console.log(data);
+			this.replies = data
 			
 		} catch (error) {
 			
 		}
+		this.loadingReplies = false
+	}
+
+	async onScroll() {
+		if (this.noMoreRepliesToLoad) {
+			return;
+		}
+		this.loadingMoreReplies = true;
+		try {
+			const page = ++this.page;
+			const { data } = await firstValueFrom(this.tweetService.getTweetReplies(this.tweetId, page))
+			if (data.length == 0) {
+				this.noMoreRepliesToLoad = true;
+				this.loadingMoreReplies = false
+				return;
+			}			
+			this.replies.push(...data)
+			
+		} catch (error) {
+			console.log(error);
+		}
+		this.loadingMoreReplies = false;
+	}
+
+	openReplyModal(tweetId: string) {		
+		if (tweetId == this.tweetId) {
+			this.tweetToAddReply = this.tweet
+			this.replyModal = true;
+			return
+		}
+		
+		const tweetFound = this.replies.find(tweet => tweet.id == tweetId)
+		if (!tweetFound) return;
+		this.tweetToAddReply = tweetFound
+		this.replyModal = true;
+	}
+
+	closeReplyModal() {
+		this.replyModal = false
+		this.tweetToAddReply = null
+	}
+
+	async createReply(tweet: Tweet) {
+		try {
+			this.tweetToAddReply!.replies_count++
+			this.replyModal = false
+			await firstValueFrom(this.tweetService.reply(this.tweetToAddReply!.id, tweet.id))
+			this.tweetToAddReply = null
+			this.getTweetReplies()
+		} catch (error) {
+			
+		}
+	}
+
+	removeTweet(tweetId: string) {
+		const tweetIndex = this.replies.findIndex(tweet => tweet.id == tweetId)
+		if (tweetIndex == -1) return;
+		this.replies.splice(tweetIndex, 1)
 	}
 
 }
