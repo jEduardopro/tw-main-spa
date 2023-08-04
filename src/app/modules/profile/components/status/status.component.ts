@@ -1,5 +1,5 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { Tweet } from '@app/modules/tweets/interfaces/tweet.interface';
 import { TweetService } from '@app/modules/tweets/services/tweet.service';
 import { AppState } from '@app/store/app.reducers';
@@ -19,12 +19,14 @@ export class StatusComponent implements OnInit, OnDestroy {
 	tweet: Tweet | null = null;
 	username: string| null = null
 	storeSubscription: Subscription = new Subscription
+	waitingResponse = false
 
 	constructor(
 		private store: Store<AppState>,
 		private route: ActivatedRoute,
+		private router: Router,
 		private tweetService: TweetService
-	) { }
+	) {}
 
 	ngOnInit(): void {
 		const username$ = this.store.select(selectProfileUsername).subscribe(username => {
@@ -32,10 +34,10 @@ export class StatusComponent implements OnInit, OnDestroy {
 		})
 		this.storeSubscription.add(username$)
 
-		this.route.params.subscribe(params => {
+		this.route.params.subscribe(params => {			
 			this.tweetId = params['tweet']
-			this.getTweet()
 		})
+		this.getTweet()
 	}
 
 	ngOnDestroy(): void {
@@ -43,6 +45,8 @@ export class StatusComponent implements OnInit, OnDestroy {
 	}
 
 	async getTweet() {
+		if (!this.tweetId || this.waitingResponse) return;
+		this.waitingResponse = true
 		try {
 			const data = await firstValueFrom(this.tweetService.getTweet(this.tweetId))
 			console.log(data);
@@ -52,11 +56,12 @@ export class StatusComponent implements OnInit, OnDestroy {
 		} catch (error) {
 			console.log(error);
 		}
+		this.waitingResponse = false
 	}
 
 	shouldResolveUsername() {
-		if (this.username !== null) return;
-
+		if (this.username !== null) return;		
+		this.router.navigate(['/', this.tweet?.owner.username, 'status', this.tweetId])
 	}
 
 }
