@@ -3,13 +3,14 @@ import { Store } from '@ngrx/store';
 import { AppState } from '../../../../store/app.reducers';
 import { firstValueFrom } from 'rxjs';
 import { ProfileService } from '../../services/profile.service';
-import { selectTweetsLoaded, selectCurrentPage, selectProfileId } from '../../store/selectors/profile.selectors';
+import { selectTweetsLoaded, selectCurrentPage } from '../../store/selectors/profile.selectors';
 import { CustomizeViewService } from '../../../customize-view/services/customize-view.service';
 import { Tweet } from '@app/modules/tweets/interfaces/tweet.interface';
 import { setTweetsLoaded, setCurrentPage } from '../../store/actions/profile.actions';
 import { User } from '@app/modules/auth/interfaces/user.interface';
 import { TweetService } from '@app/modules/tweets/services/tweet.service';
 import { ToastService } from '@app/shared/services/toast.service';
+import { selectAuthUserId } from '@app/modules/auth/store/selectors/auth.selectors';
 
 @Component({
   selector: 'app-tweets-timeline',
@@ -41,7 +42,7 @@ export class TweetsTimelineComponent implements OnInit {
 	}
 	
 	async getProfileTweets() {
-		const userId: any = await firstValueFrom(this.store.select(selectProfileId))
+		const userId: any = await firstValueFrom(this.store.select(selectAuthUserId))
 		const tweetsLoaded: Tweet[] = await firstValueFrom(this.store.select(selectTweetsLoaded))
 		const currentPage: number = await firstValueFrom(this.store.select(selectCurrentPage))
 		if (tweetsLoaded.length > 0 && tweetsLoaded[0].owner.id == userId) {

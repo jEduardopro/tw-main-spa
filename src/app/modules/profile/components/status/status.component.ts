@@ -37,11 +37,16 @@ export class StatusComponent implements OnInit, OnDestroy {
 		this.route.params.subscribe(params => {			
 			this.tweetId = params['tweet']
 		})
-		this.getTweet()
+		this.getData()
 	}
 
 	ngOnDestroy(): void {
 		this.storeSubscription.unsubscribe()
+	}
+
+	async getData() {
+		await this.getTweet()
+		this.getTweetReplies()
 	}
 
 	async getTweet() {
@@ -49,7 +54,6 @@ export class StatusComponent implements OnInit, OnDestroy {
 		this.waitingResponse = true
 		try {
 			const data = await firstValueFrom(this.tweetService.getTweet(this.tweetId))
-			console.log(data);
 			this.tweet = data
 			this.shouldResolveUsername()
 			
@@ -62,6 +66,18 @@ export class StatusComponent implements OnInit, OnDestroy {
 	shouldResolveUsername() {
 		if (this.username !== null) return;		
 		this.router.navigate(['/', this.tweet?.owner.username, 'status', this.tweetId])
+	}
+
+	async getTweetReplies() {
+		if (!this.tweet) return;
+
+		try {
+			const data = await firstValueFrom(this.tweetService.getTweetReplies(this.tweetId))
+			console.log(data);
+			
+		} catch (error) {
+			
+		}
 	}
 
 }

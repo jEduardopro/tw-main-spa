@@ -23,6 +23,10 @@ export class TweetService extends HttpRequestService {
 		return this.get(`/tweets/${tweetId}`)
 	}
 
+	getTweetReplies(tweetId: string): Observable<Tweet[]> {
+		return this.get(`/tweets/${tweetId}/replies`)
+	}
+
 	deleteTweet(tweetId: string): Observable<{message: string}> {
 		return this.delete(`/tweets/${tweetId}`)
 	}
