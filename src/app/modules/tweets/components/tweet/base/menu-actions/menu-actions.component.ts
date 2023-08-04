@@ -42,6 +42,11 @@ export class MenuActionsComponent {
 	}
 
 	get tweetMenuShouldBeVisible() { return this.userId === this.tweet.owner.id }
+
+	toggleMenu(event: Event) {
+		event.stopPropagation()
+		this.showMenu = !this.showMenu
+	}
 	
 	async deleteTweet() {
 		try {
