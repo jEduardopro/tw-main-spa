@@ -1,5 +1,4 @@
 import { Component } from '@angular/core';
-import { NavigationService } from '@app/core/services/navigation.service';
 
 @Component({
   selector: 'app-deactivate',
@@ -10,11 +9,6 @@ import { NavigationService } from '@app/core/services/navigation.service';
 export class DeactivateComponent {
 
 	constructor(
-		private navigationService: NavigationService,
 	) { }
-
-	goToBack() {
-		this.navigationService.back()
-	}
 
 }

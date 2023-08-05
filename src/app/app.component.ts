@@ -23,9 +23,15 @@ export class AppComponent implements OnInit {
 	title = 'Twitter';
 
 	titles: DocTitle = {
-		"/": "Twitter. It’s what’s happening / Twitter",
-		"/i/flow/signup": "Sign up for Twitter / Twitter",
-		"/home": "Home / Twitter",
+		"/": "Twitter. It’s what’s happening / X",
+		"/i/flow/signup": "Sign up for Twitter / X",
+		"/home": "Home / X",
+		"/search": "Explore / X",
+		"/settings/account": "Your Account / X",
+		"/settings/your_twitter_data/account": "Account Information / X",
+		"/settings/screen_name": "Change username / X",
+		"/settings/password": "Change your password / X",
+		"/settings/deactivate": "Deactivate account / X",
 	}
 
 	private apiURL = environment.apiUrl

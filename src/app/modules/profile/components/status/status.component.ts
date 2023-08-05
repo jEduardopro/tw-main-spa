@@ -6,7 +6,6 @@ import { AppState } from '@app/store/app.reducers';
 import { Store } from '@ngrx/store';
 import { Subscription, firstValueFrom } from 'rxjs';
 import { selectProfileUsername } from '../../store/selectors/profile.selectors';
-import { NavigationService } from '@app/core/services/navigation.service';
 
 @Component({
   selector: 'app-status',
@@ -30,7 +29,6 @@ export class StatusComponent implements OnInit, OnDestroy {
 	tweetToAddReply: Tweet | null = null
 
 	constructor(
-		private navigationService: NavigationService,
 		private store: Store<AppState>,
 		private route: ActivatedRoute,
 		private router: Router,
@@ -154,10 +152,6 @@ export class StatusComponent implements OnInit, OnDestroy {
 		const tweetIndex = this.replies.findIndex(tweet => tweet.id == tweetId)
 		if (tweetIndex == -1) return;
 		this.replies.splice(tweetIndex, 1)
-	}
-
-	goToBack() {
-		this.navigationService.back()
 	}
 
 }

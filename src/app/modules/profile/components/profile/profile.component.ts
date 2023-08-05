@@ -8,7 +8,6 @@ import { setProfile } from '../../store/actions/profile.actions';
 import { Profile } from '../../interfaces/profile.interface';
 import { CustomizeViewService } from '../../../customize-view/services/customize-view.service';
 import { selectProfileInfo } from '../../store/selectors/profile.selectors';
-import { NavigationService } from '@app/core/services/navigation.service';
 
 @Component({
   selector: 'app-profile',
@@ -37,8 +36,7 @@ export class ProfileComponent implements OnInit {
 		private router: Router,
 		private route: ActivatedRoute,
 		private profileService: ProfileService,
-		private store: Store<AppState>,
-		private navigationService: NavigationService
+		private store: Store<AppState>
 	) { }
 
 	ngOnInit(): void {
@@ -92,10 +90,6 @@ export class ProfileComponent implements OnInit {
 			console.log(error);
 		}
 		this.loading = false
-	}
-
-	goToBack() {
-		this.navigationService.back()
 	}
 
 	setTitleDocument(urlPathKey: string) {		

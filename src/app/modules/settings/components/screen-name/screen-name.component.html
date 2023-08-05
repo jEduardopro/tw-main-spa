@@ -1,0 +1,60 @@
+<div class="flex flex-col items-stretch box-border">
+	<div class="flex flex-grow h-full items-center">
+		<div class="flex flex-col h-full justify-center items-center ml-2 mr-5">
+			<app-back-button></app-back-button>
+		</div>
+		<div class="px-4 py-3 flex items-center">
+			<p class="text-black dark:text-white text-xl font-bold">Change Username</p>
+		</div>
+	</div>
+	<div *ngIf="saving" class="flex flex-row items-center justify-center py-5">
+		<app-spinner></app-spinner>
+	</div>
+	<div *ngIf="!saving" class="flex flex-col">
+		<div class="flex flex-col px-3 py-5 border-b border-twitter-white-200 dark:border-twitter-gray-200">
+			<label 
+				class="block w-full text-sm"
+				[ngClass]="[onFocus ? customizeView.themeColor.color : 'dark:text-twitter-gray-50']"
+			>
+				Username
+			</label>
+			<input 
+				class="
+					w-full h-12 focus:outline-none py-1 px-2 box-border border rounded bg-transparent dark:text-white
+				"
+				[ngClass]="[onFocus ? customizeView.themeColor.border : 'border-[#333639]']"
+				type="text"
+				[(ngModel)]="newUsername"
+				(focus)="onFocus = true"
+				(blur)="onFocus = false"
+				[ngModelOptions]="{standalone: true}"
+			/>
+			<span 
+				*ngIf="errors.username"
+				class="block text-red-500 text-sm"
+			>
+				{{errors.username[0]}}
+			</span>
+		</div>
+		<div class="flex p-3 justify-end items-center">
+			<button
+				class="w-[69px] h-8 flex flex-col text-center justify-center items-center rounded-full transition-colors"
+				[ngClass]="[
+					customizeView.themeColor.bg, 
+					customizeView.themeColor.bgHover,
+					shouldBeDisabled ? 'opacity-50 cursor-not-allowed' : ''
+				]"
+				[disabled]="shouldBeDisabled"
+				type="button" 
+				aria-label="Update username"
+				(click)="saveUsername()"
+			>
+				<div class="text-white font-bold text-[15px] leading-4 min-w-0 items-center justify-center flex-grow flex box-border flex-col text-center">
+					<span class="text-[14px] min-w-0 max-w-full leading-4">
+						Save
+					</span>
+				</div>
+			</button>
+		</div>
+	</div>
+</div>

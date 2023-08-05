@@ -6,7 +6,6 @@ import { Profile } from '../../interfaces/profile.interface';
 import { ProfileService } from '../../services/profile.service';
 import { setFollowingLoaded, setCurrentFollowingPage, incrementFollowingCount, decrementFollowingCount } from '../../store/actions/profile.actions';
 import { selectCurrentFollowingPage, selectFollowing, selectProfileId, selectProfileName, selectProfileUsername } from '../../store/selectors/profile.selectors';
-import { NavigationService } from '@app/core/services/navigation.service';
 
 @Component({
   selector: 'app-following',
@@ -27,7 +26,6 @@ export class FollowingComponent implements OnInit, OnDestroy {
 	noMoreFollowingToLoad = false
 
 	constructor(
-		private navigationService: NavigationService,
 		private profileService: ProfileService,
 		private store: Store<AppState>,
 	) { }
@@ -114,10 +112,6 @@ export class FollowingComponent implements OnInit, OnDestroy {
 		} else {
 			this.store.dispatch(decrementFollowingCount())
 		}
-	}
-
-	goToBack() {
-		this.navigationService.back()
 	}
 
 }

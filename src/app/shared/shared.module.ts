@@ -33,10 +33,17 @@ import { SpinnerComponent } from './components/spinner/spinner.component';
 import { SearchBoxComponent } from './components/search-box/search-box.component';
 import { ProfileItemComponent } from './components/profile-item/profile-item.component';
 import { FriendshipModule } from '@app/modules/friendship/friendship.module';
+import { BackButtonComponent } from './components/back-button/back-button.component';
 
 
 @NgModule({
   declarations: [
+		BackButtonComponent,
+		ImageUrlPipe,
+		ProfileItemComponent,
+		SearchBoxComponent,
+		SpinnerComponent,
+		StickyTopSectionComponent,
     AccountMenuComponent,
     ClickOutsideDirective,
     DateBirthSelectComponent,
@@ -54,11 +61,6 @@ import { FriendshipModule } from '@app/modules/friendship/friendship.module';
     ToasterComponent,
     UserProfileImageComponent,
     VerificationCodeFieldComponent,
-		StickyTopSectionComponent,
-		ImageUrlPipe,
-		SpinnerComponent,
-		SearchBoxComponent,
-		ProfileItemComponent
   ],
   imports: [
 		CommonModule,
@@ -72,25 +74,26 @@ import { FriendshipModule } from '@app/modules/friendship/friendship.module';
 		StoreModule.forFeature(httpErrorFeatureKey, httpErrorReducer)
 	],
 	exports: [
+		BackButtonComponent,
 		ClickOutsideDirective,
 		DateBirthSelectComponent,
 		EmailFieldComponent,
 		IdentifierFieldComponent,
+		ImageUrlPipe,
 		LayoutComponent,
 		NameFieldComponent,
 		PasswordConfirmationFieldComponent,
 		PasswordFieldComponent,
 		PhoneFieldComponent,
+		ProfileItemComponent,
+		SearchBoxComponent,
+		SidebarMenuComponent,
+		SpinnerComponent,
+		StickyTopSectionComponent,
 		SvgLogoComponent,
 		ToasterComponent,
 		UserProfileImageComponent,
 		VerificationCodeFieldComponent,
-		StickyTopSectionComponent,
-		ImageUrlPipe,
-		SpinnerComponent,
-		SearchBoxComponent,
-		ProfileItemComponent,
-		SidebarMenuComponent
 	]
 })
 export class SharedModule { }

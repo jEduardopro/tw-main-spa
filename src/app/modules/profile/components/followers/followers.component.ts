@@ -6,7 +6,6 @@ import { AppState } from '@app/store/app.reducers';
 import { selectCurrentFollowersPage, selectFollowers, selectProfileId, selectProfileName, selectProfileUsername } from '../../store/selectors/profile.selectors';
 import { decrementFollowingCount, incrementFollowingCount, setCurrentFollowersPage, setFollowersLoaded } from '../../store/actions/profile.actions';
 import { Profile } from '../../interfaces/profile.interface';
-import { NavigationService } from '@app/core/services/navigation.service';
 
 @Component({
   selector: 'app-followers',
@@ -28,7 +27,6 @@ export class FollowersComponent implements OnInit {
 	currentTab: 'followers' | 'following' = 'followers'
 
 	constructor(
-		private navigationService: NavigationService,
 		private profileService: ProfileService,
 		private store: Store<AppState>,
 	) { }
@@ -115,10 +113,6 @@ export class FollowersComponent implements OnInit {
 		} else {
 			this.store.dispatch(decrementFollowingCount())
 		}
-	}
-
-	goToBack() {
-		this.navigationService.back()
 	}
 
 }

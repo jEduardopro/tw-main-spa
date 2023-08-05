@@ -5,6 +5,7 @@ import { AccountComponent } from './components/account/account.component';
 import { AccountInformationComponent } from './components/account-information/account-information.component';
 import { PasswordComponent } from './components/password/password.component';
 import { DeactivateComponent } from './components/deactivate/deactivate.component';
+import { ScreenNameComponent } from './components/screen-name/screen-name.component';
 
 const routes: Routes = [
 	{
@@ -18,6 +19,10 @@ const routes: Routes = [
 			{
 				path: 'your_twitter_data/account',
 				component: AccountInformationComponent
+			},
+			{
+				path: 'screen_name',
+				component: ScreenNameComponent
 			},
 			{
 				path: 'password',

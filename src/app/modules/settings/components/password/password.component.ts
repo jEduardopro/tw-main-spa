@@ -1,5 +1,4 @@
 import { Component } from '@angular/core';
-import { NavigationService } from '@app/core/services/navigation.service';
 
 @Component({
   selector: 'app-password',
@@ -10,10 +9,5 @@ import { NavigationService } from '@app/core/services/navigation.service';
 export class PasswordComponent {
 
 	constructor(
-		private navigationService: NavigationService,
 	) { }
-
-	goToBack() {
-		this.navigationService.back()
-	}
 }
