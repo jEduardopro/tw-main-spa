@@ -33,6 +33,11 @@ const routes: Routes = [
 		loadChildren: () => import("./modules/explore/explore.module").then(m => m.ExploreModule)
 	},
 	{
+		path: 'settings',
+		canActivate: [AuthGuard],
+		loadChildren: () => import("./modules/settings/settings.module").then(m => m.SettingsModule)
+	},
+	{
 		path: ':username',
 		canActivate: [AuthGuard],
 		loadChildren: () => import("./modules/profile/profile.module").then(m => m.ProfileModule)

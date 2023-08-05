@@ -89,7 +89,8 @@ import { FriendshipModule } from '@app/modules/friendship/friendship.module';
 		ImageUrlPipe,
 		SpinnerComponent,
 		SearchBoxComponent,
-		ProfileItemComponent
+		ProfileItemComponent,
+		SidebarMenuComponent
 	]
 })
 export class SharedModule { }
