@@ -30,7 +30,7 @@
 						</div>
 					</div>
 				</div>
-				<div>
+				<div *ngIf="!isAuthUser">
 					<app-follow-button
 						[following]="profile.following"
 						[user_id]="profile.id"
