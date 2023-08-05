@@ -14,7 +14,46 @@
 			<main class="w-full md:w-auto flex flex-col flex-grow items-stretch lg:flex-grow-[2] lg:items-start xl:flex-grow flex-shrink basis-auto box-border h-full relative">
 				<div class="w-full md:w-[600px] lg:w-[920px] xl:w-[990px] flex flex-col items-stretch flex-grow flex-shrink box-border relative" id="contentColumns">
 					<div class="flex flex-col flex-grow items-stretch box-border flex-shrink-0 basis-auto relative" style="backface-visibility: hidden;">
-						<div class="flex flex-row flex-grow justify-between items-stretch min-h-full w-full box-border flex-shrink-0 relative">
+						<div class="flex self-stretch flex-1 flex-row flex-grow justify-between items-stretch min-h-full w-full box-border flex-shrink-0 relative">
+							<section
+								aria-label="Section navigation"
+								role="region" 
+								class="hidden w-full max-w-[600px] border-r border-l border-twitter-white-200 dark:border-twitter-gray-200 
+								lg:flex flex-[1] flex-col basis-auto items-stretch box-border relative"
+							>
+								<div class="flex flex-col">
+									<div class="px-3 py-3 flex items-center">
+										<p class="text-black dark:text-white text-xl font-bold">Settings</p>
+									</div>
+
+									<div role="tablist" class="flex flex-col items-stretch box-border">
+										<div class="flex flex-col items-stretch box-border hover:bg-[#F7F9F9] hover:dark:bg-[#16181C]">
+											<a 
+												role="tab" 
+												class="py-3 px-4 flex flex-col box-border items-stretch"
+												routerLink="/settings/account"
+											>
+												<div class="flex flex-grow items-center box-border">
+													<div class="flex flex-grow flex-shrink">
+														<span class="text-black dark:text-white text-sm">Your Account</span>
+													</div>
+													<div>
+														<i class="fas fa-chevron-right text-twitter-gray-100 dark:text-twitter-gray-50"></i>
+													</div>
+												</div>
+											</a>
+										</div>
+									</div>
+								</div>
+							</section>
+							<section
+								aria-label="Section navigation"
+								role="region" 
+								class="w-full max-w-[600px] border-l lg:border-l-0 border-r border-twitter-white-200 dark:border-twitter-gray-200 
+								flex flex-col basis-auto flex-shrink-0 items-stretch box-border relative"
+							>
+								<router-outlet></router-outlet>
+							</section>
 						</div>
 					</div>
 				</div>

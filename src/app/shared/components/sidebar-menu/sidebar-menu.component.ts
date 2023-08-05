@@ -65,7 +65,7 @@ export class SidebarMenuComponent implements OnInit, OnDestroy{
 			ariaLabel: 'Settings',
 			icon: 'fas fa-cog',
 			actionType: 'link',
-			link: '/settings',
+			link: '/settings/account',
 			popup: null
 		},
 		{

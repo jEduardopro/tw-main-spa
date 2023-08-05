@@ -1,0 +1,84 @@
+<div class="flex flex-col items-stretch box-border">
+	<div class="px-4 py-3 flex items-center">
+		<p class="text-black dark:text-white text-xl font-bold">Your Account</p>
+	</div>
+	<div class="px-4 py-3 flex items-center">
+		<p class="text-twitter-gray-100 dark:text-twitter-gray-50 text-xs">
+			See information about your account, download an archive of your data, or learn about your account deactivation options
+		</p>
+	</div>
+	<div role="tablist" class="flex flex-col items-stretch box-border">
+		<div class="flex flex-col items-stretch box-border hover:bg-[#F7F9F9] hover:dark:bg-[#16181C]">
+			<a 
+				role="tab" 
+				class="py-3 px-5 flex flex-col box-border items-stretch cursor-pointer"
+				(click)="goTo('/settings/your_twitter_data/account')"
+			>
+				<div class="flex flex-grow items-center box-border">
+					<div class="flex items-center justify-center w-12 h-12 box-border mr-4">
+						<i class="far fa-user text-twitter-gray-100 dark:text-twitter-gray-50"></i>
+					</div>
+					<div class="flex flex-grow flex-shrink">
+						<div class="flex flex-col">
+							<p class="text-twitter-black-100 dark:text-twitter-white-100 text-sm">Account Information</p>
+							<span class="text-twitter-gray-100 dark:text-twitter-gray-50 text-xs">
+								See your account information like your phone number and email address.
+							</span>
+						</div>
+					</div>
+					<div>
+						<i class="fas fa-chevron-right text-twitter-gray-100 dark:text-twitter-gray-50"></i>
+					</div>
+				</div>
+			</a>
+		</div>
+		<div class="flex flex-col items-stretch box-border hover:bg-[#F7F9F9] hover:dark:bg-[#16181C]">
+			<a 
+				role="tab" 
+				class="py-3 px-5 flex flex-col box-border items-stretch cursor-pointer"
+				(click)="goTo('/settings/password')"
+			>
+				<div class="flex flex-grow items-center box-border">
+					<div class="flex items-center justify-center w-12 h-12 box-border mr-4">
+						<i class="fas fa-key text-twitter-gray-100 dark:text-twitter-gray-50"></i>
+					</div>
+					<div class="flex flex-grow flex-shrink">
+						<div class="flex flex-col">
+							<p class="text-twitter-black-100 dark:text-twitter-white-100 text-sm">Change Your Password</p>
+							<span class="text-twitter-gray-100 dark:text-twitter-gray-50 text-xs">
+								Change your password at any time.
+							</span>
+						</div>
+					</div>
+					<div>
+						<i class="fas fa-chevron-right text-twitter-gray-100 dark:text-twitter-gray-50"></i>
+					</div>
+				</div>
+			</a>
+		</div>
+		<div class="flex flex-col items-stretch box-border hover:bg-[#F7F9F9] hover:dark:bg-[#16181C]">
+			<a 
+				role="tab" 
+				class="py-3 px-5 flex flex-col box-border items-stretch cursor-pointer"
+				(click)="goTo('/settings/deactivate')"
+			>
+				<div class="flex flex-grow items-center box-border">
+					<div class="flex items-center justify-center w-12 h-12 box-border mr-4">
+						<i class="fas fa-heart-broken text-twitter-gray-100 dark:text-twitter-gray-50"></i>
+					</div>
+					<div class="flex flex-grow flex-shrink">
+						<div class="flex flex-col">
+							<p class="text-twitter-black-100 dark:text-twitter-white-100 text-sm">Deactivate your account</p>
+							<span class="text-twitter-gray-100 dark:text-twitter-gray-50 text-xs">
+								Find out how you can deactivate your account.
+							</span>
+						</div>
+					</div>
+					<div>
+						<i class="fas fa-chevron-right text-twitter-gray-100 dark:text-twitter-gray-50"></i>
+					</div>
+				</div>
+			</a>
+		</div>
+	</div>
+</div>
