@@ -7,6 +7,7 @@ import { PasswordComponent } from './components/password/password.component';
 import { DeactivateComponent } from './components/deactivate/deactivate.component';
 import { ScreenNameComponent } from './components/screen-name/screen-name.component';
 import { CountryComponent } from './components/country/country.component';
+import { GenderComponent } from './components/gender/gender.component';
 
 const routes: Routes = [
 	{
@@ -28,6 +29,10 @@ const routes: Routes = [
 			{
 				path: 'country',
 				component: CountryComponent
+			},
+			{
+				path: 'gender',
+				component: GenderComponent
 			},
 			{
 				path: 'password',

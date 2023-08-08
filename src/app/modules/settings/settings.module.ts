@@ -10,6 +10,7 @@ import { ScreenNameComponent } from './components/screen-name/screen-name.compon
 import { AccountInformationComponent } from './components/account-information/account-information.component';
 import { FormsModule } from '@angular/forms';
 import { CountryComponent } from './components/country/country.component';
+import { GenderComponent } from './components/gender/gender.component';
 
 
 @NgModule({
@@ -19,6 +20,7 @@ import { CountryComponent } from './components/country/country.component';
 		PasswordComponent,
 		ScreenNameComponent,
 		CountryComponent,
+		GenderComponent,
 		AccountInformationComponent
 	],
   imports: [

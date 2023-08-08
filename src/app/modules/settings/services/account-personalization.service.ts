@@ -11,4 +11,8 @@ export class AccountPersonalizationService extends HttpRequestService {
 		return this.put('/account/personalization', { preference_type: 'country', value: country })
 	}
 
+	updateGender(gender: string): Observable<{ message: string }> {
+		return this.put('/account/personalization', { preference_type: 'gender', value: gender })
+	}
+
 }

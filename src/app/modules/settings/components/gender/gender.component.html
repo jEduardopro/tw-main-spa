@@ -1,0 +1,96 @@
+<div class="flex flex-col items-stretch box-border">
+	<div class="flex flex-grow h-full items-center">
+		<div class="flex flex-col h-full justify-center items-center ml-2 mr-5">
+			<app-back-button></app-back-button>
+		</div>
+		<div class="px-4 py-3 flex items-center">
+			<p class="text-black dark:text-white text-xl font-bold">Gender</p>
+		</div>		
+	</div>
+	<div *ngIf="saving" class="flex flex-row items-center justify-center py-5">
+		<app-spinner></app-spinner>
+	</div>
+	<div *ngIf="!saving" class="flex flex-col">
+		<div class="flex flex-col pl-3 pr-10 py-3 border-b border-twitter-white-200 dark:border-twitter-gray-200">
+			<span class="text-twitter-gray-100 dark:text-twitter-gray-50 text-sm">
+				If you haven’t already specified a gender, this is the one associated with your account based on your profile and activity. 
+				This information won’t be displayed publicly.
+			</span>
+		</div>
+	
+		<div class="flex flex-col box-border p-3 border-b border-twitter-white-200 dark:border-twitter-gray-200">
+			<label class="flex flex-grow items-center cursor-pointer mb-2"
+				(click)="newGender = 'female'"
+			>
+				<span class="text-black dark:text-white flex flex-grow text-sm">Female</span>
+				<span class="flex flex-col justify-center items-center text-center w-5 h-5 rounded-full box-border border-2"
+					[ngClass]="[newGender === 'female' ? customizeView.themeColor.border + ' ' + customizeView.themeColor.bg : 'border-twitter-gray-50']"
+				>
+					<i *ngIf="newGender === 'female'" class="fas fa-check text-xs text-white"></i>
+				</span>
+			</label>
+			<label class="flex flex-grow items-center cursor-pointer mb-2"
+				(click)="newGender = 'male'"
+			>
+				<span class="text-black dark:text-white flex flex-grow text-sm">Male</span>
+				<span 
+					class="flex flex-col justify-center items-center text-center w-5 h-5 rounded-full box-border border-2"
+					[ngClass]="[newGender === 'male' ? customizeView.themeColor.border + ' ' + customizeView.themeColor.bg : 'border-twitter-gray-50']"
+				>
+					<i *ngIf="newGender === 'male'" class="fas fa-check text-xs text-white"></i>
+				</span>
+			</label>
+			<label class="flex flex-grow items-center cursor-pointer mb-2"
+				(click)="newGender = 'addGender'"
+			>
+				<span class="text-black dark:text-white flex flex-grow text-sm">Add your gender</span>
+				<span 
+					class="flex flex-col justify-center items-center text-center w-5 h-5 rounded-full box-border border-2"
+					[ngClass]="[newGender === 'addGender' ? customizeView.themeColor.border + ' ' + customizeView.themeColor.bg : 'border-twitter-gray-50']"
+				>
+					<i *ngIf="newGender === 'addGender'" class="fas fa-check text-xs text-white"></i>
+				</span>
+			</label>
+			<div *ngIf="newGender === 'addGender'" class="flex flex-col mt-3 pb-1">
+				<label 
+					class="block w-full text-sm"
+					[ngClass]="[onFocus ? customizeView.themeColor.color : 'dark:text-twitter-gray-50']"
+				>
+					Gender
+				</label>
+				<input 
+					class="
+						w-full h-12 focus:outline-none py-1 px-2 box-border border rounded bg-transparent dark:text-white
+					"
+					[ngClass]="[onFocus ? customizeView.themeColor.border : 'border-[#333639]']"
+					type="text"
+					[(ngModel)]="ownGender"
+					(focus)="onFocus = true"
+					(blur)="onFocus = false"
+					[ngModelOptions]="{standalone: true}"
+				/>
+			</div>
+		</div>
+		<div class="flex p-3 justify-end items-center">
+			<button
+				class="w-[69px] h-8 flex flex-col text-center justify-center items-center rounded-full transition-colors"
+				[ngClass]="[
+					customizeView.themeColor.bg, 
+					customizeView.themeColor.bgHover,
+					shouldBeDisabled ? 'opacity-50 cursor-not-allowed' : ''
+				]"
+				[disabled]="shouldBeDisabled"
+				type="button" 
+				aria-label="Update username"
+				(click)="saveGender()"
+			>
+				<div class="text-white font-bold text-[15px] leading-4 min-w-0 items-center justify-center flex-grow flex box-border flex-col text-center">
+					<span class="text-[14px] min-w-0 max-w-full leading-4">
+						Save
+					</span>
+				</div>
+			</button>
+		</div>
+	</div>
+
+</div>
