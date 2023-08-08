@@ -6,6 +6,7 @@ import { AccountInformationComponent } from './components/account-information/ac
 import { PasswordComponent } from './components/password/password.component';
 import { DeactivateComponent } from './components/deactivate/deactivate.component';
 import { ScreenNameComponent } from './components/screen-name/screen-name.component';
+import { CountryComponent } from './components/country/country.component';
 
 const routes: Routes = [
 	{
@@ -23,6 +24,10 @@ const routes: Routes = [
 			{
 				path: 'screen_name',
 				component: ScreenNameComponent
+			},
+			{
+				path: 'country',
+				component: CountryComponent
 			},
 			{
 				path: 'password',

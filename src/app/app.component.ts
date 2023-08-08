@@ -30,6 +30,7 @@ export class AppComponent implements OnInit {
 		"/settings/account": "Your Account / X",
 		"/settings/your_twitter_data/account": "Account Information / X",
 		"/settings/screen_name": "Change username / X",
+		"/settings/country": "Change country / X",
 		"/settings/password": "Change your password / X",
 		"/settings/deactivate": "Deactivate account / X",
 	}
