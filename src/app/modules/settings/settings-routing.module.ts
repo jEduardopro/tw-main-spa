@@ -8,6 +8,7 @@ import { DeactivateComponent } from './components/deactivate/deactivate.componen
 import { ScreenNameComponent } from './components/screen-name/screen-name.component';
 import { CountryComponent } from './components/country/country.component';
 import { GenderComponent } from './components/gender/gender.component';
+import { EmailComponent } from './components/email/email.component';
 
 const routes: Routes = [
 	{
@@ -25,6 +26,10 @@ const routes: Routes = [
 			{
 				path: 'screen_name',
 				component: ScreenNameComponent
+			},
+			{
+				path: 'email',
+				component: EmailComponent
 			},
 			{
 				path: 'country',

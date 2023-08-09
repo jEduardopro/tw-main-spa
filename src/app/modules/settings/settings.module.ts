@@ -11,6 +11,7 @@ import { AccountInformationComponent } from './components/account-information/ac
 import { FormsModule } from '@angular/forms';
 import { CountryComponent } from './components/country/country.component';
 import { GenderComponent } from './components/gender/gender.component';
+import { EmailComponent } from './components/email/email.component';
 
 
 @NgModule({
@@ -19,6 +20,7 @@ import { GenderComponent } from './components/gender/gender.component';
 		DeactivateComponent,
 		PasswordComponent,
 		ScreenNameComponent,
+		EmailComponent,
 		CountryComponent,
 		GenderComponent,
 		AccountInformationComponent
