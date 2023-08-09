@@ -14,6 +14,10 @@ const initialState: AuthState = {
 		name: '',
 		username: '',
 		description: '',
+		email: null,
+		phone: null,
+		country: null,
+		gender: null,
 		date_birth: '',
 		image: null,
 		readable_joined_date: ''
