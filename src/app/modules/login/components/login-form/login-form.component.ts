@@ -12,6 +12,8 @@ import * as loginActions from '../../store/actions/login.actions';
 export class LoginFormComponent implements OnInit {
 
 	showSignInScreen = false
+	showReactivateScreen = false
+	reactivationDeadline = ''
 
 	@Output() close = new EventEmitter();
 
@@ -23,7 +25,7 @@ export class LoginFormComponent implements OnInit {
 	}
 	
 	get mustShowIdentifierScreen(): boolean {
-		return !this.showSignInScreen
+		return !this.showSignInScreen && !this.showReactivateScreen
 	}
 
 	get mustShowSignInScreen(): boolean {
@@ -34,6 +36,12 @@ export class LoginFormComponent implements OnInit {
 		this.close.emit()
 		this.store.dispatch(loginActions.setUserIdentifier({user_identifier: ''}))
 		this.store.dispatch(loginActions.setUsername({username: ''}))
+	}
+
+	showReactivateAccountScreen(reactivationDeadline: string) {
+		this.showReactivateScreen = true
+		this.showSignInScreen = false
+		this.reactivationDeadline = reactivationDeadline
 	}
 
 }

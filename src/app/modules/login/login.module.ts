@@ -8,6 +8,7 @@ import { SharedModule } from '@app/shared/shared.module';
 import { RouterModule } from '@angular/router';
 import { StoreModule } from '@ngrx/store';
 import { loginFeatureKey, loginReducer } from './store/reducers/login.reducer';
+import { ReactivateAccountComponent } from './components/login-form/form-screens/reactivate-account/reactivate-account.component';
 
 
 
@@ -16,7 +17,8 @@ import { loginFeatureKey, loginReducer } from './store/reducers/login.reducer';
     LoginButtonComponent,
     LoginFormComponent,
     IdentifierComponent,
-    SignInComponent
+    SignInComponent,
+    ReactivateAccountComponent
   ],
   imports: [
 		CommonModule,

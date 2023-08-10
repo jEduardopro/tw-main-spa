@@ -28,8 +28,16 @@
 						*ngIf="mustShowSignInScreen"
 						class="flex flex-col flex-grow"
 						(loginFinished)="closeForm()"
+						(showNextScreen)="showReactivateAccountScreen($event)"
 					>
 					</app-sign-in>
+					<app-reactivate-account
+						*ngIf="showReactivateScreen"
+						class="flex flex-col flex-grow"
+						[reactivationDeadline]="reactivationDeadline"
+						(reactivationFinished)="closeForm()"
+					>						
+					</app-reactivate-account>
 				</div>
 				<!-- Content -->
 			</div>

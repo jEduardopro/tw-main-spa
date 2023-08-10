@@ -26,6 +26,7 @@ export class SignInComponent implements OnInit, OnDestroy {
 	subscriptionStore: Subscription = new Subscription()
 
 	@Output() loginFinished = new EventEmitter<void>()
+	@Output() showNextScreen = new EventEmitter<string>()
 
 	constructor(
 		private router: Router,
@@ -83,12 +84,17 @@ export class SignInComponent implements OnInit, OnDestroy {
 		this.loading = true;
 		try {
 
-			const { user, token } = await firstValueFrom(this.loginService.login(this.login))
-			// console.log(response);
-			this.authService.saveAuthenticatedUser(user)
-			this.authService.saveTokenInLocalStorage(token)
-			this.loginFinished.emit();
-			this.router.navigateByUrl("/home")
+			const { user, token, reactivation_deadline } = await firstValueFrom(this.loginService.login(this.login))
+			if (reactivation_deadline) {
+				this.showNextScreen.emit(reactivation_deadline)
+				this.loading = false
+				return
+			}
+			console.log({reactivation_deadline});
+			// this.authService.saveAuthenticatedUser(user)
+			// this.authService.saveTokenInLocalStorage(token)
+			// this.loginFinished.emit();
+			// this.router.navigateByUrl("/home")
 		} catch (error) {
 
 		}
