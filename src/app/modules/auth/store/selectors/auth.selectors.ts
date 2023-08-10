@@ -27,3 +27,19 @@ export const selectAuthUsername = createSelector(
 	authFeatureState,
 	(state) => state.authUser.username
 );
+export const selectAuthUserEmail = createSelector(
+	authFeatureState,
+	(state) => state.authUser.email
+);
+export const selectAuthUserPhone = createSelector(
+	authFeatureState,
+	(state) => state.authUser.phone
+);
+export const selectAuthUserCountry = createSelector(
+	authFeatureState,
+	(state) => state.authUser.country
+);
+export const selectAuthUserGender = createSelector(
+	authFeatureState,
+	(state) => state.authUser.gender
+);
