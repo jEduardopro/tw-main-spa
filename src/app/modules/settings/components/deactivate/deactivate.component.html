@@ -7,4 +7,61 @@
 			<p class="text-black dark:text-white text-xl font-bold">Deactivate Account</p>
 		</div>
 	</div>
+
+	<div class="flex flex-col box-border border-b border-twitter-white-200 dark:border-twitter-gray-200">
+		<div 
+			class="flex flex-row flex-grow box-border px-3 py-3 relative hover:dark:bg-[#16181C] cursor-pointer" 
+			[routerLink]="['/'+ authUser.username]"
+		>
+			<div class="flex flex-col justify-start relative box-border mr-3">
+				<div class="flex flex-col items-stretch">
+					<a [routerLink]="['/'+ authUser.username]" role="link" class="flex flex-col items-center w-12 h-12 rounded-full relative outline-none">
+						<div class="w-full h-full rounded-full">
+							<app-user-profile-image [image]="authUser.image"></app-user-profile-image>
+						</div>
+					</a>
+				</div>
+			</div>
+			<div class="flex flex-row flex-grow">
+				<div class="flex flex-col box-border flex-grow relative">
+					<div class="flex flex-row items-center flex-grow box-border">
+						<div class="flex flex-row flex-grow box-border">
+							<div class="flex flex-row items-center">
+								<div class="flex flex-col">
+									<div class="flex flex-col box-border relative mr-1">
+										<a [routerLink]="['/'+ authUser.username]" class="outline-none flex flex-col">
+											<span class="font-bold text-sm text-twitter-black-100 dark:text-twitter-white-100">
+												{{authUser.name | titlecase}}
+											</span>
+										</a>
+									</div>
+									<div class="flex flex-col box-border relative mr-1">
+										<a [routerLink]="['/'+ authUser.username]" class="outline-none flex flex-col">
+											<span class="text-sm text-twitter-gray-100 dark:text-twitter-gray-50">@{{authUser.username}}</span>
+										</a>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>					
+				</div>
+			</div>
+		</div>
+		<div class="flex flex-col box-border px-4">
+			<p class="text-black dark:text-white my-2 text-xl font-bold">This will deactivate your account</p>
+			<span class="text-twitter-gray-100 dark:text-twitter-gray-50 text-xs my-3">
+				You’re about to start the process of deactivating your X account. Your display name, 
+				@username, and public profile will no longer be viewable on X.com, X for iOS, or X for Android.
+			</span>
+			<p class="text-black dark:text-white my-2 text-xl font-bold">What else you should know</p>
+			<span class="text-twitter-gray-100 dark:text-twitter-gray-50 text-xs my-3">
+				You can restore your X account if it was accidentally or wrongfully deactivated for up to 30 days after deactivation.
+			</span>
+		</div>
+	</div>
+
+	<div class="flex flex-col h-[53px] justify-center items-center text-center mt-1 hover:bg-[#FFF2EB] hover:dark:bg-[#1B0700] cursor-pointer">
+		<span class="text-sm text-red-500">Deactivate</span>
+	</div>
+
 </div>
