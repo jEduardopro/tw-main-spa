@@ -3,7 +3,8 @@ import { User } from '@app/modules/auth/interfaces/user.interface';
 import { selectAuthUser } from '@app/modules/auth/store/selectors/auth.selectors';
 import { AppState } from '@app/store/app.reducers';
 import { Store } from '@ngrx/store';
-import { Subscription } from 'rxjs';
+import { Subscription, firstValueFrom } from 'rxjs';
+import { AccountDeactivationService } from '../../services/account-deactivation.service';
 
 @Component({
   selector: 'app-deactivate',
@@ -18,6 +19,7 @@ export class DeactivateComponent implements OnInit, OnDestroy {
 
 	constructor(
 		private store: Store<AppState>,
+		private accountDeactivationService: AccountDeactivationService
 	) { }
 
 	ngOnInit(): void {
@@ -30,6 +32,15 @@ export class DeactivateComponent implements OnInit, OnDestroy {
 
 	ngOnDestroy(): void {
 		this.storeSubscription.unsubscribe()
+	}
+
+	async deactivate() {
+		try {
+			const data = await firstValueFrom(this.accountDeactivationService.deactivateAccount())
+			console.log(data);
+		} catch (error) {
+			
+		}
 	}
 
 }
