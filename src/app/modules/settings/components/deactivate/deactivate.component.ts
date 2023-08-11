@@ -5,6 +5,8 @@ import { AppState } from '@app/store/app.reducers';
 import { Store } from '@ngrx/store';
 import { Subscription, firstValueFrom } from 'rxjs';
 import { AccountDeactivationService } from '../../services/account-deactivation.service';
+import { AuthService } from '../../../auth/services/auth.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-deactivate',
@@ -19,6 +21,8 @@ export class DeactivateComponent implements OnInit, OnDestroy {
 
 	constructor(
 		private store: Store<AppState>,
+		private authService: AuthService,
+		private router: Router,
 		private accountDeactivationService: AccountDeactivationService
 	) { }
 
@@ -36,8 +40,9 @@ export class DeactivateComponent implements OnInit, OnDestroy {
 
 	async deactivate() {
 		try {
-			const data = await firstValueFrom(this.accountDeactivationService.deactivateAccount())
-			console.log(data);
+			await firstValueFrom(this.accountDeactivationService.deactivateAccount())
+			this.authService.clearLocalStorageData()
+			this.router.navigateByUrl("/")
 		} catch (error) {
 			
 		}
