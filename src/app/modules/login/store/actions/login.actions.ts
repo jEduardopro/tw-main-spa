@@ -6,6 +6,11 @@ export const setUserIdentifier = createAction(
 	props<{user_identifier: string}>()
 );
 
+export const setUserPassword = createAction(
+	'[LOGIN] Set User Password',
+	props<{password: string}>()
+);
+
 export const setUsername = createAction(
 	'[LOGIN] Set Username',
 	props<{username: string}>()

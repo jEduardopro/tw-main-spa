@@ -9,6 +9,11 @@ export const selectUserIdentifier = createSelector(
 	(state) => state.user_identifier
 );
 
+export const selectUserPassword = createSelector(
+	loginFeatureState,
+	(state) => state.password
+);
+
 export const selectUsername = createSelector(
 	loginFeatureState,
 	(state) => state.username

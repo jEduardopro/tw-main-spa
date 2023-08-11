@@ -8,6 +8,7 @@ import { Store } from '@ngrx/store';
 import { firstValueFrom, Subscription } from 'rxjs';
 import { LoginService } from '../../../../services/login.service';
 import * as httpErrorSelectors from '@app/shared/store/selectors/http-error.selectors';
+import { setUserPassword } from '@app/modules/login/store/actions/login.actions';
 
 @Component({
   selector: 'app-sign-in',
@@ -87,6 +88,7 @@ export class SignInComponent implements OnInit, OnDestroy {
 			const { user, token, reactivation_deadline } = await firstValueFrom(this.loginService.login(this.login))
 			if (reactivation_deadline) {
 				this.showNextScreen.emit(reactivation_deadline)
+				this.store.dispatch(setUserPassword({password: this.login.password!}))
 				this.loading = false
 				return
 			}
